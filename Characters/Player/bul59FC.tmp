@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://by3ol0xetwdp8"]
+
+[ext_resource type="Texture2D" uid="uid://d1hf3fias1l1y" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Objects/Basic_Plants.png" id="1_3jme7"]
+[ext_resource type="Script" path="res://Characters/Player/bullet.gd" id="1_njnnw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_spv8q"]
+radius = 3.0
+
+[node name="Bullet" type="Area2D"]
+script = ExtResource("1_njnnw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_3jme7")
+hframes = 6
+vframes = 2
+frame = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_spv8q")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="ready" from="." to="." method="_on_ready"]
