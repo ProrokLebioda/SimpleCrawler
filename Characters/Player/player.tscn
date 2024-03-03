@@ -239,6 +239,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 31
 script = ExtResource("1_fnq5r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -246,6 +247,7 @@ y_sort_enabled = true
 texture = ExtResource("1_c26gf")
 hframes = 4
 vframes = 4
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
@@ -262,3 +264,7 @@ parameters/Walk/blend_position = Vector2(0.964476, -0.0271348)
 libraries = {
 "": SubResource("AnimationLibrary_egqoe")
 }
+
+[node name="ShootTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
