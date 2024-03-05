@@ -28,6 +28,8 @@ func _physics_process(delta):
 	velocity = input_direction.normalized()*move_speed
 	
 	move_and_slide()
+	
+	Globals.player_pos = global_position
 	pick_new_state()
 	
 	var shoot_direction = Vector2(

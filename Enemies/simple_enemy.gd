@@ -4,7 +4,7 @@ enum ENEMY_STATE {IDLE, WALK}
 var active : bool = false
 
 @export var move_speed : float = 30
-@export var idle_time : float = 5
+@export var idle_time : float = 2
 @export var walk_time : float = 2
 
 
@@ -21,12 +21,20 @@ func _ready():
 	pick_new_state()
 	
 func _physics_process(delta):
+	if (active):
+		move_direction = (Globals.player_pos - position).normalized()
 	if (current_state == ENEMY_STATE.WALK):
 		velocity = move_direction * move_speed
 		move_and_slide()
+		
+
 
 func _on_notice_area_body_entered(body):
 	print("Body entered ",body.name )
+	active = true
+	if (current_state != ENEMY_STATE.WALK):
+		#current_state = ENEMY_STATE.WALK
+		pick_new_state()
 	
 	
 func select_new_direction():
@@ -56,4 +64,5 @@ func pick_new_state():
 
 
 func _on_timer_timeout():
-	pick_new_state()
+	if (!active):
+		pick_new_state()
