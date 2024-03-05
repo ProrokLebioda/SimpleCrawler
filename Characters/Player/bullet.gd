@@ -1,7 +1,7 @@
 extends Area2D
 
 var direction_vector : Vector2 = Vector2.ZERO
-@export var speed : int = 40
+@export var speed : int = 200
 @export var projectile_lifetime : float = 4
 
 func _ready():
@@ -11,7 +11,7 @@ func _physics_process(delta):
 	position+= direction_vector*speed*delta
 	
 func _on_body_entered(body):
-	print(body.name)
+	#print(body.name)
 	if "hit" in body:
 		body.hit()
 	queue_free()

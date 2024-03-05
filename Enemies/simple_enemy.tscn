@@ -1,0 +1,123 @@
+[gd_scene load_steps=15 format=3 uid="uid://dbspbpq1j55yt"]
+
+[ext_resource type="Script" path="res://Enemies/simple_enemy.gd" id="1_5tpgt"]
+[ext_resource type="Texture2D" uid="uid://c48vwf8xddoyo" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Characters/Free Chicken Sprites.png" id="1_jj2hw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4s3gj"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5r8ol"]
+radius = 54.0093
+
+[sub_resource type="Animation" id="Animation_a61ia"]
+resource_name = "chicken_idle_right"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_3g8xn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_n5tys"]
+resource_name = "chicken_walk_right"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cibwm"]
+_data = {
+"RESET": SubResource("Animation_3g8xn"),
+"chicken_idle_right": SubResource("Animation_a61ia"),
+"chicken_walk_right": SubResource("Animation_n5tys")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k0fjf"]
+animation = &"chicken_idle_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_58fg1"]
+animation = &"chicken_walk_right"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_klqmd"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5e1kt"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_spx8d"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_hxljk"]
+states/chicken_idle_right/node = SubResource("AnimationNodeAnimation_k0fjf")
+states/chicken_idle_right/position = Vector2(357, 100)
+states/chicken_walk_right/node = SubResource("AnimationNodeAnimation_58fg1")
+states/chicken_walk_right/position = Vector2(600, 92)
+transitions = ["Start", "chicken_idle_right", SubResource("AnimationNodeStateMachineTransition_klqmd"), "chicken_idle_right", "chicken_walk_right", SubResource("AnimationNodeStateMachineTransition_5e1kt"), "chicken_walk_right", "chicken_idle_right", SubResource("AnimationNodeStateMachineTransition_spx8d")]
+
+[node name="SimpleEnemy" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_5tpgt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_jj2hw")
+hframes = 4
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_4s3gj")
+
+[node name="NoticeArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NoticeArea"]
+shape = SubResource("CircleShape2D_5r8ol")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cibwm")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_hxljk")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="NoticeArea" to="." method="_on_notice_area_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
