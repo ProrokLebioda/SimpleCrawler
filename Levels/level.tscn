@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dhk4h17c6t37c"]
+[gd_scene load_steps=16 format=3 uid="uid://dhk4h17c6t37c"]
 
 [ext_resource type="Texture2D" uid="uid://b1r1l8r7pawgc" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Grass.png" id="1_1huxx"]
 [ext_resource type="PackedScene" uid="uid://6ldll4ytnc1b" path="res://Characters/Player/player.tscn" id="1_5hclk"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cymftlrmlu8n1" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Wooden House.png" id="4_vvi0b"]
 [ext_resource type="Texture2D" uid="uid://bc147sng1skpd" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Fences.png" id="5_2v70n"]
 [ext_resource type="PackedScene" uid="uid://by3ol0xetwdp8" path="res://Characters/Player/bullet.tscn" id="7_hkx1t"]
+[ext_resource type="PackedScene" uid="uid://dbspbpq1j55yt" path="res://Enemies/simple_enemy.tscn" id="9_vycvk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rxvxq"]
 texture = ExtResource("1_1huxx")
@@ -614,7 +615,7 @@ texture = ExtResource("5_2v70n")
 3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(3.05169, -6.03323, 2.06954, -7.01539, -8, -7.08706, -8, 3.875, 2.98878, 4.04291)
 
 [sub_resource type="TileSet" id="TileSet_775mo"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 32
 sources/0 = SubResource("TileSetAtlasSource_rxvxq")
 sources/1 = SubResource("TileSetAtlasSource_70emg")
 sources/2 = SubResource("TileSetAtlasSource_2dyoi")
@@ -655,5 +656,18 @@ position = Vector2(-100, -16)
 position = Vector2(-86, -12)
 
 [node name="Projectiles" type="Node2D" parent="."]
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="SimpleEnemy" parent="Enemies" instance=ExtResource("9_vycvk")]
+
+[node name="SimpleEnemy2" parent="Enemies" instance=ExtResource("9_vycvk")]
+position = Vector2(-19, 81)
+
+[node name="SimpleEnemy3" parent="Enemies" instance=ExtResource("9_vycvk")]
+position = Vector2(125, 38)
+
+[node name="SimpleEnemy4" parent="Enemies" instance=ExtResource("9_vycvk")]
+position = Vector2(111, -71)
 
 [connection signal="shoot_input_detected" from="Player" to="." method="_on_player_shoot_input_detected"]

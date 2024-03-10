@@ -28,6 +28,8 @@ func _physics_process(delta):
 	velocity = input_direction.normalized()*move_speed
 	
 	move_and_slide()
+	
+	Globals.player_pos = global_position
 	pick_new_state()
 	
 	var shoot_direction = Vector2(
@@ -52,6 +54,11 @@ func pick_new_state():
 	else:
 		state_machine.travel("Idle")
 
+# "Interfaces"...
+func hit(damage):
+	Globals.health -= damage
+	print("Player received: ", damage, " damage. Current player health: ", Globals.health)
 
 func _on_shoot_timer_timeout():
 	can_shoot = true
+	
