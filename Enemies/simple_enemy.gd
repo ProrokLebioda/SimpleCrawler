@@ -97,3 +97,10 @@ func _on_idle_walk_timer_timeout():
 func _on_aggro_lose_timer_timeout():
 	pick_new_state()
 	print ("Aggro lost")
+
+
+func _on_damage_area_body_entered(body):
+	
+	if body is CharacterBody2D:
+		print("Damage area entered: ", body.name)
+		

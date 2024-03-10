@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dbspbpq1j55yt"]
+[gd_scene load_steps=16 format=3 uid="uid://dbspbpq1j55yt"]
 
 [ext_resource type="Script" path="res://Enemies/simple_enemy.gd" id="1_5tpgt"]
 [ext_resource type="Texture2D" uid="uid://c48vwf8xddoyo" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Characters/Free Chicken Sprites.png" id="1_jj2hw"]
@@ -87,9 +87,12 @@ states/chicken_walk_right/node = SubResource("AnimationNodeAnimation_58fg1")
 states/chicken_walk_right/position = Vector2(600, 92)
 transitions = ["Start", "chicken_idle_right", SubResource("AnimationNodeStateMachineTransition_klqmd"), "chicken_idle_right", "chicken_walk_right", SubResource("AnimationNodeStateMachineTransition_5e1kt"), "chicken_walk_right", "chicken_idle_right", SubResource("AnimationNodeStateMachineTransition_spx8d")]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_hpojc"]
+radius = 5.09902
+
 [node name="SimpleEnemy" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 33
+collision_mask = 35
 script = ExtResource("1_5tpgt")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -98,7 +101,6 @@ hframes = 4
 vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CircleShape2D_4s3gj")
 
 [node name="NoticeArea" type="Area2D" parent="."]
@@ -124,7 +126,14 @@ one_shot = true
 [node name="AggroLoseTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="DamageArea" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+shape = SubResource("CircleShape2D_hpojc")
+
 [connection signal="body_entered" from="NoticeArea" to="." method="_on_notice_area_body_entered"]
 [connection signal="body_exited" from="NoticeArea" to="." method="_on_notice_area_body_exited"]
 [connection signal="timeout" from="IdleWalkTimer" to="." method="_on_idle_walk_timer_timeout"]
 [connection signal="timeout" from="AggroLoseTimer" to="." method="_on_aggro_lose_timer_timeout"]
+[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
