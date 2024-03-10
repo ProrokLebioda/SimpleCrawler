@@ -13,6 +13,13 @@ enum ENEMY_STATE {IDLE, WALK, AGGRO}
 @onready var idle_walk_timer = $IdleWalkTimer
 @onready var aggro_lose_timer = $AggroLoseTimer
 
+# Visual stuff
+@onready var enemy_sprite = $Sprite2D
+
+@onready var sprite_original_color : Color = $Sprite2D.modulate
+
+@export var modulate_aggro_color = Color(0.92,0.11,0.09,1)
+
 var move_direction : Vector2 = Vector2.ZERO
 var current_state : ENEMY_STATE = ENEMY_STATE.IDLE
 
@@ -61,11 +68,13 @@ func pick_new_state():
 		ENEMY_STATE.AGGRO:				
 			state_machine.travel("chicken_idle_right")
 			current_state = ENEMY_STATE.IDLE
+			enemy_sprite.modulate = sprite_original_color
 			idle_walk_timer.start(idle_time)
 			
 
 func _on_notice_area_body_entered(body):
 	print("Body entered ",body.name )
+	state_machine.travel("chicken_walk_right")
 	if (idle_walk_timer.time_left > 0):
 		idle_walk_timer.stop()
 		
@@ -73,6 +82,7 @@ func _on_notice_area_body_entered(body):
 		aggro_lose_timer.stop()
 
 	current_state = ENEMY_STATE.AGGRO
+	enemy_sprite.modulate = modulate_aggro_color
 
 func _on_notice_area_body_exited(body):
 	if (current_state == ENEMY_STATE.AGGRO):
