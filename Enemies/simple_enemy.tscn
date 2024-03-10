@@ -1,7 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://dbspbpq1j55yt"]
+[gd_scene load_steps=18 format=3 uid="uid://dbspbpq1j55yt"]
 
 [ext_resource type="Script" path="res://Enemies/simple_enemy.gd" id="1_5tpgt"]
 [ext_resource type="Texture2D" uid="uid://c48vwf8xddoyo" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Characters/Free Chicken Sprites.png" id="1_jj2hw"]
+[ext_resource type="Shader" path="res://Enemies/Shaders/simple_enemy.gdshader" id="2_usrbl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jayp6"]
+resource_local_to_scene = true
+shader = ExtResource("2_usrbl")
+shader_parameter/color = Color(1, 0.694118, 0.996078, 1)
+shader_parameter/progress = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4s3gj"]
 radius = 5.0
@@ -96,6 +103,7 @@ collision_mask = 35
 script = ExtResource("1_5tpgt")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_jayp6")
 texture = ExtResource("1_jj2hw")
 hframes = 4
 vframes = 2
@@ -132,8 +140,11 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
 shape = SubResource("CircleShape2D_hpojc")
 
+[node name="HitTimer" type="Timer" parent="."]
+
 [connection signal="body_entered" from="NoticeArea" to="." method="_on_notice_area_body_entered"]
 [connection signal="body_exited" from="NoticeArea" to="." method="_on_notice_area_body_exited"]
 [connection signal="timeout" from="IdleWalkTimer" to="." method="_on_idle_walk_timer_timeout"]
 [connection signal="timeout" from="AggroLoseTimer" to="." method="_on_aggro_lose_timer_timeout"]
 [connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]

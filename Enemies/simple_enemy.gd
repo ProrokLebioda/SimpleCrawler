@@ -5,7 +5,7 @@ enum ENEMY_STATE {IDLE, WALK, AGGRO}
 @export var idle_time : float = 2
 @export var walk_time : float = 2
 @export var aggro_lose_time : float = 4
-
+@export var base_damage : int = 2
 
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
@@ -13,12 +13,12 @@ enum ENEMY_STATE {IDLE, WALK, AGGRO}
 @onready var idle_walk_timer = $IdleWalkTimer
 @onready var aggro_lose_timer = $AggroLoseTimer
 
+# Damage stuff
+@export var health_max : int = 4
+@onready var health : int = health_max
+var vulnerable : bool = true
+var hit_timer_wait_time : float = 0.2
 # Visual stuff
-@onready var enemy_sprite = $Sprite2D
-
-@onready var sprite_original_color : Color = $Sprite2D.modulate
-
-@export var modulate_aggro_color = Color(0.92,0.11,0.09,1)
 
 var move_direction : Vector2 = Vector2.ZERO
 var current_state : ENEMY_STATE = ENEMY_STATE.IDLE
@@ -68,7 +68,6 @@ func pick_new_state():
 		ENEMY_STATE.AGGRO:				
 			state_machine.travel("chicken_idle_right")
 			current_state = ENEMY_STATE.IDLE
-			enemy_sprite.modulate = sprite_original_color
 			idle_walk_timer.start(idle_time)
 			
 
@@ -82,7 +81,6 @@ func _on_notice_area_body_entered(body):
 		aggro_lose_timer.stop()
 
 	current_state = ENEMY_STATE.AGGRO
-	enemy_sprite.modulate = modulate_aggro_color
 
 func _on_notice_area_body_exited(body):
 	if (current_state == ENEMY_STATE.AGGRO):
@@ -103,4 +101,20 @@ func _on_damage_area_body_entered(body):
 	
 	if body is CharacterBody2D:
 		print("Damage area entered: ", body.name)
+		if "hit" in body:
+			body.hit(base_damage)
+
+func hit(damage : int):
+	if vulnerable:
+		health -= damage
+		vulnerable = false
+		$HitTimer.start(hit_timer_wait_time)
+		sprite.material.set_shader_parameter("progress", 1)
 		
+	if (health <= 0):
+		health = 0
+		queue_free()
+
+func _on_hit_timer_timeout():
+	vulnerable = true
+	sprite.material.set_shader_parameter("progress", 0)

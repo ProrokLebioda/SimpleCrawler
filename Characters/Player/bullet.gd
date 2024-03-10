@@ -3,6 +3,7 @@ extends Area2D
 var direction_vector : Vector2 = Vector2.ZERO
 @export var speed : int = 200
 @export var projectile_lifetime : float = 4
+@export var projectile_damage : int = 2
 
 func _ready():
 	$SelfDestructionTimer.start(projectile_lifetime)
@@ -13,7 +14,7 @@ func _physics_process(delta):
 func _on_body_entered(body):
 	#print(body.name)
 	if "hit" in body:
-		body.hit()
+		body.hit(projectile_damage)
 	queue_free()
 
 func _on_self_destruction_timer_timeout():

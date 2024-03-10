@@ -661,4 +661,13 @@ position = Vector2(-86, -12)
 
 [node name="SimpleEnemy" parent="Enemies" instance=ExtResource("9_vycvk")]
 
+[node name="SimpleEnemy2" parent="Enemies" instance=ExtResource("9_vycvk")]
+position = Vector2(-19, 81)
+
+[node name="SimpleEnemy3" parent="Enemies" instance=ExtResource("9_vycvk")]
+position = Vector2(125, 38)
+
+[node name="SimpleEnemy4" parent="Enemies" instance=ExtResource("9_vycvk")]
+position = Vector2(111, -71)
+
 [connection signal="shoot_input_detected" from="Player" to="." method="_on_player_shoot_input_detected"]
