@@ -58,6 +58,9 @@ func pick_new_state():
 func hit(damage):
 	Globals.health -= damage
 	print("Player received: ", damage, " damage. Current player health: ", Globals.health)
+	if Globals.health <= 0:
+		print("PLAYER DIED!")
+		get_tree().change_scene_to_file("res://UI/game_over.tscn")
 
 func _on_shoot_timer_timeout():
 	can_shoot = true
