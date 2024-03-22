@@ -84,8 +84,9 @@ func _on_notice_area_body_entered(body):
 
 func _on_notice_area_body_exited(body):
 	if (current_state == ENEMY_STATE.AGGRO):
-		aggro_lose_timer.start(aggro_lose_time)
-		print ("Aggro lose timer started")
+		if aggro_lose_timer.is_inside_tree():
+			aggro_lose_timer.start(aggro_lose_time)
+			print ("Aggro lose timer started")
 		
 func _on_idle_walk_timer_timeout():
 	if (current_state != ENEMY_STATE.AGGRO):
