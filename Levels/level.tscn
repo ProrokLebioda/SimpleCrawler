@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dhk4h17c6t37c"]
+[gd_scene load_steps=17 format=3 uid="uid://dhk4h17c6t37c"]
 
 [ext_resource type="Texture2D" uid="uid://b1r1l8r7pawgc" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Grass.png" id="1_1huxx"]
 [ext_resource type="PackedScene" uid="uid://6ldll4ytnc1b" path="res://Characters/Player/player.tscn" id="1_5hclk"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bc147sng1skpd" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Fences.png" id="5_2v70n"]
 [ext_resource type="PackedScene" uid="uid://by3ol0xetwdp8" path="res://Characters/Player/bullet.tscn" id="7_hkx1t"]
 [ext_resource type="PackedScene" uid="uid://dbspbpq1j55yt" path="res://Enemies/simple_enemy.tscn" id="9_vycvk"]
+[ext_resource type="PackedScene" uid="uid://bd7smtjx0swck" path="res://UI/ui.tscn" id="10_xdtg1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rxvxq"]
 texture = ExtResource("1_1huxx")
@@ -669,5 +670,7 @@ position = Vector2(125, 38)
 
 [node name="SimpleEnemy4" parent="Enemies" instance=ExtResource("9_vycvk")]
 position = Vector2(111, -71)
+
+[node name="UI" parent="." instance=ExtResource("10_xdtg1")]
 
 [connection signal="shoot_input_detected" from="Player" to="." method="_on_player_shoot_input_detected"]
