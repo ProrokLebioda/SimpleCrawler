@@ -1,4 +1,4 @@
-extends ItemContainer
+extends ItemContainer	
 
 func open_up():
 	if not is_opened:
