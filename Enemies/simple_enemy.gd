@@ -1,6 +1,8 @@
 extends CharacterBody2D
 enum ENEMY_STATE {IDLE, WALK, AGGRO}
 
+signal died()
+
 @export var move_speed : float = 30
 @export var idle_time : float = 2
 @export var walk_time : float = 2
@@ -119,3 +121,7 @@ func hit(damage : int):
 func _on_hit_timer_timeout():
 	vulnerable = true
 	sprite.material.set_shader_parameter("progress", 0)
+
+func _notification(what):
+	if (what == NOTIFICATION_PREDELETE):
+		died.emit()

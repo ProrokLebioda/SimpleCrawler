@@ -97,7 +97,7 @@ transitions = ["Start", "chicken_idle_right", SubResource("AnimationNodeStateMac
 [sub_resource type="CircleShape2D" id="CircleShape2D_hpojc"]
 radius = 5.09902
 
-[node name="SimpleEnemy" type="CharacterBody2D"]
+[node name="SimpleEnemy" type="CharacterBody2D" groups=["Enemies"]]
 y_sort_enabled = true
 collision_layer = 2
 collision_mask = 39
