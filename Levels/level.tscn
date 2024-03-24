@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dhk4h17c6t37c"]
+[gd_scene load_steps=18 format=3 uid="uid://dhk4h17c6t37c"]
 
 [ext_resource type="Texture2D" uid="uid://b1r1l8r7pawgc" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Grass.png" id="1_1huxx"]
 [ext_resource type="PackedScene" uid="uid://6ldll4ytnc1b" path="res://Characters/Player/player.tscn" id="1_5hclk"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://by3ol0xetwdp8" path="res://Characters/Player/bullet.tscn" id="7_hkx1t"]
 [ext_resource type="PackedScene" uid="uid://dbspbpq1j55yt" path="res://Enemies/simple_enemy.tscn" id="9_vycvk"]
 [ext_resource type="PackedScene" uid="uid://bd7smtjx0swck" path="res://UI/ui.tscn" id="10_xdtg1"]
+[ext_resource type="PackedScene" uid="uid://c87vi7nd4tdcg" path="res://Objects/Interactables/chest_horizontal.tscn" id="11_cblxr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rxvxq"]
 texture = ExtResource("1_1huxx")
@@ -624,6 +625,7 @@ sources/3 = SubResource("TileSetAtlasSource_2ythd")
 sources/4 = SubResource("TileSetAtlasSource_r2g4c")
 
 [node name="Level" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_wgus1")
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -672,5 +674,9 @@ position = Vector2(125, 38)
 position = Vector2(111, -71)
 
 [node name="UI" parent="." instance=ExtResource("10_xdtg1")]
+visible = false
+
+[node name="ChestHorizontal" parent="." instance=ExtResource("11_cblxr")]
+position = Vector2(37, -77)
 
 [connection signal="shoot_input_detected" from="Player" to="." method="_on_player_shoot_input_detected"]
