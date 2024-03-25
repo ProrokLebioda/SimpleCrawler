@@ -663,23 +663,18 @@ position = Vector2(-86, -12)
 
 [node name="SimpleEnemy" parent="Enemies" instance=ExtResource("9_vycvk")]
 position = Vector2(47, -27)
-move_speed = 0.0
 
 [node name="SimpleEnemy2" parent="Enemies" instance=ExtResource("9_vycvk")]
 position = Vector2(1, -1)
-move_speed = 0.0
 
 [node name="SimpleEnemy3" parent="Enemies" instance=ExtResource("9_vycvk")]
 position = Vector2(-173, 94)
-move_speed = 0.0
 
 [node name="SimpleEnemy4" parent="Enemies" instance=ExtResource("9_vycvk")]
 position = Vector2(-182, -98)
-move_speed = 0.0
 
 [node name="SimpleEnemy5" parent="Enemies" instance=ExtResource("9_vycvk")]
 position = Vector2(170, 95)
-move_speed = 0.0
 
 [node name="UI" parent="." instance=ExtResource("10_xdtg1")]
 visible = false

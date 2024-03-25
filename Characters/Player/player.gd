@@ -16,6 +16,8 @@ signal shoot_input_detected(pos, dir)
 
 func _ready():
 	update_animation_parameters(starting_direction)
+	var collider_shape = get_node("CollisionShape2D").shape as CapsuleShape2D 
+	Globals.player_collider_radius = collider_shape.radius
 
 func _physics_process(delta):
 	var input_direction = Vector2(

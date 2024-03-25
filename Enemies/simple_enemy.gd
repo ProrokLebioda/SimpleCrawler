@@ -46,10 +46,10 @@ func select_new_direction():
 	flip_sprite_direction(move_direction)
 	
 
-func flip_sprite_direction(move_direction : Vector2):
-	if (move_direction.x < 0):
+func flip_sprite_direction(move_dir : Vector2):
+	if (move_dir.x < 0):
 		sprite.flip_h = true
-	elif(move_direction.x > 0):
+	elif(move_dir.x > 0):
 		sprite.flip_h = false
 
 func pick_new_state():

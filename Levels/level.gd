@@ -46,25 +46,14 @@ func spawn_chest():
 func _on_enemy_died():
 	enemies_count-= 1
 	print("Enemy died! Remaining Enemy count: ", enemies_count)
-	if (enemies_count <= 4):
+	if (enemies_count <= 0):
 		spawn_chest()
 
 func can_spawn_chest(rad, position):
-	# Create a temporary area2d and check
-	var area_check = area_collision_check.instantiate() as Area2D
-	area_check.position = position
-	add_child(area_check)
-	var shape  = area_check.get_node("CollisionShape2D").shape as CircleShape2D 
-	
-	shape.radius = rad
-	var overlapping_bodies = area_check.get_overlapping_bodies()
-	var overlapping_areas = area_check.get_overlapping_areas()
-	
-	#free area check as it's no longer needed
-	area_check.queue_free()
-	
-	if overlapping_areas.size() <= 0 and overlapping_bodies.size() <= 0:
+	var distance =  position.distance_to(Globals.player_pos) - (Globals.player_collider_radius + rad)
+	if (distance >= 0):
 		return true
 	else:
 		return false
-		
+#
+
