@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cm8sl3j7e1a65"]
+
+[ext_resource type="Script" path="res://Objects/Interactables/item_container.gd" id="1_vxdvq"]
+
+[node name="ItemContainer" type="StaticBody2D"]
+y_sort_enabled = true
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("1_vxdvq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="SpawnPoints" type="Node2D" parent="."]

@@ -1,0 +1,78 @@
+[gd_scene load_steps=9 format=3 uid="uid://c87vi7nd4tdcg"]
+
+[ext_resource type="Texture2D" uid="uid://dgnw4tt2aptu4" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Objects/Chest.png" id="1_cchi6"]
+[ext_resource type="Script" path="res://Objects/Interactables/chest_horizontal.gd" id="1_fvp6p"]
+[ext_resource type="PackedScene" uid="uid://cm8sl3j7e1a65" path="res://Objects/Interactables/item_container.tscn" id="1_y1dau"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kl6n8"]
+size = Vector2(16, 9)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7st30"]
+radius = 12.1655
+
+[sub_resource type="Animation" id="Animation_ss33y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_uh0ix"]
+resource_name = "open_chest"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2kddo"]
+_data = {
+"RESET": SubResource("Animation_ss33y"),
+"open_chest": SubResource("Animation_uh0ix")
+}
+
+[node name="ChestHorizontal" groups=["Container"] instance=ExtResource("1_y1dau")]
+script = ExtResource("1_fvp6p")
+
+[node name="Sprite2D" parent="." index="0"]
+y_sort_enabled = true
+texture = ExtResource("1_cchi6")
+hframes = 5
+vframes = 2
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_kl6n8")
+
+[node name="Marker2D" type="Marker2D" parent="SpawnPoints" index="0"]
+position = Vector2(0, -1)
+
+[node name="ChestOpenArea" type="Area2D" parent="." index="3"]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChestOpenArea" index="0"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_7st30")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+libraries = {
+"": SubResource("AnimationLibrary_2kddo")
+}
+
+[connection signal="body_entered" from="ChestOpenArea" to="." method="_on_chest_open_area_body_entered"]

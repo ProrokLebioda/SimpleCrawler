@@ -624,6 +624,7 @@ sources/3 = SubResource("TileSetAtlasSource_2ythd")
 sources/4 = SubResource("TileSetAtlasSource_r2g4c")
 
 [node name="Level" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_wgus1")
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -661,16 +662,40 @@ position = Vector2(-86, -12)
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="SimpleEnemy" parent="Enemies" instance=ExtResource("9_vycvk")]
+position = Vector2(47, -27)
 
 [node name="SimpleEnemy2" parent="Enemies" instance=ExtResource("9_vycvk")]
-position = Vector2(-19, 81)
+position = Vector2(1, -1)
 
 [node name="SimpleEnemy3" parent="Enemies" instance=ExtResource("9_vycvk")]
-position = Vector2(125, 38)
+position = Vector2(-173, 94)
 
 [node name="SimpleEnemy4" parent="Enemies" instance=ExtResource("9_vycvk")]
-position = Vector2(111, -71)
+position = Vector2(-182, -98)
+
+[node name="SimpleEnemy5" parent="Enemies" instance=ExtResource("9_vycvk")]
+position = Vector2(170, 95)
 
 [node name="UI" parent="." instance=ExtResource("10_xdtg1")]
+visible = false
+
+[node name="ChestSpawnPoints" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="ChestSpawnPoints"]
+
+[node name="Marker2D2" type="Marker2D" parent="ChestSpawnPoints"]
+position = Vector2(-174, 94)
+
+[node name="Marker2D3" type="Marker2D" parent="ChestSpawnPoints"]
+position = Vector2(-183, -97)
+
+[node name="Marker2D4" type="Marker2D" parent="ChestSpawnPoints"]
+position = Vector2(170, -104)
+
+[node name="Marker2D5" type="Marker2D" parent="ChestSpawnPoints"]
+position = Vector2(169, 96)
+
+[node name="Objects" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [connection signal="shoot_input_detected" from="Player" to="." method="_on_player_shoot_input_detected"]
