@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dhk4h17c6t37c"]
+[gd_scene load_steps=18 format=3 uid="uid://dhk4h17c6t37c"]
 
 [ext_resource type="Texture2D" uid="uid://b1r1l8r7pawgc" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Grass.png" id="1_1huxx"]
 [ext_resource type="PackedScene" uid="uid://6ldll4ytnc1b" path="res://Characters/Player/player.tscn" id="1_5hclk"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://by3ol0xetwdp8" path="res://Characters/Player/bullet.tscn" id="7_hkx1t"]
 [ext_resource type="PackedScene" uid="uid://dbspbpq1j55yt" path="res://Enemies/simple_enemy.tscn" id="9_vycvk"]
 [ext_resource type="PackedScene" uid="uid://bd7smtjx0swck" path="res://UI/ui.tscn" id="10_xdtg1"]
+[ext_resource type="PackedScene" uid="uid://cuv4lnsikja63" path="res://Objects/Statics/door_horizontal.tscn" id="11_1eol8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rxvxq"]
 texture = ExtResource("1_1huxx")
@@ -640,7 +641,7 @@ layer_1/modulate = Color(1, 1, 1, 1)
 layer_1/y_sort_enabled = true
 layer_1/y_sort_origin = 0
 layer_1/z_index = 0
-layer_1/tile_data = PackedInt32Array(524302, 196612, 2, 589810, 131076, 3, 589811, 131076, 3, 589812, 131076, 3, 589813, 131076, 3, 589814, 131076, 3, 589815, 131076, 3, 589816, 131076, 3, 589817, 131076, 3, 589818, 131076, 3, 589819, 131076, 3, 589820, 131076, 3, 589821, 131076, 3, 589822, 131076, 3, 589823, 131076, 3, 524288, 131076, 3, 524289, 131076, 3, 524290, 131076, 3, 524291, 131076, 3, 524292, 131076, 3, 524293, 131076, 3, 524294, 131076, 3, 524295, 131076, 3, 524296, 131076, 3, 524297, 131076, 3, 524298, 131076, 3, 524299, 131076, 3, 524300, 131076, 3, 524301, 131076, 3, -524303, 65540, 0, -458767, 4, 1, -393231, 4, 1, -327695, 4, 1, -262159, 4, 1, -196623, 4, 1, -131087, 4, 1, -65551, 4, 1, -15, 4, 1, 65521, 4, 1, 131057, 4, 1, 196593, 4, 1, 262129, 4, 1, 327665, 4, 1, 393201, 4, 1, 458737, 4, 1, 524273, 4, 1, -589810, 196612, 0, -524274, 4, 1, -458738, 4, 1, -393202, 4, 1, -327666, 4, 1, -262130, 4, 1, -196594, 4, 1, -131058, 4, 1, -65522, 4, 1, 14, 4, 1, 65550, 4, 1, 131086, 4, 1, 196622, 4, 1, 262158, 4, 1, 327694, 4, 1, 393230, 4, 1, 458766, 4, 1, -524302, 131076, 3, -524301, 131076, 3, -524300, 131076, 3, -524299, 131076, 3, -524298, 131076, 3, -524297, 131076, 3, -524296, 131076, 3, -524295, 131076, 3, -524294, 131076, 3, -524293, 131076, 3, -524292, 131076, 3, -524291, 131076, 3, -524290, 131076, 3, -524289, 131076, 3, -589824, 131076, 3, -589823, 131076, 3, -589822, 131076, 3, -589821, 131076, 3, -589820, 131076, 3, -589819, 131076, 3, -589818, 131076, 3, -589817, 131076, 3, -589816, 131076, 3, -589815, 131076, 3, -589814, 131076, 3, -589813, 131076, 3, -589812, 131076, 3, -589811, 131076, 3, 589809, 65540, 2)
+layer_1/tile_data = PackedInt32Array(524302, 196612, 2, 589810, 131076, 3, 589811, 131076, 3, 589812, 131076, 3, 589813, 131076, 3, 589814, 131076, 3, 589815, 131076, 3, 589816, 131076, 3, 589817, 131076, 3, 589818, 131076, 3, 589819, 131076, 3, 589820, 131076, 3, 589821, 131076, 3, 589822, 131076, 3, 524288, 131076, 3, 524289, 131076, 3, 524290, 131076, 3, 524291, 131076, 3, 524292, 131076, 3, 524293, 131076, 3, 524294, 131076, 3, 524295, 131076, 3, 524296, 131076, 3, 524297, 131076, 3, 524298, 131076, 3, 524299, 131076, 3, 524300, 131076, 3, 524301, 131076, 3, -524303, 65540, 0, -458767, 4, 1, -393231, 4, 1, -327695, 4, 1, -262159, 4, 1, -196623, 4, 1, -131087, 4, 1, -65551, 4, 1, 65521, 4, 1, 131057, 4, 1, 196593, 4, 1, 262129, 4, 1, 327665, 4, 1, 393201, 4, 1, 458737, 4, 1, 524273, 4, 1, -589810, 196612, 0, -524274, 4, 1, -458738, 4, 1, -393202, 4, 1, -327666, 4, 1, -262130, 4, 1, -196594, 4, 1, -131058, 4, 1, 14, 4, 1, 65550, 4, 1, 131086, 4, 1, 196622, 4, 1, 262158, 4, 1, 327694, 4, 1, 393230, 4, 1, 458766, 4, 1, -524302, 131076, 3, -524301, 131076, 3, -524300, 131076, 3, -524299, 131076, 3, -524298, 131076, 3, -524297, 131076, 3, -524296, 131076, 3, -524295, 131076, 3, -524294, 131076, 3, -524293, 131076, 3, -524292, 131076, 3, -524291, 131076, 3, -524290, 131076, 3, -589824, 131076, 3, -589823, 131076, 3, -589822, 131076, 3, -589821, 131076, 3, -589820, 131076, 3, -589819, 131076, 3, -589818, 131076, 3, -589817, 131076, 3, -589816, 131076, 3, -589815, 131076, 3, -589814, 131076, 3, -589813, 131076, 3, -589812, 131076, 3, -589811, 131076, 3, 589809, 65540, 2, -65522, 4, 1, -15, 4, 1)
 layer_2/name = "Decorations"
 layer_2/enabled = true
 layer_2/modulate = Color(1, 1, 1, 1)
@@ -677,7 +678,6 @@ position = Vector2(-182, -98)
 position = Vector2(170, 95)
 
 [node name="UI" parent="." instance=ExtResource("10_xdtg1")]
-visible = false
 
 [node name="ChestSpawnPoints" type="Node2D" parent="."]
 
@@ -698,4 +698,14 @@ position = Vector2(169, 96)
 [node name="Objects" type="Node2D" parent="."]
 y_sort_enabled = true
 
+[node name="Doors" type="Node2D" parent="."]
+
+[node name="DoorHorizontalNorth" parent="Doors" groups=["Doors"] instance=ExtResource("11_1eol8")]
+position = Vector2(-8, -140)
+
+[node name="DoorHorizontalSouth" parent="Doors" groups=["Doors"] instance=ExtResource("11_1eol8")]
+position = Vector2(-8, 132)
+
 [connection signal="shoot_input_detected" from="Player" to="." method="_on_player_shoot_input_detected"]
+[connection signal="body_entered" from="Doors/DoorHorizontalNorth" to="." method="_on_door_horizontal_north_body_entered"]
+[connection signal="body_entered" from="Doors/DoorHorizontalSouth" to="." method="_on_door_horizontal_south_body_entered"]
