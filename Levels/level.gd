@@ -48,6 +48,7 @@ func _on_enemy_died():
 	print("Enemy died! Remaining Enemy count: ", enemies_count)
 	if (enemies_count <= 0):
 		spawn_chest()
+		unlock_doors()
 
 func can_spawn_chest(rad, position):
 	var distance =  position.distance_to(Globals.player_pos) - (Globals.player_collider_radius + rad)
@@ -55,5 +56,20 @@ func can_spawn_chest(rad, position):
 		return true
 	else:
 		return false
-#
 
+
+func unlock_doors():
+	var doors = get_tree().get_nodes_in_group("Doors")
+	for door in doors:
+		door.open_door()
+	
+	
+
+
+
+func _on_door_horizontal_north_body_entered(body):
+	get_tree().change_scene_to_file("res://Levels/level.tscn")
+
+
+func _on_door_horizontal_south_body_entered(body):
+	get_tree().change_scene_to_file("res://Levels/level.tscn")
