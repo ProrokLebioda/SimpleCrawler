@@ -29,19 +29,20 @@ func _on_player_shoot_input_detected(pos, dir):
 
 
 func spawn_chest():
-	for i in chest_spawn_points.get_child_count():
-		var child = chest_spawn_points.get_child(i)
-		var chest = chest_scene.instantiate() as ItemContainer
-		
-		var chest_shape = chest.get_node("ChestOpenArea/CollisionShape2D").shape as CircleShape2D 
-		var chest_radius = chest_shape.radius
-		var pos = child.global_position
-		if can_spawn_chest(chest_radius, pos):
-			chest.position = pos
-			objects_node.add_child(chest)
-			break
-		else:
-			chest.queue_free()
+	if chest_spawn_points != null:
+		for i in chest_spawn_points.get_child_count():
+			var child = chest_spawn_points.get_child(i)
+			var chest = chest_scene.instantiate() as ItemContainer
+			
+			var chest_shape = chest.get_node("ChestOpenArea/CollisionShape2D").shape as CircleShape2D 
+			var chest_radius = chest_shape.radius
+			var pos = child.global_position
+			if can_spawn_chest(chest_radius, pos):
+				chest.position = pos
+				objects_node.add_child(chest)
+				break
+			else:
+				chest.queue_free()
 
 func _on_enemy_died():
 	enemies_count-= 1
@@ -59,9 +60,10 @@ func can_spawn_chest(rad, position):
 
 
 func unlock_doors():
-	var doors = get_tree().get_nodes_in_group("Doors")
-	for door in doors:
-		door.open_door()
+	if get_tree() != null:
+		var doors = get_tree().get_nodes_in_group("Doors")
+		for door in doors:
+			door.open_door()
 	
 	
 
