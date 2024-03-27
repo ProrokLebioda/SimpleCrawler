@@ -17,7 +17,9 @@ func _ready():
 	enemies_count = enemies_node.get_child_count()
 	print("Number of enemies: ", enemies_count)
 	# Connect signals for enemies
-	for enemy in get_tree().get_nodes_in_group('Enemies'):
+	var node = get_tree().get_nodes_in_group("Enemies")
+	
+	for enemy in node[0].get_children():
 		enemy.connect("died", _on_enemy_died)
 
 func _on_player_shoot_input_detected(pos, dir):

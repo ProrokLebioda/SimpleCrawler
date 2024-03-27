@@ -660,21 +660,27 @@ position = Vector2(-86, -12)
 
 [node name="Projectiles" type="Node2D" parent="."]
 
-[node name="Enemies" type="Node2D" parent="."]
+[node name="Enemies" type="Node2D" parent="." groups=["Enemies"]]
+y_sort_enabled = true
 
 [node name="SimpleEnemy" parent="Enemies" instance=ExtResource("9_vycvk")]
+y_sort_enabled = false
 position = Vector2(47, -27)
 
 [node name="SimpleEnemy2" parent="Enemies" instance=ExtResource("9_vycvk")]
+y_sort_enabled = false
 position = Vector2(1, -1)
 
 [node name="SimpleEnemy3" parent="Enemies" instance=ExtResource("9_vycvk")]
+y_sort_enabled = false
 position = Vector2(-173, 94)
 
 [node name="SimpleEnemy4" parent="Enemies" instance=ExtResource("9_vycvk")]
+y_sort_enabled = false
 position = Vector2(-182, -98)
 
 [node name="SimpleEnemy5" parent="Enemies" instance=ExtResource("9_vycvk")]
+y_sort_enabled = false
 position = Vector2(170, 95)
 
 [node name="UI" parent="." instance=ExtResource("10_xdtg1")]
