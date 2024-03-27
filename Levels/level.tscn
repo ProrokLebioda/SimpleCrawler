@@ -699,6 +699,7 @@ position = Vector2(169, 96)
 y_sort_enabled = true
 
 [node name="Doors" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="DoorHorizontalNorth" parent="Doors" groups=["Doors"] instance=ExtResource("11_1eol8")]
 position = Vector2(-8, -140)
