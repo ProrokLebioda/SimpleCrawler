@@ -56,6 +56,9 @@ func pick_new_state():
 	else:
 		state_machine.travel("Idle")
 
+func place_at_start(pos):
+	global_position = pos
+
 # "Interfaces"...
 func hit(damage):
 	Globals.health -= damage

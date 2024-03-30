@@ -1,17 +1,18 @@
-[gd_scene load_steps=16 format=3 uid="uid://dhk4h17c6t37c"]
+[gd_scene load_steps=17 format=3 uid="uid://det7e33g132k2"]
 
-[ext_resource type="Texture2D" uid="uid://b1r1l8r7pawgc" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Grass.png" id="1_1huxx"]
-[ext_resource type="PackedScene" uid="uid://6ldll4ytnc1b" path="res://Characters/Player/player.tscn" id="1_5hclk"]
-[ext_resource type="Script" path="res://Levels/level.gd" id="1_wgus1"]
-[ext_resource type="Texture2D" uid="uid://c5hcfg7t4yhoj" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Tilled_Dirt.png" id="2_3vghu"]
-[ext_resource type="Texture2D" uid="uid://cbn5r2stotcy6" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Water.png" id="3_lstfo"]
-[ext_resource type="Texture2D" uid="uid://cymftlrmlu8n1" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Wooden House.png" id="4_vvi0b"]
-[ext_resource type="Texture2D" uid="uid://bc147sng1skpd" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Fences.png" id="5_2v70n"]
-[ext_resource type="PackedScene" uid="uid://bd7smtjx0swck" path="res://UI/ui.tscn" id="10_xdtg1"]
-[ext_resource type="PackedScene" uid="uid://cuv4lnsikja63" path="res://Objects/Statics/door_horizontal.tscn" id="11_1eol8"]
+[ext_resource type="Script" path="res://Levels/combat_level.gd" id="2_bblnw"]
+[ext_resource type="Texture2D" uid="uid://b1r1l8r7pawgc" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Grass.png" id="2_memip"]
+[ext_resource type="Texture2D" uid="uid://c5hcfg7t4yhoj" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Tilled_Dirt.png" id="3_8kpyi"]
+[ext_resource type="Texture2D" uid="uid://cbn5r2stotcy6" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Water.png" id="4_uqpvi"]
+[ext_resource type="Texture2D" uid="uid://cymftlrmlu8n1" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Wooden House.png" id="5_21pf6"]
+[ext_resource type="Texture2D" uid="uid://bc147sng1skpd" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Fences.png" id="6_cpa7i"]
+[ext_resource type="PackedScene" uid="uid://6ldll4ytnc1b" path="res://Characters/Player/player.tscn" id="7_a0iiv"]
+[ext_resource type="PackedScene" uid="uid://dbspbpq1j55yt" path="res://Enemies/simple_enemy.tscn" id="8_xkahf"]
+[ext_resource type="PackedScene" uid="uid://bd7smtjx0swck" path="res://UI/ui.tscn" id="8_xve0o"]
+[ext_resource type="PackedScene" uid="uid://cuv4lnsikja63" path="res://Objects/Statics/door_horizontal.tscn" id="9_jkane"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rxvxq"]
-texture = ExtResource("1_1huxx")
+texture = ExtResource("2_memip")
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
@@ -227,7 +228,7 @@ texture = ExtResource("1_1huxx")
 8:6/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_70emg"]
-texture = ExtResource("2_3vghu")
+texture = ExtResource("3_8kpyi")
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
@@ -440,7 +441,7 @@ texture = ExtResource("2_3vghu")
 9:6/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2dyoi"]
-texture = ExtResource("3_lstfo")
+texture = ExtResource("4_uqpvi")
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
@@ -455,7 +456,7 @@ texture = ExtResource("3_lstfo")
 3:0/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2ythd"]
-texture = ExtResource("4_vvi0b")
+texture = ExtResource("5_21pf6")
 1:0/0 = 0
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
@@ -548,7 +549,7 @@ texture = ExtResource("4_vvi0b")
 6:4/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r2g4c"]
-texture = ExtResource("5_2v70n")
+texture = ExtResource("6_cpa7i")
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
@@ -622,9 +623,9 @@ sources/2 = SubResource("TileSetAtlasSource_2dyoi")
 sources/3 = SubResource("TileSetAtlasSource_2ythd")
 sources/4 = SubResource("TileSetAtlasSource_r2g4c")
 
-[node name="Level" type="Node2D"]
+[node name="CombatLevel" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_wgus1")
+script = ExtResource("2_bblnw")
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -648,8 +649,8 @@ layer_2/y_sort_origin = 0
 layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array()
 
-[node name="Player" parent="." instance=ExtResource("1_5hclk")]
-position = Vector2(-100, -16)
+[node name="Player" parent="." instance=ExtResource("7_a0iiv")]
+position = Vector2(2, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -658,7 +659,19 @@ position = Vector2(-100, -16)
 [node name="Enemies" type="Node2D" parent="." groups=["Enemies"]]
 y_sort_enabled = true
 
-[node name="UI" parent="." instance=ExtResource("10_xdtg1")]
+[node name="SimpleEnemy" parent="Enemies" instance=ExtResource("8_xkahf")]
+position = Vector2(175, 96)
+
+[node name="SimpleEnemy2" parent="Enemies" instance=ExtResource("8_xkahf")]
+position = Vector2(172, -104)
+
+[node name="SimpleEnemy3" parent="Enemies" instance=ExtResource("8_xkahf")]
+position = Vector2(-183, -98)
+
+[node name="SimpleEnemy4" parent="Enemies" instance=ExtResource("8_xkahf")]
+position = Vector2(-171, 92)
+
+[node name="UI" parent="." instance=ExtResource("8_xve0o")]
 
 [node name="ChestSpawnPoints" type="Node2D" parent="."]
 
@@ -682,16 +695,20 @@ y_sort_enabled = true
 [node name="Doors" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="DoorHorizontalNorth" parent="Doors" groups=["Doors"] instance=ExtResource("11_1eol8")]
+[node name="DoorHorizontalNorth" parent="Doors" groups=["Doors"] instance=ExtResource("9_jkane")]
 position = Vector2(-8, -140)
 
-[node name="DoorHorizontalSouth" parent="Doors" groups=["Doors"] instance=ExtResource("11_1eol8")]
+[node name="DoorHorizontalSouth" parent="Doors" groups=["Doors"] instance=ExtResource("9_jkane")]
 position = Vector2(-8, 132)
 
 [node name="PlayerStarts" type="Node2D" parent="."]
 
 [node name="Marker2D" type="Marker2D" parent="PlayerStarts"]
+position = Vector2(-8, -116)
 
-[connection signal="shoot_input_detected" from="Player" to="." method="_on_player_shoot_input_detected"]
-[connection signal="body_entered" from="Doors/DoorHorizontalNorth" to="." method="_on_door_horizontal_north_body_entered"]
-[connection signal="body_entered" from="Doors/DoorHorizontalSouth" to="." method="_on_door_horizontal_south_body_entered"]
+[node name="Marker2D2" type="Marker2D" parent="PlayerStarts"]
+position = Vector2(-7, 118)
+
+[connection signal="shoot_input_detected" from="Player" to="." method="_on_player_shoot_input_detected" flags=18]
+[connection signal="body_entered" from="Doors/DoorHorizontalNorth" to="." method="_on_door_horizontal_north_body_entered" flags=18]
+[connection signal="body_entered" from="Doors/DoorHorizontalSouth" to="." method="_on_door_horizontal_south_body_entered" flags=18]

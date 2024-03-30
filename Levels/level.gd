@@ -1,4 +1,5 @@
 extends Node2D
+class_name LevelParent
 
 var bullet_scene : PackedScene = preload("res://Characters/Player/bullet.tscn")
 var chest_scene : PackedScene = preload("res://Objects/Interactables/chest_horizontal.tscn")
@@ -10,15 +11,28 @@ var area_collision_check : PackedScene = preload("res://Utils/area_collision_che
 @onready var projectiles_node : Node2D = $Projectiles
 @onready var enemies_node: Node2D =  $Enemies
 
+@onready var player_starts_node: Node2D = $PlayerStarts
+
+# Scenes to transition
+@onready var north_scene : String = "res://Levels/combat_level.tscn"
+@onready var south_scene : String = "res://Levels/combat_level.tscn"
+
 var enemies_count : int = 0
 
 func _ready():
+	var player_position_markers = player_starts_node.get_children()
+	var start_marker = player_position_markers[randi() % player_position_markers.size()]
+	$Player.place_at_start(start_marker.global_position)
 	# Get count of enemies
 	enemies_count = enemies_node.get_child_count()
 	print("Number of enemies: ", enemies_count)
-	# Connect signals for enemies
-	for enemy in get_tree().get_nodes_in_group('Enemies'):
-		enemy.connect("died", _on_enemy_died)
+	if enemies_count <= 0:
+		level_cleared()
+	else:
+		# Connect signals for enemies
+		var node = get_tree().get_nodes_in_group("Enemies")
+		for enemy in node[0].get_children():
+			enemy.connect("died", _on_enemy_died)
 
 func _on_player_shoot_input_detected(pos, dir):
 	var bullet = bullet_scene.instantiate() as Area2D
@@ -27,6 +41,9 @@ func _on_player_shoot_input_detected(pos, dir):
 	bullet.direction_vector = dir
 	projectiles_node.add_child(bullet)
 
+func level_cleared():
+	spawn_chest()
+	unlock_doors()
 
 func spawn_chest():
 	if chest_spawn_points != null:
@@ -70,8 +87,8 @@ func unlock_doors():
 
 
 func _on_door_horizontal_north_body_entered(body):
-	get_tree().change_scene_to_file("res://Levels/level.tscn")
+	get_tree().change_scene_to_file(north_scene)
 
 
 func _on_door_horizontal_south_body_entered(body):
-	get_tree().change_scene_to_file("res://Levels/level.tscn")
+	get_tree().change_scene_to_file(south_scene)
