@@ -701,6 +701,14 @@ position = Vector2(-8, -140)
 [node name="DoorHorizontalSouth" parent="Doors" groups=["Doors"] instance=ExtResource("9_jkane")]
 position = Vector2(-8, 132)
 
+[node name="PlayerStarts" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="PlayerStarts"]
+position = Vector2(-8, -116)
+
+[node name="Marker2D2" type="Marker2D" parent="PlayerStarts"]
+position = Vector2(-7, 118)
+
 [connection signal="shoot_input_detected" from="Player" to="." method="_on_player_shoot_input_detected" flags=18]
 [connection signal="body_entered" from="Doors/DoorHorizontalNorth" to="." method="_on_door_horizontal_north_body_entered" flags=18]
 [connection signal="body_entered" from="Doors/DoorHorizontalSouth" to="." method="_on_door_horizontal_south_body_entered" flags=18]

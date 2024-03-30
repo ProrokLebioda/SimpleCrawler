@@ -11,6 +11,7 @@ var area_collision_check : PackedScene = preload("res://Utils/area_collision_che
 @onready var projectiles_node : Node2D = $Projectiles
 @onready var enemies_node: Node2D =  $Enemies
 
+@onready var player_starts_node: Node2D = $PlayerStarts
 
 # Scenes to transition
 @onready var north_scene : String = "res://Levels/combat_level.tscn"
@@ -19,6 +20,9 @@ var area_collision_check : PackedScene = preload("res://Utils/area_collision_che
 var enemies_count : int = 0
 
 func _ready():
+	var player_position_markers = player_starts_node.get_children()
+	var start_marker = player_position_markers[randi() % player_position_markers.size()]
+	$Player.place_at_start(start_marker.global_position)
 	# Get count of enemies
 	enemies_count = enemies_node.get_child_count()
 	print("Number of enemies: ", enemies_count)
