@@ -7,6 +7,10 @@ var healh_base: int =  8
 var player_pos: Vector2
 var player_collider_radius: float
 
+enum Entrance {NONE = 0, NORTH, SOUTH, EAST, WEST}
+
+var player_entered : Entrance = Entrance.NONE
+
 var health = healh_base:
 	get:
 		return health
