@@ -3,6 +3,7 @@ class_name LevelParent
 
 var bullet_scene : PackedScene = preload("res://Characters/Player/bullet.tscn")
 var chest_scene : PackedScene = preload("res://Objects/Interactables/chest_horizontal.tscn")
+var health_pickup_scene: PackedScene = preload("res://Objects/Item_Pickups/health_pickup.tscn")
 
 var area_collision_check : PackedScene = preload("res://Utils/area_collision_check.tscn")
 
@@ -23,6 +24,9 @@ func _ready():
 	var player_position_markers = player_starts_node.get_children()
 	var start_marker = player_position_markers[randi() % player_position_markers.size()]
 	$Player.place_at_start(start_marker.global_position)
+	
+
+	
 	# Get count of enemies
 	enemies_count = enemies_node.get_child_count()
 	print("Number of enemies: ", enemies_count)
@@ -46,7 +50,9 @@ func level_cleared():
 	unlock_doors()
 
 func spawn_chest():
-	if chest_spawn_points != null:
+	var arr = get_property_list()
+	var nm = name
+	if chest_spawn_points != null and nm != "StartingLevel":
 		for i in chest_spawn_points.get_child_count():
 			var child = chest_spawn_points.get_child(i)
 			var chest = chest_scene.instantiate() as ItemContainer
@@ -56,6 +62,8 @@ func spawn_chest():
 			var pos = child.global_position
 			if can_spawn_chest(chest_radius, pos):
 				chest.position = pos
+				# Connect signal
+				chest.connect("open", _on_container_opened)
 				objects_node.add_child(chest)
 				break
 			else:
@@ -84,6 +92,9 @@ func unlock_doors():
 	
 	
 
+func _on_container_opened(pos, direction):
+	var hp = health_pickup_scene.instantiate()
+	objects_node.add_child(hp)
 
 
 func _on_door_horizontal_north_body_entered(body):

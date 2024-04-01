@@ -7,7 +7,7 @@ var healh_base: int =  8
 var player_pos: Vector2
 var player_collider_radius: float
 
-var health = 8:
+var health = healh_base:
 	get:
 		return health
 	set(value):

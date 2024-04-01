@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://chfx00c4icv2i"]
+
+[ext_resource type="Script" path="res://Objects/Item_Pickups/item_pickup.gd" id="1_wobyw"]
+
+[node name="ItemPickup" type="Area2D"]
+y_sort_enabled = true
+collision_layer = 16
+script = ExtResource("1_wobyw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+hframes = 4
+frame = 3
