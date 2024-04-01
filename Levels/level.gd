@@ -21,11 +21,7 @@ var area_collision_check : PackedScene = preload("res://Utils/area_collision_che
 var enemies_count : int = 0
 
 func _ready():
-	var player_position_markers = player_starts_node.get_children()
-	var start_marker = player_position_markers[randi() % player_position_markers.size()]
-	$Player.place_at_start(start_marker.global_position)
-	
-
+	place_player()
 	
 	# Get count of enemies
 	enemies_count = enemies_node.get_child_count()
@@ -37,6 +33,19 @@ func _ready():
 		var node = get_tree().get_nodes_in_group("Enemies")
 		for enemy in node[0].get_children():
 			enemy.connect("died", _on_enemy_died)
+
+
+func place_player():
+	
+	var player_position_markers = player_starts_node.get_children()
+	var start_marker
+	if (player_position_markers.size() == 1):
+		start_marker = player_position_markers[0]
+	else:
+		# TODO_FIX: later change it or keep maps consistent as it uses indecies instead of know values, this means Markers2D for spawn need to have appropriate order now
+		start_marker = player_position_markers[entered_to_exited(Globals.player_entered)-1]
+	#var start_marker = player_position_markers[randi() % player_position_markers.size()]
+	$Player.place_at_start(start_marker.global_position)
 
 func _on_player_shoot_input_detected(pos, dir):
 	var bullet = bullet_scene.instantiate() as Area2D
@@ -84,6 +93,17 @@ func can_spawn_chest(rad, position):
 		return false
 
 
+func entered_to_exited(entered: Globals.Entrance):
+	match entered:
+		Globals.Entrance.NORTH:
+			return Globals.Entrance.SOUTH
+		Globals.Entrance.SOUTH:
+			return Globals.Entrance.NORTH
+		Globals.Entrance.EAST:
+			return Globals.Entrance.WEST
+		Globals.Entrance.WEST:
+			return Globals.Entrance.EAST
+
 func unlock_doors():
 	if get_tree() != null:
 		var doors = get_tree().get_nodes_in_group("Doors")
@@ -98,8 +118,10 @@ func _on_container_opened(pos, direction):
 
 
 func _on_door_horizontal_north_body_entered(body):
+	Globals.player_entered = Globals.Entrance.NORTH
 	get_tree().change_scene_to_file(north_scene)
 
 
 func _on_door_horizontal_south_body_entered(body):
+	Globals.player_entered = Globals.Entrance.SOUTH
 	get_tree().change_scene_to_file(south_scene)
