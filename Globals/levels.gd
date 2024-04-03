@@ -1,0 +1,26 @@
+extends Node
+
+var rooms = {}
+
+func _ready():
+	# Define a couple of Vector2 keys.
+	var key1 = Vector2(0,0)
+	var key2 = Vector2(0,1)
+	var key3 = Vector2(1,0)
+	var key4 = Vector2(0,-1)
+	var key5 = Vector2(-1,0)
+	
+	# Add Room structs to the dictionary using Vector2 keys.
+	rooms[key1] = Room_struct.new().create_room(true, 1)
+	rooms[key2] = Room_struct.new().create_room(false, 2)
+	rooms[key3] = Room_struct.new().create_room(false, 2)
+	rooms[key4] = Room_struct.new().create_room(false, 2)
+	rooms[key5] = Room_struct.new().create_room(false, 2)
+
+	# Example: Accessing a room's data
+	var room = rooms[key1]
+	print("Room at: ", key1, ", visited?: ", room["is_visited"], ", Type: ", room["type"])
+	room = rooms[key2]
+	print("Room at: ", key2, ", visited?: ", room["is_visited"])
+	room = rooms[key3]
+	print("Room at: ", key3, ", visited?: ", room["is_visited"])
