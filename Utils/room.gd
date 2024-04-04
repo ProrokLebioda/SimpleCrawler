@@ -6,7 +6,7 @@ var starting_room: String = "res://Levels/starting_level.tscn"
 var combat_room: String = "res://Levels/combat_level.tscn"
 
 #change this later
-var treasure_room: String = "res://Levels/combat_level.tscn"
+var treasure_room: String = "res://Levels/treasure_level.tscn"
 var shop_room: String = "res://Levels/combat_level.tscn"
 var boss_room: String = "res://Levels/combat_level.tscn"
 

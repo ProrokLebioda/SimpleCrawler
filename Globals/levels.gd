@@ -8,8 +8,8 @@ func _ready():
 	# Define a couple of Vector2 keys.
 	var key1 = Vector2(0,0)
 	var key2 = Vector2(0,1)
-	var key3 = Vector2(1,0)
-	var key4 = Vector2(0,-1)
+	var key3 = Vector2(0,-1)
+	var key4 = Vector2(1,0)
 	var key5 = Vector2(-1,0)
 	
 	# Add Room structs to the dictionary using Vector2 keys.

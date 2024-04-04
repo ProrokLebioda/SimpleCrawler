@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c42dglntshyr4"]
+
+[ext_resource type="PackedScene" uid="uid://dhk4h17c6t37c" path="res://Levels/level.tscn" id="1_4egwi"]
+[ext_resource type="Script" path="res://Levels/treasure_level.gd" id="2_2d1xf"]
+
+[node name="Treasure_level" instance=ExtResource("1_4egwi")]
+script = ExtResource("2_2d1xf")
+
+[node name="Marker2D" parent="PlayerStarts" index="0"]
+position = Vector2(-7, -123)
+
+[node name="Marker2D2" type="Marker2D" parent="PlayerStarts" index="1"]
+position = Vector2(-9, 123)
