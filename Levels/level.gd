@@ -18,9 +18,14 @@ var area_collision_check : PackedScene = preload("res://Utils/area_collision_che
 @onready var north_scene : String = "res://Levels/combat_level.tscn"
 @onready var south_scene : String = "res://Levels/combat_level.tscn"
 
+@onready var room: Dictionary
+@onready var room_vector_position: Vector2
+
 var enemies_count : int = 0
 
 func _ready():
+	generate_level()
+	
 	place_player()
 	
 	# Get count of enemies
@@ -34,7 +39,12 @@ func _ready():
 		for enemy in node[0].get_children():
 			enemy.connect("died", _on_enemy_died)
 
-
+func generate_level():
+	#Test var for now
+	room_vector_position = Vector2(0,0) 
+	room = Levels.rooms[room_vector_position]
+	print("Room at: ", room_vector_position, ", visited?: ", room["is_visited"], ", Type: ", room["type"])
+	
 func place_player():
 	
 	var player_position_markers = player_starts_node.get_children()
@@ -119,9 +129,15 @@ func _on_container_opened(pos, direction):
 
 func _on_door_horizontal_north_body_entered(body):
 	Globals.player_entered = Globals.Entrance.NORTH
-	get_tree().change_scene_to_file(north_scene)
+	var position_north = Vector2(room_vector_position.x, room_vector_position.y + 1)
+	var north_room = Levels.rooms[position_north]
+	var scene = north_room["scene"] 
+	get_tree().change_scene_to_file(scene)
 
 
 func _on_door_horizontal_south_body_entered(body):
 	Globals.player_entered = Globals.Entrance.SOUTH
-	get_tree().change_scene_to_file(south_scene)
+	var position_south = Vector2(room_vector_position.x, room_vector_position.y - 1)
+	var south_room = Levels.rooms[position_south]
+	var scene = south_room["scene"] 
+	get_tree().change_scene_to_file(scene)
