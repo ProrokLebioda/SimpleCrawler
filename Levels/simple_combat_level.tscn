@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctb221xfmkp3a"]
+
+[ext_resource type="PackedScene" uid="uid://dhk4h17c6t37c" path="res://Levels/level.tscn" id="1_wbpls"]
+[ext_resource type="PackedScene" uid="uid://dbspbpq1j55yt" path="res://Enemies/simple_enemy.tscn" id="2_0a5uy"]
+
+[node name="SimpleCombatLevel" instance=ExtResource("1_wbpls")]
+
+[node name="SimpleEnemy" parent="Enemies" index="0" instance=ExtResource("2_0a5uy")]
+position = Vector2(-184, -101)
+
+[node name="SimpleEnemy2" parent="Enemies" index="1" instance=ExtResource("2_0a5uy")]
+position = Vector2(179, -96)
+
+[node name="SimpleEnemy3" parent="Enemies" index="2" instance=ExtResource("2_0a5uy")]
+position = Vector2(-157, 68)
+
+[node name="SimpleEnemy4" parent="Enemies" index="3" instance=ExtResource("2_0a5uy")]
+position = Vector2(158, 88)
+
+[node name="Marker2D" parent="PlayerStarts" index="0"]
+position = Vector2(-10, -122)
+
+[node name="Marker2D2" type="Marker2D" parent="PlayerStarts" index="1"]
+position = Vector2(-7, 117)
+
+[node name="Marker2D3" type="Marker2D" parent="PlayerStarts" index="2"]
+position = Vector2(-218, -6)
+
+[node name="Marker2D4" type="Marker2D" parent="PlayerStarts" index="3"]
+position = Vector2(213, -6)

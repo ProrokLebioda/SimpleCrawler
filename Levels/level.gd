@@ -15,8 +15,9 @@ var area_collision_check : PackedScene = preload("res://Utils/area_collision_che
 @onready var player_starts_node: Node2D = $PlayerStarts
 
 # Scenes to transition
-@onready var north_scene : String = "res://Levels/combat_level.tscn"
-@onready var south_scene : String = "res://Levels/combat_level.tscn"
+#@onready var north_scene : String = "res://Levels/combat_level.tscn"
+#@onready var south_scene : String = "res://Levels/combat_level.tscn"
+
 
 @onready var room: Dictionary
 @onready var room_vector_position: Vector2
@@ -140,4 +141,18 @@ func _on_door_horizontal_south_body_entered(body):
 	var position_south = Vector2(room_vector_position.x, room_vector_position.y - 1)
 	var south_room = Levels.rooms[position_south]
 	var scene = south_room["scene"] 
+	get_tree().change_scene_to_file(scene)
+	
+func _on_door_horizontal_west_body_entered(body):
+	Globals.player_entered = Globals.Entrance.WEST
+	var position_west = Vector2(room_vector_position.x - 1, room_vector_position.y)
+	var west_room = Levels.rooms[position_west]
+	var scene = west_room["scene"] 
+	get_tree().change_scene_to_file(scene)
+	
+func _on_door_horizontal_east_body_entered(body):
+	Globals.player_entered = Globals.Entrance.EAST
+	var position_east = Vector2(room_vector_position.x - 1, room_vector_position.y)
+	var east_room = Levels.rooms[position_east]
+	var scene = east_room["scene"] 
 	get_tree().change_scene_to_file(scene)

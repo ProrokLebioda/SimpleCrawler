@@ -11,3 +11,9 @@ position = Vector2(-7, -123)
 
 [node name="Marker2D2" type="Marker2D" parent="PlayerStarts" index="1"]
 position = Vector2(-9, 123)
+
+[node name="Marker2D3" type="Marker2D" parent="PlayerStarts" index="2"]
+position = Vector2(214, -6)
+
+[node name="Marker2D4" type="Marker2D" parent="PlayerStarts" index="3"]
+position = Vector2(-216, -6)

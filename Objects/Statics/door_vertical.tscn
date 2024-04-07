@@ -1,0 +1,85 @@
+[gd_scene load_steps=8 format=3 uid="uid://bctk1ftvr2bw8"]
+
+[ext_resource type="PackedScene" uid="uid://cuv4lnsikja63" path="res://Objects/Statics/door.tscn" id="1_bqlyb"]
+[ext_resource type="Texture2D" uid="uid://c3ac5paqcdamr" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/VerticalDoor.png" id="2_8mmr6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_16ic2"]
+size = Vector2(2, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fgnj7"]
+size = Vector2(3, 14)
+
+[sub_resource type="Animation" id="Animation_3tpjj"]
+resource_name = "door_open"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 3, 2, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_pmgtt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lxsfj"]
+_data = {
+"RESET": SubResource("Animation_pmgtt"),
+"door_open": SubResource("Animation_3tpjj")
+}
+
+[node name="DoorVertical" instance=ExtResource("1_bqlyb")]
+scale = Vector2(1.185, 1.185)
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_8mmr6")
+hframes = 1
+vframes = 4
+frame = 1
+
+[node name="CollisionShape2D" parent="." index="1"]
+visible = false
+position = Vector2(0, 0)
+shape = SubResource("RectangleShape2D_16ic2")
+
+[node name="StaticBody2D" parent="." index="2"]
+visible = false
+
+[node name="CollisionShape2D" parent="StaticBody2D" index="0"]
+position = Vector2(0, 0)
+shape = SubResource("RectangleShape2D_fgnj7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_lxsfj")
+}
