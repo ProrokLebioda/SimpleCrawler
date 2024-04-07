@@ -697,7 +697,19 @@ position = Vector2(232, -8)
 
 [node name="PlayerStarts" type="Node2D" parent="."]
 
-[node name="Marker2D" type="Marker2D" parent="PlayerStarts"]
+[node name="Center" type="Marker2D" parent="PlayerStarts"]
+
+[node name="North" type="Marker2D" parent="PlayerStarts"]
+position = Vector2(-9, -120)
+
+[node name="South" type="Marker2D" parent="PlayerStarts"]
+position = Vector2(-8, 117)
+
+[node name="West" type="Marker2D" parent="PlayerStarts"]
+position = Vector2(-215, -8)
+
+[node name="East" type="Marker2D" parent="PlayerStarts"]
+position = Vector2(216, -8)
 
 [connection signal="shoot_input_detected" from="Player" to="." method="_on_player_shoot_input_detected"]
 [connection signal="body_entered" from="Doors/DoorNorth" to="." method="_on_door_horizontal_north_body_entered"]

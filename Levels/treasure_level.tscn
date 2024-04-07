@@ -6,9 +6,6 @@
 [node name="Treasure_level" instance=ExtResource("1_4egwi")]
 script = ExtResource("2_2d1xf")
 
-[node name="Marker2D" parent="PlayerStarts" index="0"]
-position = Vector2(-7, -123)
-
 [node name="Marker2D2" type="Marker2D" parent="PlayerStarts" index="1"]
 position = Vector2(-9, 123)
 

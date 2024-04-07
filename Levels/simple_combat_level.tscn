@@ -16,15 +16,3 @@ position = Vector2(-157, 68)
 
 [node name="SimpleEnemy4" parent="Enemies" index="3" instance=ExtResource("2_0a5uy")]
 position = Vector2(158, 88)
-
-[node name="Marker2D" parent="PlayerStarts" index="0"]
-position = Vector2(-10, -122)
-
-[node name="Marker2D2" type="Marker2D" parent="PlayerStarts" index="1"]
-position = Vector2(-7, 117)
-
-[node name="Marker2D3" type="Marker2D" parent="PlayerStarts" index="2"]
-position = Vector2(-218, -6)
-
-[node name="Marker2D4" type="Marker2D" parent="PlayerStarts" index="3"]
-position = Vector2(213, -6)
