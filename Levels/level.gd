@@ -42,7 +42,7 @@ func _ready():
 
 func generate_level():
 	#Test var for now
-	room_vector_position = Vector2(0,0) 
+	room_vector_position = Globals.player_room
 	room = Levels.rooms[room_vector_position]
 	print("Room at: ", room_vector_position, ", visited?: ", room["is_visited"], ", Type: ", room["type"])
 	
@@ -117,11 +117,42 @@ func entered_to_exited(entered: Globals.Entrance):
 
 func unlock_doors():
 	if get_tree() != null:
+		
+		#check if door will actually lead somewhere?
+		
+		
 		var doors = get_tree().get_nodes_in_group("Doors")
 		for door in doors:
-			door.open_door()
+			print(door.name)
+			if is_door_leading_somewhere(door.name):
+				door.open_door()
 	
-	
+func is_door_leading_somewhere(door_name):
+	match door_name:
+		'DoorNorth':
+			var position_north = Vector2(room_vector_position.x, room_vector_position.y + 1)
+			if Levels.rooms.has(position_north):
+				return true
+			else:
+				return false
+		'DoorSouth':
+			var position_south = Vector2(room_vector_position.x, room_vector_position.y - 1)
+			if Levels.rooms.has(position_south):
+				return true
+			else:
+				return false
+		'DoorWest':
+			var position_west = Vector2(room_vector_position.x - 1, room_vector_position.y)
+			if Levels.rooms.has(position_west):
+				return true
+			else:
+				return false
+		'DoorEast':
+			var position_east = Vector2(room_vector_position.x + 1, room_vector_position.y)
+			if Levels.rooms.has(position_east):
+				return true
+			else:
+				return false
 
 func _on_container_opened(pos, direction):
 	var hp = health_pickup_scene.instantiate()
@@ -131,28 +162,39 @@ func _on_container_opened(pos, direction):
 func _on_door_horizontal_north_body_entered(body):
 	Globals.player_entered = Globals.Entrance.NORTH
 	var position_north = Vector2(room_vector_position.x, room_vector_position.y + 1)
-	var north_room = Levels.rooms[position_north]
-	var scene = north_room["scene"] 
-	get_tree().change_scene_to_file(scene)
+	if Levels.rooms.has(position_north):
+		var north_room = Levels.rooms[position_north]
+		var scene = north_room["scene"] 
+		update_player_room(position_north)
+		get_tree().change_scene_to_file(scene)
 
 
 func _on_door_horizontal_south_body_entered(body):
 	Globals.player_entered = Globals.Entrance.SOUTH
 	var position_south = Vector2(room_vector_position.x, room_vector_position.y - 1)
-	var south_room = Levels.rooms[position_south]
-	var scene = south_room["scene"] 
-	get_tree().change_scene_to_file(scene)
+	if Levels.rooms.has(position_south):		
+		var south_room = Levels.rooms[position_south]
+		var scene = south_room["scene"] 
+		update_player_room(position_south)
+		get_tree().change_scene_to_file(scene)
 	
 func _on_door_horizontal_west_body_entered(body):
 	Globals.player_entered = Globals.Entrance.WEST
 	var position_west = Vector2(room_vector_position.x - 1, room_vector_position.y)
-	var west_room = Levels.rooms[position_west]
-	var scene = west_room["scene"] 
-	get_tree().change_scene_to_file(scene)
+	if Levels.rooms.has(position_west):
+		var west_room = Levels.rooms[position_west]
+		var scene = west_room["scene"] 
+		update_player_room(position_west)
+		get_tree().change_scene_to_file(scene)
 	
 func _on_door_horizontal_east_body_entered(body):
 	Globals.player_entered = Globals.Entrance.EAST
-	var position_east = Vector2(room_vector_position.x - 1, room_vector_position.y)
-	var east_room = Levels.rooms[position_east]
-	var scene = east_room["scene"] 
-	get_tree().change_scene_to_file(scene)
+	var position_east = Vector2(room_vector_position.x + 1, room_vector_position.y)
+	if Levels.rooms.has(position_east):
+		var east_room = Levels.rooms[position_east]
+		var scene = east_room["scene"] 
+		update_player_room(position_east)
+		get_tree().change_scene_to_file(scene)
+
+func update_player_room(new_room_pos: Vector2):
+	Globals.player_room  = new_room_pos
