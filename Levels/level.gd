@@ -84,7 +84,8 @@ func _on_player_shoot_input_detected(pos, dir):
 	projectiles_node.add_child(bullet)
 
 func level_cleared():
-	spawn_chest()
+	if !is_visited:
+		spawn_chest()
 	unlock_doors()
 
 func spawn_chest():
@@ -112,8 +113,7 @@ func _on_enemy_died():
 	print("Enemy died! Remaining Enemy count: ", enemies_count)
 	if (enemies_count <= 0):
 		if get_tree() != null:
-			spawn_chest()
-			unlock_doors()
+			level_cleared()
 
 func can_spawn_chest(rad, position):
 	var distance =  position.distance_to(Globals.player_pos) - (Globals.player_collider_radius + rad)
