@@ -12,6 +12,7 @@ var area_collision_check : PackedScene = preload("res://Utils/area_collision_che
 @onready var projectiles_node : Node2D = $Projectiles
 @onready var enemies_node: Node2D =  $Enemies
 
+
 @onready var player_starts_node: Node2D = $PlayerStarts
 
 # Scenes to transition
@@ -23,26 +24,14 @@ var area_collision_check : PackedScene = preload("res://Utils/area_collision_che
 @onready var room_vector_position: Vector2
 var is_visited: bool = false
 
-var enemies_count : int = 0
 
 func _ready():
 	generate_level()
-	
 	place_player()
+	level_cleared()
 	
-	# Get count of enemies
-	enemies_count = enemies_node.get_child_count()
-	print("Number of enemies: ", enemies_count)
-	if enemies_count <= 0:
-		level_cleared()
-	else:
-		# Connect signals for enemies
-		var node = get_tree().get_nodes_in_group("Enemies")
-		for enemy in node[0].get_children():
-			enemy.connect("died", _on_enemy_died)
 
 func generate_level():
-	#Test var for now
 	room_vector_position = Globals.player_room
 	room = Levels.rooms[room_vector_position]
 	is_visited = room["is_visited"]
@@ -108,12 +97,6 @@ func spawn_chest():
 			else:
 				chest.queue_free()
 
-func _on_enemy_died():
-	enemies_count-= 1
-	print("Enemy died! Remaining Enemy count: ", enemies_count)
-	if (enemies_count <= 0):
-		if get_tree() != null:
-			level_cleared()
 
 func can_spawn_chest(rad, position):
 	var distance =  position.distance_to(Globals.player_pos) - (Globals.player_collider_radius + rad)
