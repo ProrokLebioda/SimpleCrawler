@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 Globals="*res://Globals/globals.gd"
+Room="*res://Utils/room.gd"
+Levels="*res://Globals/levels.gd"
 
 [display]
 

@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctb221xfmkp3a"]
+
+[ext_resource type="PackedScene" uid="uid://dhk4h17c6t37c" path="res://Levels/level.tscn" id="1_wbpls"]
+[ext_resource type="Script" path="res://Levels/simple_combat_level.gd" id="2_pj5iq"]
+
+[node name="SimpleCombatLevel" instance=ExtResource("1_wbpls")]
+script = ExtResource("2_pj5iq")
+enemies_number = 3
+
+[node name="EnemiesSpawnPoints" type="Node2D" parent="." index="10"]
+
+[node name="Marker2D" type="Marker2D" parent="EnemiesSpawnPoints" index="0"]
+position = Vector2(-4, -6)
+
+[node name="Marker2D2" type="Marker2D" parent="EnemiesSpawnPoints" index="1"]
+position = Vector2(-126, -93)
+
+[node name="Marker2D3" type="Marker2D" parent="EnemiesSpawnPoints" index="2"]
+position = Vector2(126, -95)
+
+[node name="Marker2D4" type="Marker2D" parent="EnemiesSpawnPoints" index="3"]
+position = Vector2(-132, 66)
+
+[node name="Marker2D5" type="Marker2D" parent="EnemiesSpawnPoints" index="4"]
+position = Vector2(120, 60)

@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://6ldll4ytnc1b" path="res://Characters/Player/player.tscn" id="7_a0iiv"]
 [ext_resource type="PackedScene" uid="uid://dbspbpq1j55yt" path="res://Enemies/simple_enemy.tscn" id="8_xkahf"]
 [ext_resource type="PackedScene" uid="uid://bd7smtjx0swck" path="res://UI/ui.tscn" id="8_xve0o"]
-[ext_resource type="PackedScene" uid="uid://cuv4lnsikja63" path="res://Objects/Statics/door_horizontal.tscn" id="9_jkane"]
+[ext_resource type="PackedScene" uid="uid://cuv4lnsikja63" path="res://Objects/Statics/door.tscn" id="9_jkane"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rxvxq"]
 texture = ExtResource("2_memip")

@@ -1,4 +1,8 @@
-extends Door
+extends Area2D
+
+class_name Door
+var is_open : bool = false
+
 
 func open_door():
 	if !is_open:
