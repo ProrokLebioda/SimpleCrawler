@@ -1,6 +1,6 @@
 extends Node
 class_name Room_struct
-enum ROOM_TYPE{START, SIMPLE_COMBAT, TREASUE, SHOP, BOSS}
+enum ROOM_TYPE{START, SIMPLE_COMBAT, TREASURE, SHOP, BOSS}
 
 var starting_room: String = "res://Levels/starting_level.tscn"
 var combat_room: String = "res://Levels/simple_combat_level.tscn"
@@ -17,7 +17,7 @@ func create_room(visited: bool, type: ROOM_TYPE) -> Dictionary:
 			scene = starting_room
 		ROOM_TYPE.SIMPLE_COMBAT:
 			scene = combat_room
-		ROOM_TYPE.TREASUE:
+		ROOM_TYPE.TREASURE:
 			scene = treasure_room
 		ROOM_TYPE.SHOP:
 			scene = shop_room
