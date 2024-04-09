@@ -1,9 +1,9 @@
 extends LevelParent
 
+class_name CombatLevel
+
 @onready var enemy_scene: PackedScene = preload("res://Enemies/simple_enemy.tscn")
 @onready var enemies_spawn_points_node: Node2D = $EnemiesSpawnPoints
-
-
 
 var enemies_left_count : int = 0
 @export var enemies_number: int = 3
@@ -17,8 +17,6 @@ func _ready():
 	print("Number of enemies: ", enemies_left_count)
 	if enemies_left_count <= 0:
 		level_cleared()
-	else:
-		pass
 	
 func spawn_enemies():
 	if !is_visited:
