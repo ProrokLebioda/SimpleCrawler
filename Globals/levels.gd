@@ -9,7 +9,8 @@ var test_room_no_boss = [Room_struct.ROOM_TYPE.SIMPLE_COMBAT,Room_struct.ROOM_TY
 # for now keep value that boss_room was spawned, to only have one
 var is_boss_room_spawned: bool = false
 func _ready():
-	generate_random_dungeon()
+	#generate_random_dungeon()
+	simple_test_dungeon()
 	
 func clear_rooms_visited_state():
 	for room in rooms:

@@ -1,0 +1,152 @@
+[gd_scene load_steps=18 format=3 uid="uid://blsi5vt1dgu28"]
+
+[ext_resource type="Script" path="res://Enemies/boss_enemy.gd" id="1_lchal"]
+[ext_resource type="Shader" path="res://Enemies/Shaders/simple_enemy.gdshader" id="2_jsxfc"]
+[ext_resource type="Texture2D" uid="uid://mu3nmro8ud86" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Characters/Free Cow Sprites.png" id="3_ovy38"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y7eix"]
+resource_local_to_scene = true
+shader = ExtResource("2_jsxfc")
+shader_parameter/color = Color(1, 0.694118, 0.996078, 1)
+shader_parameter/progress = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4s3gj"]
+radius = 7.07107
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5r8ol"]
+radius = 54.0093
+
+[sub_resource type="Animation" id="Animation_3g8xn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_w0fie"]
+resource_name = "cow_idle_right"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_uy473"]
+resource_name = "cow_walk_right"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cibwm"]
+_data = {
+"RESET": SubResource("Animation_3g8xn"),
+"cow_idle_right": SubResource("Animation_w0fie"),
+"cow_walk_right": SubResource("Animation_uy473")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iif74"]
+animation = &"cow_idle_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yhg08"]
+animation = &"cow_walk_right"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q3bjs"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_stuo4"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5jk0e"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_hxljk"]
+states/Start/position = Vector2(170, 100)
+states/cow_idle_right/node = SubResource("AnimationNodeAnimation_iif74")
+states/cow_idle_right/position = Vector2(374, 100)
+states/cow_walk_right/node = SubResource("AnimationNodeAnimation_yhg08")
+states/cow_walk_right/position = Vector2(538, 100)
+transitions = ["Start", "cow_idle_right", SubResource("AnimationNodeStateMachineTransition_q3bjs"), "cow_idle_right", "cow_walk_right", SubResource("AnimationNodeStateMachineTransition_stuo4"), "cow_walk_right", "cow_idle_right", SubResource("AnimationNodeStateMachineTransition_5jk0e")]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hpojc"]
+radius = 8.06226
+
+[node name="BossEnemy" type="CharacterBody2D" groups=["Enemies"]]
+y_sort_enabled = true
+collision_layer = 2
+collision_mask = 39
+script = ExtResource("1_lchal")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_y7eix")
+position = Vector2(0, -6)
+texture = ExtResource("3_ovy38")
+hframes = 3
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4s3gj")
+
+[node name="NoticeArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NoticeArea"]
+shape = SubResource("CircleShape2D_5r8ol")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cibwm")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_hxljk")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+
+[node name="IdleWalkTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AggroLoseTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DamageArea" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+shape = SubResource("CircleShape2D_hpojc")
+
+[node name="HitTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="NoticeArea" to="." method="_on_notice_area_body_entered" flags=18]
+[connection signal="body_exited" from="NoticeArea" to="." method="_on_notice_area_body_exited" flags=18]
+[connection signal="timeout" from="IdleWalkTimer" to="." method="_on_idle_walk_timer_timeout" flags=18]
+[connection signal="timeout" from="AggroLoseTimer" to="." method="_on_aggro_lose_timer_timeout" flags=18]
+[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered" flags=18]
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout" flags=18]

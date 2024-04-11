@@ -1,6 +1,6 @@
 extends LevelParent
 
-@onready var boss_scene: PackedScene = preload("res://Enemies/simple_enemy.tscn")
+@onready var boss_scene: PackedScene = preload("res://Enemies/boss_enemy.tscn")
 @onready var enemies_spawn_points_node: Node2D = $BossSpawnPoints
 
 var enemies_left_count : int = 0
