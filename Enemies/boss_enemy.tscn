@@ -51,6 +51,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_uy473"]
 resource_name = "cow_walk_right"
 length = 0.4
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -91,7 +92,7 @@ states/Start/position = Vector2(170, 100)
 states/cow_idle_right/node = SubResource("AnimationNodeAnimation_iif74")
 states/cow_idle_right/position = Vector2(374, 100)
 states/cow_walk_right/node = SubResource("AnimationNodeAnimation_yhg08")
-states/cow_walk_right/position = Vector2(538, 100)
+states/cow_walk_right/position = Vector2(714, 93)
 transitions = ["Start", "cow_idle_right", SubResource("AnimationNodeStateMachineTransition_q3bjs"), "cow_idle_right", "cow_walk_right", SubResource("AnimationNodeStateMachineTransition_stuo4"), "cow_walk_right", "cow_idle_right", SubResource("AnimationNodeStateMachineTransition_5jk0e")]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hpojc"]
