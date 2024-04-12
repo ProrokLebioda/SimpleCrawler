@@ -1,9 +1,11 @@
 extends CharacterBody2D
-enum ENEMY_STATE {IDLE, WALK, AGGRO}
+enum ENEMY_STATE {IDLE, WALK, AGGRO, CHARGING}
 
 signal died()
 
 @export var move_speed : float = 50
+@export var charge_speed : float = 150
+@export var current_speed : float = move_speed
 @export var idle_time : float = 2
 @export var walk_time : float = 2
 @export var aggro_lose_time : float = 4
@@ -15,26 +17,34 @@ signal died()
 @onready var idle_walk_timer = $IdleWalkTimer
 @onready var aggro_lose_timer = $AggroLoseTimer
 
+
 # Damage stuff
 @export var health_max : int = 8
 @onready var health : int = health_max
 var vulnerable : bool = true
 var hit_timer_wait_time : float = 0.2
+#if player hit or destination reached
+var destination_reached : bool = false
 # Visual stuff
 
 var move_direction : Vector2 = Vector2.ZERO
 var current_state : ENEMY_STATE = ENEMY_STATE.IDLE
 
+var destination : Vector2 = Vector2.ZERO
+
 func _ready():
 	pick_new_state()
 	
 func _physics_process(delta):
+	if (position == destination):
+		pick_new_state()
+		
 	if (current_state == ENEMY_STATE.AGGRO):
-		move_direction = (Globals.player_pos - position).normalized()
+		move_direction = (destination - position).normalized()
 		flip_sprite_direction(move_direction)
 		
 	if (current_state != ENEMY_STATE.IDLE):
-		velocity = move_direction * move_speed
+		velocity = move_direction * current_speed
 		move_and_slide()
 		
 	
@@ -66,11 +76,17 @@ func pick_new_state():
 			print("ToIdle")
 			current_state = ENEMY_STATE.IDLE
 			idle_walk_timer.start(idle_time)
+			current_speed = move_speed
 		
-		ENEMY_STATE.AGGRO:				
+		ENEMY_STATE.AGGRO:
 			state_machine.travel("cow_idle_right")
-			current_state = ENEMY_STATE.IDLE
+			current_state = ENEMY_STATE.WALK
+			current_speed = move_speed
 			idle_walk_timer.start(idle_time)
+#			destination = Globals.player_pos
+			
+#		ENEMY_STATE.CHARGING:
+#			state_machine.travel("cow_idle_right")
 			
 
 func _on_notice_area_body_entered(body):
@@ -82,6 +98,9 @@ func _on_notice_area_body_entered(body):
 	if (aggro_lose_timer.time_left > 0):
 		aggro_lose_timer.stop()
 
+	# pick current player position and run
+	current_speed = charge_speed
+	destination = Globals.player_pos
 	current_state = ENEMY_STATE.AGGRO
 
 func _on_notice_area_body_exited(body):
@@ -106,6 +125,7 @@ func _on_damage_area_body_entered(body):
 		print("Damage area entered: ", body.name)
 		if "hit" in body:
 			body.hit(base_damage)
+
 
 func hit(damage : int):
 	if vulnerable:
