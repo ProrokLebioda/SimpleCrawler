@@ -133,9 +133,6 @@ active = true
 [node name="IdleWalkTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="AggroLoseTimer" type="Timer" parent="."]
-one_shot = true
-
 [node name="DamageArea" type="Area2D" parent="."]
 collision_layer = 16
 
@@ -144,9 +141,18 @@ shape = SubResource("CircleShape2D_hpojc")
 
 [node name="HitTimer" type="Timer" parent="."]
 
+[node name="FightStartWaitTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="ChargeTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="body_entered" from="NoticeArea" to="." method="_on_notice_area_body_entered" flags=18]
 [connection signal="body_exited" from="NoticeArea" to="." method="_on_notice_area_body_exited" flags=18]
 [connection signal="timeout" from="IdleWalkTimer" to="." method="_on_idle_walk_timer_timeout" flags=18]
-[connection signal="timeout" from="AggroLoseTimer" to="." method="_on_aggro_lose_timer_timeout" flags=18]
 [connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered" flags=18]
 [connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout" flags=18]
+[connection signal="timeout" from="FightStartWaitTimer" to="." method="_on_fight_start_wait_timer_timeout"]
+[connection signal="timeout" from="ChargeTimer" to="." method="_on_charge_timer_timeout"]

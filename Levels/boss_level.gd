@@ -18,9 +18,9 @@ func _ready():
 func spawn_boss():
 	if !is_visited:
 		var spawn_point = enemies_spawn_points_node.get_children().pick_random()
-		var position = spawn_point.global_position
+		var pos = spawn_point.global_position
 		var boss = boss_scene.instantiate()
-		boss.position = position
+		boss.position = pos
 		# Connect signals for enemies
 		boss.connect("died", _on_enemy_died)
 	
