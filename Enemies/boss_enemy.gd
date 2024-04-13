@@ -40,10 +40,11 @@ func _physics_process(delta):
 	process_state()
 
 func process_state():
+	var dest = Vector2.INF
 	match current_state:
 		ENEMY_STATE.IDLE:
-			velocity = Vector2(0,0)
-			destination = Vector2.INF
+			velocity = Vector2.ZERO
+			dest = Vector2.INF
 		ENEMY_STATE.WALK:
 			flip_sprite_direction(move_direction)
 			velocity = move_direction * move_speed
@@ -56,7 +57,8 @@ func process_state():
 			if can_charge:
 				print("Charging")
 				current_state = ENEMY_STATE.CHARGING
-				destination = Globals.player_pos
+				
+				destination = get_extended_point(position, Globals.player_pos)
 				can_charge = false
 				charge_timer.start(charge_cooldown)
 				
@@ -66,8 +68,9 @@ func process_state():
 				flip_sprite_direction(move_direction)
 				velocity = move_direction * charge_speed
 				move_and_slide()
-			
-				if (position == destination):
+				
+				if (position.distance_to(destination) < 10):
+					print("Boss: Reached destination ")
 					pick_new_state()
 			else:
 				pick_new_state()
@@ -84,6 +87,10 @@ func flip_sprite_direction(move_dir : Vector2):
 		sprite.flip_h = true
 	elif(move_dir.x > 0):
 		sprite.flip_h = false
+func get_extended_point(p, q):
+	var vec = q - p
+	var r = p + 2 * vec
+	return r
 
 func pick_new_state():
 	match current_state:
@@ -102,12 +109,12 @@ func pick_new_state():
 		
 		ENEMY_STATE.AGGRO:
 			state_machine.travel("cow_idle_right")
-			current_state = ENEMY_STATE.IDLE
+			current_state = ENEMY_STATE.WALK
 			idle_walk_timer.start(idle_time)
-#			destination = Globals.player_pos
+			destination = Vector2.INF
 			
 		ENEMY_STATE.CHARGING:
-			state_machine.travel("cow_idle_right")
+			state_machine.travel("cow_walk_right")
 			current_state = ENEMY_STATE.AGGRO
 			
 
@@ -130,7 +137,11 @@ func hit(damage : int):
 func _on_notice_area_body_entered(body):
 	print("Body entered ",body.name )
 	stop_timers()
-	current_state = ENEMY_STATE.CHARGING if can_charge else ENEMY_STATE.AGGRO 
+	if can_charge:
+		current_state = ENEMY_STATE.CHARGING	
+	elif current_state != ENEMY_STATE.CHARGING:
+		current_state = ENEMY_STATE.AGGRO 
+	
 
 func _on_notice_area_body_exited(body):
 	if (current_state == ENEMY_STATE.AGGRO):
@@ -162,6 +173,9 @@ func _on_hit_timer_timeout():
 	sprite.material.set_shader_parameter("progress", 0)
 
 func _on_fight_start_wait_timer_timeout():
+	current_state = ENEMY_STATE.IDLE
+	destination = Vector2.INF
+	move_direction = Vector2.ZERO
 	pick_new_state()
 	
 func _notification(what):
