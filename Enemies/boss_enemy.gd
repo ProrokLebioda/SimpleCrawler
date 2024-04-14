@@ -26,6 +26,7 @@ var hit_timer_wait_time : float = 0.2
 var destination_reached : bool = false
 var can_charge: bool = true
 # Visual stuff
+var is_active = false
 
 var move_direction : Vector2 = Vector2.ZERO
 var current_state : ENEMY_STATE = ENEMY_STATE.IDLE
@@ -37,7 +38,8 @@ func _ready():
 	$FightStartWaitTimer.start()
 
 func _physics_process(delta):
-	process_state()
+	if is_active:
+		process_state()
 
 func process_state():
 	var dest = Vector2.INF
@@ -124,23 +126,25 @@ func stop_timers():
 
 
 func hit(damage : int):
-	if vulnerable:
-		health -= damage
-		vulnerable = false
-		$HitTimer.start(hit_timer_wait_time)
-		sprite.material.set_shader_parameter("progress", 1)
-		
-	if (health <= 0):
-		health = 0
-		queue_free()
+	if is_active:
+		if vulnerable:
+			health -= damage
+			vulnerable = false
+			$HitTimer.start(hit_timer_wait_time)
+			sprite.material.set_shader_parameter("progress", 1)
+			
+		if (health <= 0):
+			health = 0
+			queue_free()
 
 func _on_notice_area_body_entered(body):
-	print("Body entered ",body.name )
-	stop_timers()
-	if can_charge:
-		current_state = ENEMY_STATE.CHARGING	
-	elif current_state != ENEMY_STATE.CHARGING:
-		current_state = ENEMY_STATE.AGGRO 
+	if is_active:
+		print("Body entered ",body.name )
+		stop_timers()
+		if can_charge:
+			current_state = ENEMY_STATE.CHARGING	
+		elif current_state != ENEMY_STATE.CHARGING:
+			current_state = ENEMY_STATE.AGGRO 
 	
 
 func _on_notice_area_body_exited(body):
@@ -173,6 +177,7 @@ func _on_hit_timer_timeout():
 	sprite.material.set_shader_parameter("progress", 0)
 
 func _on_fight_start_wait_timer_timeout():
+	is_active=true
 	current_state = ENEMY_STATE.IDLE
 	destination = Vector2.INF
 	move_direction = Vector2.ZERO
