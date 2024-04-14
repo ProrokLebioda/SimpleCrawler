@@ -1,6 +1,7 @@
 extends RoomParent
 
 @onready var boss_scene: PackedScene = preload("res://Enemies/boss_enemy.tscn")
+@onready var ladder_scene: PackedScene = preload("res://Objects/Statics/ladder_down.tscn")
 @onready var enemies_spawn_points_node: Node2D = $BossSpawnPoints
 
 var enemies_left_count : int = 0
@@ -9,11 +10,13 @@ func _ready():
 	generate_level() # <=== TODO_Fix: A bandaid for when you enter you need to have info about room, but parent execution is called later which means we don't have correct info about visited state
 	spawn_boss()
 	enemies_left_count = enemies_node.get_child_count()
+	spawn_ladder()
 	super()
 	# Get count of enemies
 	print("Number of enemies: ", enemies_left_count)
 	if enemies_left_count <= 0:
 		room_cleared()
+
 	
 func spawn_boss():
 	if !is_visited:
@@ -40,5 +43,17 @@ func _on_enemy_died():
 			room_cleared()
 		
 		#if player cleared last boss, end game
-		if Globals.player_at_level == Levels.levels:
+		if Globals.player_at_level == 3:
 			get_tree().change_scene_to_file("res://UI/game_finished.tscn")
+		else:
+			spawn_ladder()
+
+
+func spawn_ladder():
+	if enemies_left_count <= 0:
+		var ladder = ladder_scene.instantiate()
+		ladder.connect("player_entered_ladder", _on_player_entered_ladder)
+		objects_node.add_child(ladder)
+		
+func _on_player_entered_ladder():
+	print("Change levels")
