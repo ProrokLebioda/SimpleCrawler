@@ -1,4 +1,4 @@
-extends LevelParent
+extends RoomParent
 
 class_name CombatLevel
 

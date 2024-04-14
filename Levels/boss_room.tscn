@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cojksrise12b6"]
+
+[ext_resource type="PackedScene" uid="uid://dhk4h17c6t37c" path="res://Levels/room.tscn" id="1_3mcpo"]
+[ext_resource type="Script" path="res://Levels/boss_room.gd" id="2_npa0h"]
+
+[node name="BossLevel" instance=ExtResource("1_3mcpo")]
+script = ExtResource("2_npa0h")
+
+[node name="BossSpawnPoints" type="Node2D" parent="." index="10"]
+
+[node name="Marker2D" type="Marker2D" parent="BossSpawnPoints" index="0"]

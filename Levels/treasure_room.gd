@@ -1,6 +1,6 @@
-extends LevelParent
+extends RoomParent
 
 func _ready():
 	super()
 	print(room_vector_position)
-	print("Treasure Level loaded")
+	print("Treasure Room loaded")

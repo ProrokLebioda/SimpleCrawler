@@ -1,5 +1,5 @@
 extends Node2D
-class_name LevelParent
+class_name RoomParent
 
 var bullet_scene : PackedScene = preload("res://Characters/Player/bullet.tscn")
 var chest_scene : PackedScene = preload("res://Objects/Interactables/chest_horizontal.tscn")

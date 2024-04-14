@@ -1,4 +1,4 @@
-extends LevelParent
+extends RoomParent
 
 @onready var boss_scene: PackedScene = preload("res://Enemies/boss_enemy.tscn")
 @onready var enemies_spawn_points_node: Node2D = $BossSpawnPoints
