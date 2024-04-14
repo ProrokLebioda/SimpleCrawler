@@ -59,6 +59,7 @@ func pick_new_state():
 func place_at_start(pos):
 	global_position = pos
 	Globals.player_pos = global_position
+	Globals.player_at_level = 1
 
 # "Interfaces"...
 func hit(damage):

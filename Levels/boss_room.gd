@@ -1,4 +1,4 @@
-extends LevelParent
+extends RoomParent
 
 @onready var boss_scene: PackedScene = preload("res://Enemies/boss_enemy.tscn")
 @onready var enemies_spawn_points_node: Node2D = $BossSpawnPoints
@@ -13,7 +13,7 @@ func _ready():
 	# Get count of enemies
 	print("Number of enemies: ", enemies_left_count)
 	if enemies_left_count <= 0:
-		level_cleared()
+		room_cleared()
 	
 func spawn_boss():
 	if !is_visited:
@@ -26,7 +26,7 @@ func spawn_boss():
 	
 		enemies_node.add_child(boss)
 
-func level_cleared():
+func room_cleared():
 	#custom logic
 	if enemies_left_count <= 0:
 		super()
@@ -34,7 +34,11 @@ func level_cleared():
 	
 func _on_enemy_died():
 	enemies_left_count-= 1
-	print("Enemy died! Remaining Enemy count: ", enemies_left_count)
+	print("Boss died! Remaining Boss count: ", enemies_left_count)
 	if (enemies_left_count <= 0):
 		if get_tree() != null:
-			level_cleared()
+			room_cleared()
+		
+		#if player cleared last boss, end game
+		if Globals.player_at_level == Levels.levels:
+			get_tree().change_scene_to_file("res://UI/game_finished.tscn")

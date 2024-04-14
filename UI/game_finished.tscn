@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dn4rq2lunbh0s"]
+
+[ext_resource type="PackedScene" uid="uid://duniv667w1xqw" path="res://UI/game_over.tscn" id="1_d13s7"]
+[ext_resource type="Script" path="res://UI/game_finished.gd" id="2_wr0dm"]
+
+[node name="GameFinished" instance=ExtResource("1_d13s7")]
+script = ExtResource("2_wr0dm")
+
+[node name="Label" parent="." index="0"]
+text = "GAME CLEARED!
+CONGRATULATIONS!"
+horizontal_alignment = 1
+
+[node name="RetryButton" parent="VBoxContainer" index="0"]
+text = "New Game"

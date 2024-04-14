@@ -1,5 +1,5 @@
 extends Node2D
-class_name LevelParent
+class_name RoomParent
 
 var bullet_scene : PackedScene = preload("res://Characters/Player/bullet.tscn")
 var chest_scene : PackedScene = preload("res://Objects/Interactables/chest_horizontal.tscn")
@@ -28,7 +28,7 @@ var is_visited: bool = false
 func _ready():
 	generate_level()
 	place_player()
-	level_cleared()
+	room_cleared()
 	
 
 func generate_level():
@@ -72,7 +72,7 @@ func _on_player_shoot_input_detected(pos, dir):
 	bullet.direction_vector = dir
 	projectiles_node.add_child(bullet)
 
-func level_cleared():
+func room_cleared():
 	if !is_visited:
 		spawn_chest()
 	unlock_doors()

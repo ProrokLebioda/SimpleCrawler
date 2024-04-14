@@ -1,4 +1,4 @@
-extends LevelParent
+extends RoomParent
 
 class_name CombatLevel
 
@@ -16,7 +16,7 @@ func _ready():
 	# Get count of enemies
 	print("Number of enemies: ", enemies_left_count)
 	if enemies_left_count <= 0:
-		level_cleared()
+		room_cleared()
 	
 func spawn_enemies():
 	if !is_visited:
@@ -30,7 +30,7 @@ func spawn_enemies():
 		
 			enemies_node.add_child(new_enemy)
 
-func level_cleared():
+func room_cleared():
 	#custom logic
 	if enemies_left_count <= 0:
 		super()
@@ -41,4 +41,4 @@ func _on_enemy_died():
 	print("Enemy died! Remaining Enemy count: ", enemies_left_count)
 	if (enemies_left_count <= 0):
 		if get_tree() != null:
-			level_cleared()
+			room_cleared()

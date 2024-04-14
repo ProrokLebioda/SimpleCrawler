@@ -2,13 +2,13 @@ extends Node
 class_name Room_struct
 enum ROOM_TYPE{START, SIMPLE_COMBAT, TREASURE, SHOP, BOSS}
 
-var starting_room: String = "res://Levels/starting_level.tscn"
-var combat_room: String = "res://Levels/simple_combat_level.tscn"
+var starting_room: String = "res://Levels/starting_room.tscn"
+var combat_room: String = "res://Levels/simple_combat_room.tscn"
 
 #change this later
-var treasure_room: String = "res://Levels/treasure_level.tscn"
-var shop_room: String = "res://Levels/treasure_level.tscn"
-var boss_room: String = "res://Levels/boss_level.tscn"
+var treasure_room: String = "res://Levels/treasure_room.tscn"
+var shop_room: String = "res://Levels/treasure_room.tscn"
+var boss_room: String = "res://Levels/boss_room.tscn"
 
 func create_room(visited: bool, type: ROOM_TYPE) -> Dictionary:
 	var scene = starting_room

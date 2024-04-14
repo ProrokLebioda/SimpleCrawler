@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://ctb221xfmkp3a"]
 
-[ext_resource type="PackedScene" uid="uid://dhk4h17c6t37c" path="res://Levels/level.tscn" id="1_wbpls"]
-[ext_resource type="Script" path="res://Levels/simple_combat_level.gd" id="2_pj5iq"]
+[ext_resource type="PackedScene" uid="uid://dhk4h17c6t37c" path="res://Levels/room.tscn" id="1_kiflt"]
+[ext_resource type="Script" path="res://Levels/simple_combat_room.gd" id="2_dt67u"]
 
-[node name="SimpleCombatLevel" instance=ExtResource("1_wbpls")]
-script = ExtResource("2_pj5iq")
+[node name="SimpleCombatLevel" instance=ExtResource("1_kiflt")]
+script = ExtResource("2_dt67u")
 enemies_number = 3
 
 [node name="EnemiesSpawnPoints" type="Node2D" parent="." index="10"]
