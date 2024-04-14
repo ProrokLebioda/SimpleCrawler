@@ -10,7 +10,7 @@ func _ready():
 	generate_level() # <=== TODO_Fix: A bandaid for when you enter you need to have info about room, but parent execution is called later which means we don't have correct info about visited state
 	spawn_boss()
 	enemies_left_count = enemies_node.get_child_count()
-	spawn_ladder()
+	spawn_ladder(Vector2(0,0))
 	super()
 	# Get count of enemies
 	print("Number of enemies: ", enemies_left_count)
@@ -35,7 +35,7 @@ func room_cleared():
 		super()
 
 	
-func _on_enemy_died():
+func _on_enemy_died(death_position):
 	enemies_left_count-= 1
 	print("Boss died! Remaining Boss count: ", enemies_left_count)
 	if (enemies_left_count <= 0):
@@ -43,17 +43,23 @@ func _on_enemy_died():
 			room_cleared()
 		
 		#if player cleared last boss, end game
+		# TODO_CHANGE: Change back to checking last available level 
 		if Globals.player_at_level == 3:
 			get_tree().change_scene_to_file("res://UI/game_finished.tscn")
 		else:
-			spawn_ladder()
+			spawn_ladder(death_position)
 
 
-func spawn_ladder():
+func spawn_ladder(spawn_position):
 	if enemies_left_count <= 0:
 		var ladder = ladder_scene.instantiate()
 		ladder.connect("player_entered_ladder", _on_player_entered_ladder)
+		ladder.global_position = spawn_position
 		objects_node.add_child(ladder)
 		
 func _on_player_entered_ladder():
 	print("Change levels")
+	Globals.player_entered = Globals.Entrance.CENTER
+	update_player_room(Vector2(0,0))
+	Levels.rooms[room_vector_position]["is_visited"] = true
+	get_tree().change_scene_to_file("res://Levels/starting_room.tscn")

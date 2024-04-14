@@ -116,6 +116,8 @@ func entered_to_exited(entered: Globals.Entrance):
 			return Globals.Entrance.WEST
 		Globals.Entrance.WEST:
 			return Globals.Entrance.EAST
+		Globals.Entrance.CENTER:
+			return Globals.Entrance.CENTER
 
 func unlock_doors():
 	#check if door will actually lead somewhere?
