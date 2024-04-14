@@ -4,9 +4,13 @@ extends Node
 var number_of_rooms: int = 15
 
 var rooms = {}
-
+var test_room_types = [Room_struct.ROOM_TYPE.SIMPLE_COMBAT,Room_struct.ROOM_TYPE.TREASURE, Room_struct.ROOM_TYPE.BOSS]
+var test_room_no_boss = [Room_struct.ROOM_TYPE.SIMPLE_COMBAT,Room_struct.ROOM_TYPE.TREASURE]
+# for now keep value that boss_room was spawned, to only have one
+var is_boss_room_spawned: bool = false
 func _ready():
-	generate_random_dungeon()
+	#generate_random_dungeon()
+	simple_test_dungeon()
 	
 func clear_rooms_visited_state():
 	for room in rooms:
@@ -47,8 +51,14 @@ func generate_random_dungeon():
 			#when we don't find room in rooms we can create new one,
 			#for now as just a treasure for faster checking
 			var value = randi_range(0, 9)
-			var rand_type : Room_struct.ROOM_TYPE = Room_struct.ROOM_TYPE.SIMPLE_COMBAT if value < 7 else Room_struct.ROOM_TYPE.TREASURE
+			var rand_type : Room_struct.ROOM_TYPE = test_room_types.pick_random()
+			if is_boss_room_spawned and rand_type == Room_struct.ROOM_TYPE.BOSS:
+				# change boss room to other type
+				rand_type = test_room_no_boss.pick_random()
+				
 			rooms[new_room_position] = Room_struct.new().create_room(false, rand_type)
+			if rand_type == Room_struct.ROOM_TYPE.BOSS:
+				is_boss_room_spawned = true
 			room_count += 1
 			key = new_room_position
 		
