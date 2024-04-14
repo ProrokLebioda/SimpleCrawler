@@ -8,6 +8,7 @@ var player_pos: Vector2
 var player_collider_radius: float
 
 var player_room : Vector2 = Vector2(0,0) #start here
+var player_at_level : int = 0
 
 enum Entrance {NONE = 0, CENTER, NORTH, SOUTH, EAST, WEST}
 

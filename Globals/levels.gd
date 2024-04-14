@@ -3,6 +3,8 @@ extends Node
 
 var number_of_rooms: int = 15
 
+
+var levels : int = 1
 var rooms = {}
 var test_room_types = [Room_struct.ROOM_TYPE.SIMPLE_COMBAT,Room_struct.ROOM_TYPE.TREASURE, Room_struct.ROOM_TYPE.BOSS]
 var test_room_no_boss = [Room_struct.ROOM_TYPE.SIMPLE_COMBAT,Room_struct.ROOM_TYPE.TREASURE]
