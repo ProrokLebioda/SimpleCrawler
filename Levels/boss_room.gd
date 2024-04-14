@@ -38,3 +38,7 @@ func _on_enemy_died():
 	if (enemies_left_count <= 0):
 		if get_tree() != null:
 			room_cleared()
+		
+		#if player cleared last boss, end game
+		if Globals.player_at_level == Levels.levels:
+			get_tree().change_scene_to_file("res://UI/game_finished.tscn")

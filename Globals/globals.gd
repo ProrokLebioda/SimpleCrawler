@@ -35,6 +35,7 @@ func player_invulnerable_timer():
 
 
 func reset_player_stats():
+	player_at_level = 0
 	Levels.clear_rooms_visited_state()
 	health = healh_base
 	player_room = Vector2(0,0)
