@@ -44,7 +44,7 @@ func _on_enemy_died(death_position):
 		
 		#if player cleared last boss, end game
 		# TODO_CHANGE: Change back to checking last available level 
-		if Globals.player_at_level == 3:
+		if Globals.player_at_level == Levels.levels:
 			get_tree().change_scene_to_file("res://UI/game_finished.tscn")
 		else:
 			spawn_ladder(death_position)
@@ -60,6 +60,6 @@ func spawn_ladder(spawn_position):
 func _on_player_entered_ladder():
 	print("Change levels")
 	Globals.player_entered = Globals.Entrance.CENTER
-	update_player_room(Vector2(0,0))
+	update_player_room(Vector3(0,0,Globals.player_at_level+1))
 	Levels.rooms[room_vector_position]["is_visited"] = true
 	get_tree().change_scene_to_file("res://Levels/starting_room.tscn")

@@ -56,10 +56,10 @@ func pick_new_state():
 	else:
 		state_machine.travel("Idle")
 
-func place_at_start(pos):
+func place_at_start(pos : Vector2, level_depth : int):
 	global_position = pos
 	Globals.player_pos = global_position
-	Globals.player_at_level = 1
+	Globals.player_at_level = level_depth
 
 # "Interfaces"...
 func hit(damage):

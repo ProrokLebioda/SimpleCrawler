@@ -7,7 +7,7 @@ var healh_base: int =  8
 var player_pos: Vector2
 var player_collider_radius: float
 
-var player_room : Vector2 = Vector2(0,0) #start here
+var player_room : Vector3i = Vector3i(0,0,0) #start here
 var player_at_level : int = 0
 
 enum Entrance {NONE = 0, CENTER, NORTH, SOUTH, EAST, WEST}
@@ -38,4 +38,4 @@ func reset_player_stats():
 	player_at_level = 0
 	Levels.clear_rooms_visited_state()
 	health = healh_base
-	player_room = Vector2(0,0)
+	player_room = Vector3i(0,0,0)
