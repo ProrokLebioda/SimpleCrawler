@@ -1,7 +1,7 @@
 extends CharacterBody2D
 enum ENEMY_STATE {IDLE, WALK, AGGRO, CHARGING}
 
-signal died()
+signal died(death_pos)
 
 @export var move_speed : float = 50
 @export var charge_speed : float = 150
@@ -185,4 +185,4 @@ func _on_fight_start_wait_timer_timeout():
 	
 func _notification(what):
 	if (what == NOTIFICATION_PREDELETE):
-		died.emit()
+		died.emit(position)
