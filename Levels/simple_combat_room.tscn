@@ -5,7 +5,8 @@
 
 [node name="SimpleCombatLevel" instance=ExtResource("1_kiflt")]
 script = ExtResource("2_dt67u")
-enemies_number = 3
+min_enemies_number = 1
+max_enemies_number = 4
 
 [node name="EnemiesSpawnPoints" type="Node2D" parent="." index="10"]
 
