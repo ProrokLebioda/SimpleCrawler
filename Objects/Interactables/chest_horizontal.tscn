@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c87vi7nd4tdcg"]
+[gd_scene load_steps=10 format=3 uid="uid://c87vi7nd4tdcg"]
 
 [ext_resource type="Texture2D" uid="uid://dgnw4tt2aptu4" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Objects/Chest.png" id="1_cchi6"]
 [ext_resource type="Script" path="res://Objects/Interactables/chest_horizontal.gd" id="1_fvp6p"]
 [ext_resource type="PackedScene" uid="uid://cm8sl3j7e1a65" path="res://Objects/Interactables/item_container.tscn" id="1_y1dau"]
+[ext_resource type="AudioStream" uid="uid://n4b1xrqg0b86" path="res://Audio/SFX/3rd Party/kronbits/Retro Blop StereoUP 09.wav" id="4_2aq46"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kl6n8"]
 size = Vector2(16, 9)
@@ -74,5 +75,9 @@ shape = SubResource("CircleShape2D_7st30")
 libraries = {
 "": SubResource("AnimationLibrary_2kddo")
 }
+
+[node name="AudioStreamPlayer" parent="." index="5"]
+stream = ExtResource("4_2aq46")
+bus = &"SFX"
 
 [connection signal="body_entered" from="ChestOpenArea" to="." method="_on_chest_open_area_body_entered"]

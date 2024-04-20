@@ -12,3 +12,5 @@ script = ExtResource("1_wobyw")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 hframes = 4
 frame = 3
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
