@@ -7,8 +7,8 @@ class_name CombatLevel
 
 var enemies_left_count : int = 0
 #@export var enemies_number: int = 3
-@export var min_enemies_number: int = 1
-@export var max_enemies_number: int = 4
+@export var min_enemies_number: int = 3
+@export var max_enemies_number: int = 13
 
 func _ready():
 	generate_level() # <=== TODO_Fix: A bandaid for when you enter you need to have info about room, but parent execution is called later which means we don't have correct info about visited state
@@ -25,7 +25,9 @@ func spawn_enemies():
 		var spawn_points = enemies_spawn_points_node.get_children()
 		
 		var random_number_enemies_count = randi() % max_enemies_number + min_enemies_number
-		for i in random_number_enemies_count:
+		for i in random_number_enemies_count -1:
+			if i >= spawn_points.size():
+				break
 			var position = spawn_points[i].global_position
 			var new_enemy = enemy_scene.instantiate()
 			new_enemy.position = position
