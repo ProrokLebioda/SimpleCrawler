@@ -3,7 +3,7 @@ extends CanvasLayer
 
 func _on_retry_button_pressed():
 	Globals.reset_player_stats()
-	get_tree().change_scene_to_file("res://Levels/starting_level.tscn")
+	get_tree().change_scene_to_file(Room.starting_room)
 	
 
 

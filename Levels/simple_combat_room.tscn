@@ -5,7 +5,8 @@
 
 [node name="SimpleCombatLevel" instance=ExtResource("1_kiflt")]
 script = ExtResource("2_dt67u")
-enemies_number = 3
+min_enemies_number = 3
+max_enemies_number = 13
 
 [node name="EnemiesSpawnPoints" type="Node2D" parent="." index="10"]
 
@@ -23,3 +24,24 @@ position = Vector2(-132, 66)
 
 [node name="Marker2D5" type="Marker2D" parent="EnemiesSpawnPoints" index="4"]
 position = Vector2(120, 60)
+
+[node name="Marker2D6" type="Marker2D" parent="EnemiesSpawnPoints" index="5"]
+position = Vector2(-73, -113)
+
+[node name="Marker2D7" type="Marker2D" parent="EnemiesSpawnPoints" index="6"]
+position = Vector2(57, -114)
+
+[node name="Marker2D8" type="Marker2D" parent="EnemiesSpawnPoints" index="7"]
+position = Vector2(155, -51)
+
+[node name="Marker2D9" type="Marker2D" parent="EnemiesSpawnPoints" index="8"]
+position = Vector2(159, 43)
+
+[node name="Marker2D10" type="Marker2D" parent="EnemiesSpawnPoints" index="9"]
+position = Vector2(-72, 37)
+
+[node name="Marker2D11" type="Marker2D" parent="EnemiesSpawnPoints" index="10"]
+position = Vector2(-156, -39)
+
+[node name="Marker2D12" type="Marker2D" parent="EnemiesSpawnPoints" index="11"]
+position = Vector2(-64, -62)
