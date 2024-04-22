@@ -3,4 +3,5 @@
 [ext_resource type="Script" path="res://Globals/audio_player.gd" id="1_hedti"]
 
 [node name="audio_player" type="AudioStreamPlayer"]
+process_mode = 3
 script = ExtResource("1_hedti")
