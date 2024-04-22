@@ -24,7 +24,11 @@ var area_collision_check : PackedScene = preload("res://Utils/area_collision_che
 @onready var room_vector_position: Vector3i
 var is_visited: bool = false
 
-
+func _physics_process(_delta):
+	var input = Input.get_action_strength("escape")
+	if input > 0:
+		pause()
+		
 func _ready():
 	generate_level()
 	place_player()
@@ -51,6 +55,15 @@ func pick_spawn_point(entrance: Globals.Entrance):
 	for marker in player_starts_node.get_children():
 		if marker.name == spawn_enum_to_string(entrance):
 			return marker
+
+func pause():
+	get_tree().paused = true
+	$Utils/PauseMenu.show()
+
+	
+func unpause():
+	$Utils/PauseMenu.hide()
+	get_tree().paused = false
 
 func spawn_enum_to_string(entrance: Globals.Entrance):
 	match entrance:

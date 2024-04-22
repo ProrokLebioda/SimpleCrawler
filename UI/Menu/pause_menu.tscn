@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0da4lfpcc4eg"]
+
+[ext_resource type="Script" path="res://UI/Menu/pause_menu.gd" id="1_b581s"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_h00ow"]
+device = -1
+keycode = 32
+unicode = 32
+
+[sub_resource type="Shortcut" id="Shortcut_1yvst"]
+events = [SubResource("InputEventKey_h00ow")]
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 2
+script = ExtResource("1_b581s")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.184314, 0.917647, 1, 0.282353)
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -46.0
+offset_right = 20.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "PAUSE MENU"
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.5
+offset_top = -15.5
+offset_right = 45.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+shortcut = SubResource("Shortcut_1yvst")
+text = "CONTINUE"

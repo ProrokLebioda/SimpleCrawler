@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dhk4h17c6t37c"]
+[gd_scene load_steps=19 format=3 uid="uid://dhk4h17c6t37c"]
 
 [ext_resource type="Texture2D" uid="uid://b1r1l8r7pawgc" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Grass.png" id="1_1huxx"]
 [ext_resource type="PackedScene" uid="uid://6ldll4ytnc1b" path="res://Characters/Player/player.tscn" id="1_5hclk"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bctk1ftvr2bw8" path="res://Objects/Statics/door_vertical.tscn" id="10_hidpe"]
 [ext_resource type="PackedScene" uid="uid://bd7smtjx0swck" path="res://UI/ui.tscn" id="10_xdtg1"]
 [ext_resource type="PackedScene" uid="uid://0fgy4h3dp3vh" path="res://Sounds/Music/music_player.tscn" id="11_pbttv"]
+[ext_resource type="PackedScene" uid="uid://b0da4lfpcc4eg" path="res://UI/Menu/pause_menu.tscn" id="12_6evjn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rxvxq"]
 texture = ExtResource("1_1huxx")
@@ -714,8 +715,16 @@ position = Vector2(216, -8)
 
 [node name="MusicPlayer" parent="." instance=ExtResource("11_pbttv")]
 
+[node name="Utils" type="Node" parent="."]
+
+[node name="PauseMenu" parent="Utils" instance=ExtResource("12_6evjn")]
+visible = false
+
 [connection signal="shoot_input_detected" from="Player" to="." method="_on_player_shoot_input_detected"]
 [connection signal="body_entered" from="Doors/DoorNorth" to="." method="_on_door_horizontal_north_body_entered"]
 [connection signal="body_entered" from="Doors/DoorSouth" to="." method="_on_door_horizontal_south_body_entered"]
 [connection signal="body_entered" from="Doors/DoorWest" to="." method="_on_door_horizontal_west_body_entered"]
 [connection signal="body_entered" from="Doors/DoorEast" to="." method="_on_door_horizontal_east_body_entered"]
+[connection signal="pressed" from="Utils/PauseMenu/Button" to="." method="unpause"]
+
+[editable path="Utils/PauseMenu"]
