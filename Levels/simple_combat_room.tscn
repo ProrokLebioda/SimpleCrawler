@@ -52,3 +52,5 @@ position = Vector2(-64, -62)
 [node name="EnemyDiedSound" type="AudioStreamPlayer" parent="Sounds" index="0"]
 stream = ExtResource("3_qhvlb")
 volume_db = -9.154
+
+[editable path="Utils/PauseMenu"]
