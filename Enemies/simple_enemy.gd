@@ -21,6 +21,7 @@ signal died()
 var vulnerable : bool = true
 var hit_timer_wait_time : float = 0.2
 # Visual stuff
+@onready var audio_player = $AudioStreamPlayer
 
 var move_direction : Vector2 = Vector2.ZERO
 var current_state : ENEMY_STATE = ENEMY_STATE.IDLE
@@ -113,6 +114,7 @@ func hit(damage : int):
 		vulnerable = false
 		$HitTimer.start(hit_timer_wait_time)
 		sprite.material.set_shader_parameter("progress", 1)
+		
 		
 	if (health <= 0):
 		health = 0

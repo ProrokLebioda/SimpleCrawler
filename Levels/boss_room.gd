@@ -3,6 +3,7 @@ extends RoomParent
 @onready var boss_scene: PackedScene = preload("res://Enemies/boss_enemy.tscn")
 @onready var ladder_scene: PackedScene = preload("res://Objects/Statics/ladder_down.tscn")
 @onready var enemies_spawn_points_node: Node2D = $BossSpawnPoints
+@onready var enemy_died_sound = $Sounds/EnemyDiedSound
 
 var enemies_left_count : int = 0
 
@@ -38,6 +39,7 @@ func room_cleared():
 func _on_enemy_died(death_position):
 	if get_tree() != null:
 		enemies_left_count-= 1
+		enemy_died_sound.play()
 		print("Boss died! Remaining Boss count: ", enemies_left_count)
 		if (enemies_left_count <= 0):
 			room_cleared()
@@ -45,9 +47,11 @@ func _on_enemy_died(death_position):
 			#if player cleared last boss, end game
 			# TODO_CHANGE: Change back to checking last available level 
 			if Globals.player_at_level == Levels.levels:
+				await enemy_died_sound.finished
 				get_tree().change_scene_to_file("res://UI/game_finished.tscn")
 			else:
 				spawn_ladder(death_position)
+				await enemy_died_sound.finished
 
 
 func spawn_ladder(spawn_position):

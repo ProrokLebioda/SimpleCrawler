@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctb221xfmkp3a"]
+[gd_scene load_steps=4 format=3 uid="uid://ctb221xfmkp3a"]
 
 [ext_resource type="PackedScene" uid="uid://dhk4h17c6t37c" path="res://Levels/room.tscn" id="1_kiflt"]
 [ext_resource type="Script" path="res://Levels/simple_combat_room.gd" id="2_dt67u"]
+[ext_resource type="AudioStream" uid="uid://dcgbax10v1o8l" path="res://Audio/SFX/3rd Party/kronbits/Retro Explosion Short 01.wav" id="3_qhvlb"]
 
 [node name="SimpleCombatLevel" instance=ExtResource("1_kiflt")]
 script = ExtResource("2_dt67u")
@@ -45,3 +46,9 @@ position = Vector2(-156, -39)
 
 [node name="Marker2D12" type="Marker2D" parent="EnemiesSpawnPoints" index="11"]
 position = Vector2(-64, -62)
+
+[node name="Sounds" type="Node" parent="." index="12"]
+
+[node name="EnemyDiedSound" type="AudioStreamPlayer" parent="Sounds" index="0"]
+stream = ExtResource("3_qhvlb")
+volume_db = -9.154

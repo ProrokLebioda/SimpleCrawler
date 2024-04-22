@@ -13,3 +13,5 @@ script = ExtResource("1_vxdvq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
 [node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

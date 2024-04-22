@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://0fgy4h3dp3vh"]
+
+[ext_resource type="AudioStream" uid="uid://dow58wmwwoow6" path="res://Audio/Music/3rd Party/Tallbeard Studios - Chiptune Music/Three Red Hearts - Sanctuary.ogg" id="1_ssrcb"]
+
+[node name="MusicPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_ssrcb")
+volume_db = -20.0
+autoplay = true
+bus = &"Music"

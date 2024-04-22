@@ -3,6 +3,7 @@ extends ItemContainer
 func open_up():
 	if not is_opened:
 		is_opened = true
+		audio_player.play()
 		$AnimationPlayer.play("open_chest")
 		await $AnimationPlayer.animation_finished
 		var pos = $SpawnPoints.get_child(randi()%$SpawnPoints.get_child_count()).global_position

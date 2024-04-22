@@ -10,6 +10,9 @@ var enemies_left_count : int = 0
 @export var min_enemies_number: int = 3
 @export var max_enemies_number: int = 13
 
+@onready var enemy_died_sound = $Sounds/EnemyDiedSound
+
+
 func _ready():
 	generate_level() # <=== TODO_Fix: A bandaid for when you enter you need to have info about room, but parent execution is called later which means we don't have correct info about visited state
 	spawn_enemies()
@@ -44,6 +47,8 @@ func room_cleared():
 	
 func _on_enemy_died():
 	enemies_left_count-= 1
+	if get_tree() != null:
+		enemy_died_sound.play()
 	print("Enemy died! Remaining Enemy count: ", enemies_left_count)
 	if (enemies_left_count <= 0):
 		if get_tree() != null:

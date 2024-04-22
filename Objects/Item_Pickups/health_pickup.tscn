@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cf2osvn31mjeu"]
+[gd_scene load_steps=6 format=3 uid="uid://cf2osvn31mjeu"]
 
 [ext_resource type="PackedScene" uid="uid://chfx00c4icv2i" path="res://Objects/Item_Pickups/item_pickup.tscn" id="1_4kabn"]
 [ext_resource type="Script" path="res://Objects/Item_Pickups/health_pickup.gd" id="2_35fq0"]
 [ext_resource type="Texture2D" uid="uid://iw8ijpna0215" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Objects/Simple_Milk_and_grass_item.png" id="3_r1uq6"]
+[ext_resource type="AudioStream" uid="uid://cg7blnwwx2mjq" path="res://Audio/SFX/3rd Party/kronbits/Retro PowerUP StereoUP 05.wav" id="4_clbqm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oa2n6"]
 
@@ -15,5 +16,10 @@ shape = SubResource("CircleShape2D_oa2n6")
 
 [node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("3_r1uq6")
+
+[node name="AudioStreamPlayer" parent="." index="2"]
+stream = ExtResource("4_clbqm")
+volume_db = -6.93
+bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

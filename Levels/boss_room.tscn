@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cojksrise12b6"]
+[gd_scene load_steps=4 format=3 uid="uid://cojksrise12b6"]
 
 [ext_resource type="PackedScene" uid="uid://dhk4h17c6t37c" path="res://Levels/room.tscn" id="1_3mcpo"]
 [ext_resource type="Script" path="res://Levels/boss_room.gd" id="2_npa0h"]
+[ext_resource type="AudioStream" uid="uid://dcgbax10v1o8l" path="res://Audio/SFX/3rd Party/kronbits/Retro Explosion Short 01.wav" id="3_1n08e"]
 
 [node name="BossLevel" instance=ExtResource("1_3mcpo")]
 script = ExtResource("2_npa0h")
@@ -9,3 +10,9 @@ script = ExtResource("2_npa0h")
 [node name="BossSpawnPoints" type="Node2D" parent="." index="10"]
 
 [node name="Marker2D" type="Marker2D" parent="BossSpawnPoints" index="0"]
+
+[node name="Sounds" type="Node" parent="." index="12"]
+
+[node name="EnemyDiedSound" type="AudioStreamPlayer" parent="Sounds" index="0"]
+stream = ExtResource("3_1n08e")
+volume_db = -1.2
