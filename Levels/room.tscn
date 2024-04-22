@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dhk4h17c6t37c"]
+[gd_scene load_steps=18 format=3 uid="uid://dhk4h17c6t37c"]
 
 [ext_resource type="Texture2D" uid="uid://b1r1l8r7pawgc" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Grass.png" id="1_1huxx"]
 [ext_resource type="PackedScene" uid="uid://6ldll4ytnc1b" path="res://Characters/Player/player.tscn" id="1_5hclk"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://csv6f55u05fs5" path="res://Objects/Statics/door_horizontal.tscn" id="9_8un6m"]
 [ext_resource type="PackedScene" uid="uid://bctk1ftvr2bw8" path="res://Objects/Statics/door_vertical.tscn" id="10_hidpe"]
 [ext_resource type="PackedScene" uid="uid://bd7smtjx0swck" path="res://UI/ui.tscn" id="10_xdtg1"]
-[ext_resource type="PackedScene" uid="uid://0fgy4h3dp3vh" path="res://Sounds/Music/music_player.tscn" id="11_pbttv"]
 [ext_resource type="PackedScene" uid="uid://b0da4lfpcc4eg" path="res://UI/Menu/pause_menu.tscn" id="12_6evjn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rxvxq"]
@@ -712,8 +711,6 @@ position = Vector2(-215, -8)
 
 [node name="East" type="Marker2D" parent="PlayerStarts"]
 position = Vector2(216, -8)
-
-[node name="MusicPlayer" parent="." instance=ExtResource("11_pbttv")]
 
 [node name="Utils" type="Node" parent="."]
 

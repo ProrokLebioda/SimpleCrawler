@@ -30,6 +30,7 @@ func _physics_process(_delta):
 		pause()
 		
 func _ready():
+	AudioPlayer.play_music_level(-12.0)
 	generate_level()
 	place_player()
 	room_cleared()

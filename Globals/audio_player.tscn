@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://drg4iqc832sne"]
+
+[ext_resource type="Script" path="res://Globals/audio_player.gd" id="1_hedti"]
+
+[node name="audio_player" type="AudioStreamPlayer"]
+script = ExtResource("1_hedti")
