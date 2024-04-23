@@ -1,5 +1,8 @@
 extends CanvasLayer
 
+func _ready():
+	if (get_tree().paused):
+		get_tree().paused = false
 
 func _on_new_game_button_pressed():
 	Globals.reset_player_stats()

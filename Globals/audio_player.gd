@@ -24,3 +24,7 @@ func play_FX(stream : AudioStream, volume = 0.0):
 	await fx_player.finished
 	
 	fx_player.queue_free()
+
+func _stop_music():
+	if (stream):
+		stop()

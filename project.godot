@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 Globals="*res://Globals/globals.gd"
 Room="*res://Utils/room.gd"
 Levels="*res://Globals/levels.gd"
+AudioPlayerScript="*res://Globals/audio_player.gd"
 AudioPlayer="*res://Globals/audio_player.tscn"
 
 [display]
