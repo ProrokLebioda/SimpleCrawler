@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://UI/Menu/main_menu.gd" id="1_1kbif"]
 
 [node name="main_menu" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_1kbif")
 
 [node name="Label" type="Label" parent="."]

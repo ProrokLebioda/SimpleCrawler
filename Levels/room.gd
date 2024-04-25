@@ -30,10 +30,10 @@ func _physics_process(_delta):
 		pause()
 		
 func _ready():
-	AudioPlayer.play_music_level(-12.0)
 	generate_level()
 	place_player()
 	room_cleared()
+	AudioPlayer.play_music_level(-12.0)
 	
 
 func generate_level():
@@ -220,3 +220,10 @@ func update_player_room(new_room_pos: Vector3):
 func on_room_leave():
 	room = Levels.rooms[room_vector_position]
 	room["is_visited"] = true
+
+func _on_main_menu_button_pressed():
+	AudioPlayer._stop_music()
+	get_tree().change_scene_to_file("res://UI/Menu/main_menu.tscn")
+
+func _on_quit_button_pressed():
+	get_tree().quit()
