@@ -13,3 +13,5 @@ position = Vector2(-93, 63)
 
 [node name="LadderDown" parent="Objects" index="1" instance=ExtResource("4_qmbus")]
 position = Vector2(92, 88)
+
+[editable path="Utils/PauseMenu"]
