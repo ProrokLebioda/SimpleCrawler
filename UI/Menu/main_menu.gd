@@ -10,7 +10,7 @@ func _on_new_game_button_pressed():
 	
 
 func _on_settings_button_pressed():
-	pass
+	get_tree().change_scene_to_file("res://UI/Menu/settings_menu.tscn")
 
 func _on_quit_button_pressed():
 	get_tree().quit()

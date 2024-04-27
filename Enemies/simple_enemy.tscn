@@ -1,9 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://dbspbpq1j55yt"]
+[gd_scene load_steps=18 format=3 uid="uid://dbspbpq1j55yt"]
 
 [ext_resource type="Script" path="res://Enemies/simple_enemy.gd" id="1_5tpgt"]
 [ext_resource type="Texture2D" uid="uid://c48vwf8xddoyo" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Characters/Free Chicken Sprites.png" id="1_jj2hw"]
 [ext_resource type="Shader" path="res://Enemies/Shaders/simple_enemy.gdshader" id="2_usrbl"]
-[ext_resource type="AudioStream" uid="uid://dcgbax10v1o8l" path="res://Audio/SFX/3rd Party/kronbits/Retro Explosion Short 01.wav" id="4_hrjtw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jayp6"]
 resource_local_to_scene = true
@@ -143,10 +142,6 @@ collision_layer = 16
 shape = SubResource("CircleShape2D_hpojc")
 
 [node name="HitTimer" type="Timer" parent="."]
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_hrjtw")
-volume_db = -11.493
 
 [connection signal="body_entered" from="NoticeArea" to="." method="_on_notice_area_body_entered"]
 [connection signal="body_exited" from="NoticeArea" to="." method="_on_notice_area_body_exited"]

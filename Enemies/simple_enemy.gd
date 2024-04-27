@@ -21,7 +21,6 @@ signal died()
 var vulnerable : bool = true
 var hit_timer_wait_time : float = 0.2
 # Visual stuff
-@onready var audio_player = $AudioStreamPlayer
 
 var move_direction : Vector2 = Vector2.ZERO
 var current_state : ENEMY_STATE = ENEMY_STATE.IDLE
