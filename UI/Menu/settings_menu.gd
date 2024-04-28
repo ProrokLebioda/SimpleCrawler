@@ -3,9 +3,6 @@ extends CanvasLayer
 @onready var SFX_BUS_ID = AudioServer.get_bus_index(("SFX"))
 @onready var MUSIC_BUS_ID = AudioServer.get_bus_index(("Music"))
 
-func _on_back_button_pressed():
-	get_tree().change_scene_to_file("res://UI/Menu/main_menu.tscn")
-
 
 func _on_music_slider_value_changed(value):
 	AudioServer.set_bus_volume_db(MUSIC_BUS_ID, linear_to_db(value))

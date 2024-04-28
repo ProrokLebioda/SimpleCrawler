@@ -1,16 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0da4lfpcc4eg"]
+[gd_scene load_steps=5 format=3 uid="uid://b0da4lfpcc4eg"]
 
 [ext_resource type="Script" path="res://UI/Menu/pause_menu.gd" id="1_b581s"]
+[ext_resource type="PackedScene" uid="uid://bekvl4ptfvpxq" path="res://UI/Menu/settings_menu.tscn" id="2_suyqf"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_h00ow"]
 device = -1
 keycode = 4194305
+physical_keycode = 4194305
+key_label = 4194305
 
 [sub_resource type="Shortcut" id="Shortcut_1yvst"]
 events = [SubResource("InputEventKey_h00ow")]
 
 [node name="PauseMenu" type="CanvasLayer"]
 process_mode = 2
+offset = Vector2(-960, -540)
+transform = Transform2D(1, 0, 0, 1, -960, -540)
 script = ExtResource("1_b581s")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -19,63 +24,65 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
 color = Color(0.184314, 0.917647, 1, 0.282353)
 
-[node name="Label" type="Label" parent="."]
+[node name="PauseMenuLayout" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -46.0
+offset_top = -20.0
 offset_right = 20.0
-offset_bottom = -23.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "PAUSE MENU"
+size_flags_horizontal = 8
 
-[node name="Button" type="Button" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuLayout"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -45.5
-offset_top = -15.5
-offset_right = 45.5
-offset_bottom = 15.5
+offset_left = -52.0
+offset_top = -83.0
+offset_right = 52.0
+offset_bottom = 83.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="PauseMenuLayout/VBoxContainer"]
+layout_mode = 2
+text = "PAUSE MENU"
+
+[node name="ContinueButton" type="Button" parent="PauseMenuLayout/VBoxContainer"]
+layout_mode = 2
 shortcut = SubResource("Shortcut_1yvst")
 text = "CONTINUE"
 
-[node name="Button2" type="Button" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -45.0
-offset_top = 24.0
-offset_right = 46.0
-offset_bottom = 55.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="SettingsButton" type="Button" parent="PauseMenuLayout/VBoxContainer"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_1yvst")
+text = "SETTINGS"
+
+[node name="MainMenuButton" type="Button" parent="PauseMenuLayout/VBoxContainer"]
+layout_mode = 2
 shortcut = SubResource("Shortcut_1yvst")
 text = "MAIN MENU"
 
-[node name="Button3" type="Button" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -45.0
-offset_top = 63.0
-offset_right = 46.0
-offset_bottom = 94.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="QuitButton" type="Button" parent="PauseMenuLayout/VBoxContainer"]
+layout_mode = 2
 shortcut = SubResource("Shortcut_1yvst")
 text = "QUIT"
+
+[node name="settings_menu" parent="." instance=ExtResource("2_suyqf")]
+visible = false
+
+[editable path="settings_menu"]

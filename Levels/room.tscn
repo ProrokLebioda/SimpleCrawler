@@ -654,6 +654,7 @@ layer_2/tile_data = PackedInt32Array()
 position = Vector2(-100, -16)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(960, 552)
 
 [node name="Projectiles" type="Node2D" parent="."]
 
@@ -717,13 +718,16 @@ position = Vector2(216, -8)
 [node name="PauseMenu" parent="Utils" instance=ExtResource("12_6evjn")]
 visible = false
 
-[node name="Button" parent="Utils/PauseMenu" index="2"]
+[node name="ContinueButton" parent="Utils/PauseMenu/PauseMenuLayout/VBoxContainer" index="1"]
 shortcut = null
 
-[node name="Button2" parent="Utils/PauseMenu" index="3"]
+[node name="SettingsButton" parent="Utils/PauseMenu/PauseMenuLayout/VBoxContainer" index="2"]
 shortcut = null
 
-[node name="Button3" parent="Utils/PauseMenu" index="4"]
+[node name="MainMenuButton" parent="Utils/PauseMenu/PauseMenuLayout/VBoxContainer" index="3"]
+shortcut = null
+
+[node name="QuitButton" parent="Utils/PauseMenu/PauseMenuLayout/VBoxContainer" index="4"]
 shortcut = null
 
 [connection signal="shoot_input_detected" from="Player" to="." method="_on_player_shoot_input_detected"]
@@ -731,8 +735,10 @@ shortcut = null
 [connection signal="body_entered" from="Doors/DoorSouth" to="." method="_on_door_horizontal_south_body_entered"]
 [connection signal="body_entered" from="Doors/DoorWest" to="." method="_on_door_horizontal_west_body_entered"]
 [connection signal="body_entered" from="Doors/DoorEast" to="." method="_on_door_horizontal_east_body_entered"]
-[connection signal="pressed" from="Utils/PauseMenu/Button" to="." method="pause"]
-[connection signal="pressed" from="Utils/PauseMenu/Button2" to="." method="_on_main_menu_button_pressed"]
-[connection signal="pressed" from="Utils/PauseMenu/Button3" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Utils/PauseMenu/PauseMenuLayout/VBoxContainer/ContinueButton" to="." method="_on_pause"]
+[connection signal="pressed" from="Utils/PauseMenu/PauseMenuLayout/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Utils/PauseMenu/PauseMenuLayout/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="Utils/PauseMenu/PauseMenuLayout/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 
 [editable path="Utils/PauseMenu"]
+[editable path="Utils/PauseMenu/settings_menu"]
