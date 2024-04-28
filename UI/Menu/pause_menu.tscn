@@ -14,8 +14,6 @@ events = [SubResource("InputEventKey_h00ow")]
 
 [node name="PauseMenu" type="CanvasLayer"]
 process_mode = 2
-offset = Vector2(-960, -540)
-transform = Transform2D(1, 0, 0, 1, -960, -540)
 script = ExtResource("1_b581s")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -84,5 +82,8 @@ text = "QUIT"
 
 [node name="settings_menu" parent="." instance=ExtResource("2_suyqf")]
 visible = false
+
+[connection signal="pressed" from="PauseMenuLayout/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="settings_menu/SettingsMenu/MarginContainer/VBoxContainer/BackButton" to="." method="_on_settings_button_pressed"]
 
 [editable path="settings_menu"]
