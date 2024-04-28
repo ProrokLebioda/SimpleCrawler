@@ -24,9 +24,8 @@ var area_collision_check : PackedScene = preload("res://Utils/area_collision_che
 @onready var room_vector_position: Vector3i
 var is_visited: bool = false
 
-func _physics_process(_delta):
-	var input = Input.get_action_strength("escape")
-	if input > 0:
+func _input(event):
+	if event.is_action_pressed("escape"):
 		pause()
 		
 func _ready():
@@ -58,13 +57,8 @@ func pick_spawn_point(entrance: Globals.Entrance):
 			return marker
 
 func pause():
-	get_tree().paused = true
-	$Utils/PauseMenu.show()
-
-	
-func unpause():
-	$Utils/PauseMenu.hide()
-	get_tree().paused = false
+	get_tree().paused = !get_tree().paused
+	$Utils/PauseMenu.visible = !$Utils/PauseMenu.visible
 
 func spawn_enum_to_string(entrance: Globals.Entrance):
 	match entrance:

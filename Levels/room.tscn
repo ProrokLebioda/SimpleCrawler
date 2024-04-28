@@ -717,12 +717,21 @@ position = Vector2(216, -8)
 [node name="PauseMenu" parent="Utils" instance=ExtResource("12_6evjn")]
 visible = false
 
+[node name="Button" parent="Utils/PauseMenu" index="2"]
+shortcut = null
+
+[node name="Button2" parent="Utils/PauseMenu" index="3"]
+shortcut = null
+
+[node name="Button3" parent="Utils/PauseMenu" index="4"]
+shortcut = null
+
 [connection signal="shoot_input_detected" from="Player" to="." method="_on_player_shoot_input_detected"]
 [connection signal="body_entered" from="Doors/DoorNorth" to="." method="_on_door_horizontal_north_body_entered"]
 [connection signal="body_entered" from="Doors/DoorSouth" to="." method="_on_door_horizontal_south_body_entered"]
 [connection signal="body_entered" from="Doors/DoorWest" to="." method="_on_door_horizontal_west_body_entered"]
 [connection signal="body_entered" from="Doors/DoorEast" to="." method="_on_door_horizontal_east_body_entered"]
-[connection signal="pressed" from="Utils/PauseMenu/Button" to="." method="unpause"]
+[connection signal="pressed" from="Utils/PauseMenu/Button" to="." method="pause"]
 [connection signal="pressed" from="Utils/PauseMenu/Button2" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="Utils/PauseMenu/Button3" to="." method="_on_quit_button_pressed"]
 
