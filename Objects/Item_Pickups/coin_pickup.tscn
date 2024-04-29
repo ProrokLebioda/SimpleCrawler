@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://bvfpenuyrn1jk"]
+
+[ext_resource type="PackedScene" uid="uid://chfx00c4icv2i" path="res://Objects/Item_Pickups/item_pickup.tscn" id="1_jm6h8"]
+[ext_resource type="Texture2D" uid="uid://c7x54j23e5igu" path="res://Art/3rdParty/lil-cthulhu/Coin-Sheet.png" id="2_aba5e"]
+[ext_resource type="Script" path="res://Objects/Item_Pickups/coin_pickup.gd" id="2_y6bcs"]
+[ext_resource type="AudioStream" uid="uid://vuk2sqxux2t5" path="res://Audio/SFX/3rd Party/kronbits/Retro PickUp Coin 04.wav" id="3_0mwkj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ogu8a"]
+radius = 4.0
+
+[node name="CoinPickup" instance=ExtResource("1_jm6h8")]
+script = ExtResource("2_y6bcs")
+coin_amount = 2.0
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_ogu8a")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_aba5e")
+frame = 0
+
+[node name="AudioStreamPlayer" parent="." index="2"]
+stream = ExtResource("3_0mwkj")
+volume_db = -5.758
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
