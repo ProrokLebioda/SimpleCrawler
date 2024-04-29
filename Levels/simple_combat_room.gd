@@ -5,6 +5,8 @@ class_name CombatLevel
 @onready var enemy_scene: PackedScene = preload("res://Enemies/simple_enemy.tscn")
 @onready var enemies_spawn_points_node: Node2D = $EnemiesSpawnPoints
 
+@onready var coin_scene: PackedScene = preload("res://Objects/Item_Pickups/coin_pickup.tscn")
+
 var enemies_left_count : int = 0
 #@export var enemies_number: int = 3
 @export var min_enemies_number: int = 3
@@ -45,11 +47,18 @@ func room_cleared():
 		super()
 
 	
-func _on_enemy_died():
+func _on_enemy_died(death_position):
 	enemies_left_count-= 1
 	if get_tree() != null:
+		spawn_coin(death_position)
 		enemy_died_sound.play()
 	print("Enemy died! Remaining Enemy count: ", enemies_left_count)
 	if (enemies_left_count <= 0):
 		if get_tree() != null:
 			room_cleared()
+
+func spawn_coin(spawn_position):
+	if get_tree() != null:
+		var coin = coin_scene.instantiate()
+		coin.global_position = spawn_position
+		objects_node.add_child(coin)

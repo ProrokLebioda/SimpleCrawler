@@ -27,6 +27,14 @@ var health = healh_base:
 				health = value
 		stat_change.emit()
 
+var coins = 0:
+	get:
+		return coins
+	set(value):
+		coins = value
+		stat_change.emit()
+		
+
 var player_vulnerable: bool = true
 
 func player_invulnerable_timer():
@@ -38,4 +46,5 @@ func reset_player_stats():
 	player_at_level = 0
 	Levels.clear_rooms_visited_state()
 	health = healh_base
+	coins = 0
 	player_room = Vector3i(0,0,0)

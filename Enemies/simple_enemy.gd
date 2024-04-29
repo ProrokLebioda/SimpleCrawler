@@ -125,4 +125,4 @@ func _on_hit_timer_timeout():
 
 func _notification(what):
 	if (what == NOTIFICATION_PREDELETE):
-		died.emit()
+		died.emit(position)

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqh63k842lvkj"]
+[gd_scene load_steps=6 format=3 uid="uid://bqh63k842lvkj"]
 
 [ext_resource type="PackedScene" uid="uid://dhk4h17c6t37c" path="res://Levels/room.tscn" id="1_bgqbm"]
 [ext_resource type="Script" path="res://Levels/starting_room.gd" id="2_fgycq"]
 [ext_resource type="PackedScene" uid="uid://cf2osvn31mjeu" path="res://Objects/Item_Pickups/health_pickup.tscn" id="3_p6igx"]
 [ext_resource type="PackedScene" uid="uid://bto21fhxot8q8" path="res://Objects/Statics/ladder_down.tscn" id="4_qmbus"]
+[ext_resource type="PackedScene" uid="uid://bvfpenuyrn1jk" path="res://Objects/Item_Pickups/coin_pickup.tscn" id="5_g0ly5"]
 
 [node name="StartingLevel" instance=ExtResource("1_bgqbm")]
 script = ExtResource("2_fgycq")
@@ -13,6 +14,9 @@ position = Vector2(-93, 63)
 
 [node name="LadderDown" parent="Objects" index="1" instance=ExtResource("4_qmbus")]
 position = Vector2(92, 88)
+
+[node name="CoinPickup" parent="Objects" index="2" instance=ExtResource("5_g0ly5")]
+position = Vector2(-56, 58)
 
 [editable path="Utils/PauseMenu"]
 [editable path="Utils/PauseMenu/settings_menu"]

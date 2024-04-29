@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=3 uid="uid://bvfpenuyrn1jk"]
+
+[ext_resource type="PackedScene" uid="uid://chfx00c4icv2i" path="res://Objects/Item_Pickups/item_pickup.tscn" id="1_jm6h8"]
+[ext_resource type="Texture2D" uid="uid://c7x54j23e5igu" path="res://Art/3rdParty/lil-cthulhu/Coin-Sheet.png" id="2_aba5e"]
+[ext_resource type="Script" path="res://Objects/Item_Pickups/coin_pickup.gd" id="2_y6bcs"]
+[ext_resource type="AudioStream" uid="uid://vuk2sqxux2t5" path="res://Audio/SFX/3rd Party/kronbits/Retro PickUp Coin 04.wav" id="3_0mwkj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ogu8a"]
+radius = 4.0
+
+[sub_resource type="Animation" id="Animation_hltw5"]
+resource_name = "coin_turn"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_mcrkf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o3xv0"]
+_data = {
+"RESET": SubResource("Animation_mcrkf"),
+"coin_turn": SubResource("Animation_hltw5")
+}
+
+[node name="CoinPickup" instance=ExtResource("1_jm6h8")]
+script = ExtResource("2_y6bcs")
+coin_amount = 2.0
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_ogu8a")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_aba5e")
+frame = 0
+
+[node name="AudioStreamPlayer" parent="." index="2"]
+stream = ExtResource("3_0mwkj")
+volume_db = -5.758
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+process_mode = 1
+autoplay = "coin_turn"
+libraries = {
+"": SubResource("AnimationLibrary_o3xv0")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
