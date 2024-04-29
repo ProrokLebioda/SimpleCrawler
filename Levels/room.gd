@@ -60,6 +60,8 @@ func pick_spawn_point(entrance: Globals.Entrance):
 func _on_pause():
 	get_tree().paused = !get_tree().paused
 	$Utils/PauseMenu.visible = !$Utils/PauseMenu.visible
+	if $Utils/PauseMenu.visible:
+		$Utils/PauseMenu/PauseMenuLayout/VBoxContainer/ContinueButton.grab_focus()
 
 func spawn_enum_to_string(entrance: Globals.Entrance):
 	match entrance:
