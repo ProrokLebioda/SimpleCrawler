@@ -16,7 +16,7 @@ position = Vector2(-93, 63)
 position = Vector2(92, 88)
 
 [node name="CoinPickup" parent="Objects" index="2" instance=ExtResource("5_g0ly5")]
-position = Vector2(-56, 61)
+position = Vector2(-56, 58)
 
 [editable path="Utils/PauseMenu"]
 [editable path="Utils/PauseMenu/settings_menu"]
