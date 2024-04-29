@@ -27,4 +27,5 @@ func play_FX(stream : AudioStream, volume = 0.0):
 
 func _stop_music():
 	if (stream):
+		stream = null
 		stop()

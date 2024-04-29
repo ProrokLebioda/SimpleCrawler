@@ -16,3 +16,7 @@ script = ExtResource("2_npa0h")
 [node name="EnemyDiedSound" type="AudioStreamPlayer" parent="Sounds" index="0"]
 stream = ExtResource("3_1n08e")
 volume_db = -1.2
+bus = &"SFX"
+
+[editable path="Utils/PauseMenu"]
+[editable path="Utils/PauseMenu/settings_menu"]

@@ -18,16 +18,16 @@ var area_collision_check : PackedScene = preload("res://Utils/area_collision_che
 # Scenes to transition
 #@onready var north_scene : String = "res://Levels/combat_level.tscn"
 #@onready var south_scene : String = "res://Levels/combat_level.tscn"
-
+@onready var pause_menu = $Utils/PauseMenu/PauseMenuLayout
+@onready var settings_menu = $Utils/PauseMenu/settings_menu
 
 @onready var room: Dictionary
 @onready var room_vector_position: Vector3i
 var is_visited: bool = false
 
-func _physics_process(_delta):
-	var input = Input.get_action_strength("escape")
-	if input > 0:
-		pause()
+func _input(event):
+	if event.is_action_pressed("escape"):
+		_on_pause()
 		
 func _ready():
 	generate_level()
@@ -57,14 +57,11 @@ func pick_spawn_point(entrance: Globals.Entrance):
 		if marker.name == spawn_enum_to_string(entrance):
 			return marker
 
-func pause():
-	get_tree().paused = true
-	$Utils/PauseMenu.show()
-
-	
-func unpause():
-	$Utils/PauseMenu.hide()
-	get_tree().paused = false
+func _on_pause():
+	get_tree().paused = !get_tree().paused
+	$Utils/PauseMenu.visible = !$Utils/PauseMenu.visible
+	if $Utils/PauseMenu.visible:
+		$Utils/PauseMenu/PauseMenuLayout/VBoxContainer/ContinueButton.grab_focus()
 
 func spawn_enum_to_string(entrance: Globals.Entrance):
 	match entrance:
@@ -227,3 +224,7 @@ func _on_main_menu_button_pressed():
 
 func _on_quit_button_pressed():
 	get_tree().quit()
+
+
+func _on_settings_button_pressed():
+	pass # Replace with function body.
