@@ -7,7 +7,7 @@ var combat_room: String = "res://Levels/simple_combat_room.tscn"
 
 #change this later
 var treasure_room: String = "res://Levels/treasure_room.tscn"
-var shop_room: String = "res://Levels/treasure_room.tscn"
+var shop_room: String = "res://Levels/shop_room.tscn"
 var boss_room: String = "res://Levels/boss_room.tscn"
 
 func create_room(visited: bool, type: ROOM_TYPE) -> Dictionary:

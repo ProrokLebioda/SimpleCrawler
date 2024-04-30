@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://rs0e5b7fc1yo"]
+
+[ext_resource type="PackedScene" uid="uid://dhk4h17c6t37c" path="res://Levels/room.tscn" id="1_ahyyp"]
+[ext_resource type="Script" path="res://Levels/shop_room.gd" id="2_d4j26"]
+[ext_resource type="PackedScene" uid="uid://bj0gsd2yqidv4" path="res://Objects/Interactables/shop_stand.tscn" id="3_ayv6l"]
+[ext_resource type="PackedScene" uid="uid://cf2osvn31mjeu" path="res://Objects/Item_Pickups/health_pickup.tscn" id="4_ojcqg"]
+
+[node name="ShopRoom" instance=ExtResource("1_ahyyp")]
+script = ExtResource("2_d4j26")
+
+[node name="ShopStand" parent="Objects" index="0" instance=ExtResource("3_ayv6l")]
+position = Vector2(80, 0)
+health_pickup_scene = ExtResource("4_ojcqg")
+
+[editable path="Utils/PauseMenu"]
+[editable path="Utils/PauseMenu/settings_menu"]
