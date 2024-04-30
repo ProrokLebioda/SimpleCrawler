@@ -60,6 +60,7 @@ frame = 0
 [node name="AudioStreamPlayer" parent="." index="2"]
 stream = ExtResource("3_0mwkj")
 volume_db = -5.758
+bus = &"SFX"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 process_mode = 1
