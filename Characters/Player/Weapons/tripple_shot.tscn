@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://8yvpbpi4u4xy"]
+
+[ext_resource type="PackedScene" uid="uid://djgnmls4kwyiu" path="res://Characters/Player/Weapons/weapon.tscn" id="1_4jour"]
+[ext_resource type="Script" path="res://Characters/Player/Weapons/tripple_shot.gd" id="2_0vpbm"]
+
+[node name="TrippleShot" instance=ExtResource("1_4jour")]
+script = ExtResource("2_0vpbm")

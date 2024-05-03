@@ -1,5 +1,5 @@
 extends Area2D
-
+class_name BulletBase
 var direction_vector : Vector2 = Vector2.ZERO
 @export var speed : int = 200
 @export var projectile_lifetime : float = 4

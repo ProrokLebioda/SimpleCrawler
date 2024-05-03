@@ -1,7 +1,7 @@
 extends Node2D
 class_name RoomParent
 
-var bullet_scene : PackedScene = preload("res://Characters/Player/bullet.tscn")
+#var bullet_scene : PackedScene = preload("res://Characters/Player/bullet.tscn")
 var chest_scene : PackedScene = preload("res://Objects/Interactables/chest_horizontal.tscn")
 var health_pickup_scene: PackedScene = preload("res://Objects/Item_Pickups/health_pickup.tscn")
 
@@ -24,6 +24,10 @@ var area_collision_check : PackedScene = preload("res://Utils/area_collision_che
 @onready var room: Dictionary
 @onready var room_vector_position: Vector3i
 var is_visited: bool = false
+
+
+# Player weapon stuff
+@export var current_weapon: WeaponBase
 
 func _input(event):
 	if event.is_action_pressed("escape"):
@@ -77,11 +81,13 @@ func spawn_enum_to_string(entrance: Globals.Entrance):
 			return 'Center'
 
 func _on_player_shoot_input_detected(pos, dir):
-	var bullet = bullet_scene.instantiate() as Area2D
-	bullet.position = pos
-	bullet.rotation_degrees = rad_to_deg(dir.angle()) + 90.0
-	bullet.direction_vector = dir
-	projectiles_node.add_child(bullet)
+	if current_weapon != null:
+		var bullets = current_weapon.fire(pos, dir)
+		
+		for bullet in bullets:
+			projectiles_node.add_child(bullet)
+	else:
+		print_verbose("No weapon")
 
 func room_cleared():
 	if !is_visited:

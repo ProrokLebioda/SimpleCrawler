@@ -14,6 +14,8 @@ extends CharacterBody2D
 
 var can_shoot : bool = true
 
+
+
 # Signals
 signal shoot_input_detected(pos, dir)
 
@@ -43,6 +45,7 @@ func _physics_process(delta):
 	)
 	
 	if (shoot_direction != Vector2.ZERO) and can_shoot:
+		#Fix sound issues
 		can_shoot = false
 		audio_player.play()
 		shoot_timer.start(shoot_cooldown)

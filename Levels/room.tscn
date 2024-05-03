@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dhk4h17c6t37c"]
+[gd_scene load_steps=19 format=3 uid="uid://dhk4h17c6t37c"]
 
 [ext_resource type="Texture2D" uid="uid://b1r1l8r7pawgc" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Tilesets/Grass.png" id="1_1huxx"]
 [ext_resource type="PackedScene" uid="uid://6ldll4ytnc1b" path="res://Characters/Player/player.tscn" id="1_5hclk"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bctk1ftvr2bw8" path="res://Objects/Statics/door_vertical.tscn" id="10_hidpe"]
 [ext_resource type="PackedScene" uid="uid://bd7smtjx0swck" path="res://UI/ui.tscn" id="10_xdtg1"]
 [ext_resource type="PackedScene" uid="uid://b0da4lfpcc4eg" path="res://UI/Menu/pause_menu.tscn" id="12_6evjn"]
+[ext_resource type="PackedScene" uid="uid://8yvpbpi4u4xy" path="res://Characters/Player/Weapons/tripple_shot.tscn" id="12_otrph"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rxvxq"]
 texture = ExtResource("1_1huxx")
@@ -624,10 +625,11 @@ sources/2 = SubResource("TileSetAtlasSource_2dyoi")
 sources/3 = SubResource("TileSetAtlasSource_2ythd")
 sources/4 = SubResource("TileSetAtlasSource_r2g4c")
 
-[node name="Level" type="Node2D"]
+[node name="Level" type="Node2D" node_paths=PackedStringArray("current_weapon")]
 process_mode = 1
 y_sort_enabled = true
 script = ExtResource("1_wgus1")
+current_weapon = NodePath("PlayerWeapon/TrippleShot")
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -729,6 +731,10 @@ shortcut = null
 
 [node name="QuitButton" parent="Utils/PauseMenu/PauseMenuLayout/VBoxContainer" index="4"]
 shortcut = null
+
+[node name="PlayerWeapon" type="Node2D" parent="."]
+
+[node name="TrippleShot" parent="PlayerWeapon" instance=ExtResource("12_otrph")]
 
 [connection signal="shoot_input_detected" from="Player" to="." method="_on_player_shoot_input_detected"]
 [connection signal="body_entered" from="Doors/DoorNorth" to="." method="_on_door_horizontal_north_body_entered"]
