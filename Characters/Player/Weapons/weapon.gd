@@ -1,7 +1,7 @@
 extends Node2D
 class_name WeaponBase
 
-var bullet_scene : PackedScene = preload("res://Characters/Player/Weapons/bullet.tscn")
+@export var bullet_scene : PackedScene = preload("res://Characters/Player/Weapons/Bullets/bullet.tscn")
 
 var weapon_name : String = "WeaponBase"
 

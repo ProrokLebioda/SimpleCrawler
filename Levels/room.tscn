@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bctk1ftvr2bw8" path="res://Objects/Statics/door_vertical.tscn" id="10_hidpe"]
 [ext_resource type="PackedScene" uid="uid://bd7smtjx0swck" path="res://UI/ui.tscn" id="10_xdtg1"]
 [ext_resource type="PackedScene" uid="uid://b0da4lfpcc4eg" path="res://UI/Menu/pause_menu.tscn" id="12_6evjn"]
-[ext_resource type="PackedScene" uid="uid://8yvpbpi4u4xy" path="res://Characters/Player/Weapons/tripple_shot.tscn" id="12_otrph"]
+[ext_resource type="PackedScene" uid="uid://c5vh5ah6okuma" path="res://Characters/Player/Weapons/rotating_weapon.tscn" id="12_jnniw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rxvxq"]
 texture = ExtResource("1_1huxx")
@@ -629,7 +629,7 @@ sources/4 = SubResource("TileSetAtlasSource_r2g4c")
 process_mode = 1
 y_sort_enabled = true
 script = ExtResource("1_wgus1")
-current_weapon = NodePath("PlayerWeapon/TrippleShot")
+current_weapon = NodePath("PlayerWeapon/RotatingWeapon")
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -734,7 +734,7 @@ shortcut = null
 
 [node name="PlayerWeapon" type="Node2D" parent="."]
 
-[node name="TrippleShot" parent="PlayerWeapon" instance=ExtResource("12_otrph")]
+[node name="RotatingWeapon" parent="PlayerWeapon" instance=ExtResource("12_jnniw")]
 
 [connection signal="shoot_input_detected" from="Player" to="." method="_on_player_shoot_input_detected"]
 [connection signal="body_entered" from="Doors/DoorNorth" to="." method="_on_door_horizontal_north_body_entered"]

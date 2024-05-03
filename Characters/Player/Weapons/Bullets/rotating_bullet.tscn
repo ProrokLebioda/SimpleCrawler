@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbyn4bex5ih3g"]
+
+[ext_resource type="PackedScene" uid="uid://by3ol0xetwdp8" path="res://Characters/Player/Weapons/Bullets/bullet.tscn" id="1_4iyoe"]
+[ext_resource type="Script" path="res://Characters/Player/Weapons/Bullets/rotating_bullet.gd" id="2_w7ymb"]
+
+[node name="RotatingBullet" instance=ExtResource("1_4iyoe")]
+script = ExtResource("2_w7ymb")
+rotation_amount_degrees = 20.0
+rotation_radius = 10.0
