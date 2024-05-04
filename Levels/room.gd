@@ -12,12 +12,9 @@ var area_collision_check : PackedScene = preload("res://Utils/area_collision_che
 @onready var projectiles_node : Node2D = $Projectiles
 @onready var enemies_node: Node2D =  $Enemies
 
-
 @onready var player_starts_node: Node2D = $PlayerStarts
 
 # Scenes to transition
-#@onready var north_scene : String = "res://Levels/combat_level.tscn"
-#@onready var south_scene : String = "res://Levels/combat_level.tscn"
 @onready var pause_menu = $Utils/PauseMenu/PauseMenuLayout
 @onready var settings_menu = $Utils/PauseMenu/settings_menu
 
@@ -28,6 +25,7 @@ var is_visited: bool = false
 
 # Player weapon stuff
 @export var current_weapon: WeaponBase
+@onready var player_weapon_node = $PlayerWeapon
 
 func _input(event):
 	if event.is_action_pressed("escape"):
@@ -36,8 +34,16 @@ func _input(event):
 func _ready():
 	generate_level()
 	place_player()
+	assign_player_weapon()
 	room_cleared()
 	AudioPlayer.play_music_level(-12.0)
+	Globals.connect("weapon_changed", _on_weapon_changed)
+	
+func _on_weapon_changed(new_weapon):
+	var all_weapons = player_weapon_node.get_children()
+	for wp in all_weapons:
+		wp.queue_free()
+	assign_player_weapon()
 	
 
 func generate_level():
@@ -55,6 +61,14 @@ func place_player():
 	else:
 		start_marker = pick_spawn_point(entered_to_exited(Globals.player_entered))
 	$Player.place_at_start(start_marker.global_position, room_vector_position.z)
+
+func assign_player_weapon():
+	var wp = Globals.current_weapon as WeaponBase
+	var weapon_scene = Weapons.weapons[wp.weapon_enum]
+	if weapon_scene:
+		var weapon_for_player = weapon_scene.instantiate()
+		player_weapon_node.add_child(weapon_for_player)
+		current_weapon = weapon_for_player
 
 func pick_spawn_point(entrance: Globals.Entrance):
 	for marker in player_starts_node.get_children():

@@ -1,9 +1,8 @@
-[gd_scene load_steps=30 format=3 uid="uid://6ldll4ytnc1b"]
+[gd_scene load_steps=29 format=3 uid="uid://6ldll4ytnc1b"]
 
 [ext_resource type="Texture2D" uid="uid://dpx0r7k8bdxj3" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Spritesheet.png" id="1_c26gf"]
 [ext_resource type="Script" path="res://Characters/Player/player.gd" id="1_fnq5r"]
 [ext_resource type="AudioStream" uid="uid://ddcrpylh3l66l" path="res://Audio/SFX/3rd Party/kronbits/Retro Weapon Arrow 02.wav" id="3_chcnn"]
-[ext_resource type="PackedScene" uid="uid://djgnmls4kwyiu" path="res://Characters/Player/Weapons/weapon.tscn" id="4_csxhp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rt0d5"]
 radius = 4.0
@@ -274,9 +273,5 @@ stream = ExtResource("3_chcnn")
 volume_db = -6.625
 pitch_scale = 1.35
 bus = &"SFX"
-
-[node name="Weapons" type="Node2D" parent="."]
-
-[node name="Weapon" parent="Weapons" instance=ExtResource("4_csxhp")]
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

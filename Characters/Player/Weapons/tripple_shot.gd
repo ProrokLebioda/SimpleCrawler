@@ -2,6 +2,7 @@ extends WeaponBase
 
 func _ready():
 	weapon_name = "TrippleShot"
+	
 
 func fire(pos: Vector2, dir: Vector2) -> Array[BulletBase]:
 	print("Weapon name: ", weapon_name)

@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://cgnvjeowh766i"]
+
+[ext_resource type="PackedScene" uid="uid://chfx00c4icv2i" path="res://Objects/Item_Pickups/item_pickup.tscn" id="1_vlifd"]
+[ext_resource type="Script" path="res://Objects/Item_Pickups/Weapons/rotating_pickup.gd" id="2_i4lrv"]
+[ext_resource type="Texture2D" uid="uid://dhqtevs2f7kll" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Objects/Basic_tools_and_meterials.png" id="3_xvlhv"]
+[ext_resource type="AudioStream" uid="uid://cg7blnwwx2mjq" path="res://Audio/SFX/3rd Party/kronbits/Retro PowerUP StereoUP 05.wav" id="4_njm30"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_woaqb"]
+radius = 8.0
+
+[node name="RotatingPickup" instance=ExtResource("1_vlifd")]
+script = ExtResource("2_i4lrv")
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_woaqb")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("3_xvlhv")
+hframes = 3
+vframes = 2
+frame = 1
+
+[node name="AudioStreamPlayer" parent="." index="2"]
+stream = ExtResource("4_njm30")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

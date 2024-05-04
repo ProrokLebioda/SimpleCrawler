@@ -5,4 +5,4 @@
 
 [node name="RotatingWeapon" instance=ExtResource("1_e6oqg")]
 script = ExtResource("2_i6y7o")
-bullet_scene = null
+weapon_enum = 2

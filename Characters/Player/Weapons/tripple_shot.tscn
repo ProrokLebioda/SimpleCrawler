@@ -5,3 +5,4 @@
 
 [node name="TrippleShot" instance=ExtResource("1_4jour")]
 script = ExtResource("2_0vpbm")
+weapon_enum = 1
