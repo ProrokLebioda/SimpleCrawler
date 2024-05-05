@@ -136,7 +136,7 @@ func stop_timers():
 		max_time_in_charge_timer.stop()
 
 
-func hit(damage : int):
+func hit(damage : int, dir: Vector2):
 	if is_active:
 		if vulnerable:
 			health -= damage
@@ -162,7 +162,12 @@ func _on_damage_area_body_entered(body):
 
 		print("Damage area entered: ", body.name)
 		if "hit" in body:
-			body.hit(base_damage)
+			var boss_pos = position
+			# get direction to centre of other body, from bullet to body
+			var body_pos = body.position
+			var hit_direction = (body_pos-boss_pos).normalized()
+	
+			body.hit(base_damage, hit_direction)
 
 func _on_idle_timer_timeout():
 	if (current_state != ENEMY_STATE.AGGRO or current_state != ENEMY_STATE.CHARGING):

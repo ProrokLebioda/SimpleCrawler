@@ -101,6 +101,7 @@ radius = 5.09902
 y_sort_enabled = true
 collision_layer = 2
 collision_mask = 39
+motion_mode = 1
 script = ExtResource("1_5tpgt")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

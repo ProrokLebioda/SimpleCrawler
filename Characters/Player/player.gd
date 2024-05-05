@@ -14,8 +14,10 @@ extends CharacterBody2D
 
 var can_shoot : bool = true
 
-
-
+# Pushback
+var knockback_direction: Vector2 = Vector2.ZERO
+var knockback_force: float = 100.0
+var knockback_val: Vector2 = Vector2.ZERO
 # Signals
 signal shoot_input_detected(pos, dir)
 
@@ -31,11 +33,13 @@ func _physics_process(delta):
 	)
 	
 	update_animation_parameters(input_direction)
+	if knockback_force > 0:
+		knockback_val = knockback_direction * knockback_force
 	
-	velocity = input_direction.normalized()*move_speed
+	velocity = input_direction.normalized()*move_speed + knockback_val
 	
 	move_and_slide()
-	
+	knockback_force = lerp(knockback_force, 0.0, 0.1)
 	Globals.player_pos = global_position
 	pick_new_state()
 	
@@ -69,8 +73,10 @@ func place_at_start(pos : Vector2, level_depth : int):
 	Globals.player_at_level = level_depth
 
 # "Interfaces"...
-func hit(damage):
+func hit(damage: int, dir: Vector2):
 	Globals.health -= damage
+	knockback_direction = dir 
+	knockback_force = 100
 	print("Player received: ", damage, " damage. Current player health: ", Globals.health)
 	if Globals.health <= 0:
 		print("PLAYER DIED!")

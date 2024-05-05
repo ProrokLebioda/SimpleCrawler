@@ -242,6 +242,7 @@ _data = {
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
 collision_mask = 63
+motion_mode = 1
 script = ExtResource("1_fnq5r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
