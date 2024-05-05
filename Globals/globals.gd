@@ -1,6 +1,7 @@
 extends Node
 
 signal stat_change
+signal weapon_changed(weapon : WeaponBase)
 
 var healh_base: int =  8
 
@@ -34,6 +35,15 @@ var coins = 0:
 		coins = value
 		stat_change.emit()
 		
+var current_weapon : WeaponBase:
+	get:
+		if !current_weapon:
+			current_weapon = Weapons.get_basic_weapon()
+		return current_weapon
+	set(new_weapon):
+		current_weapon = new_weapon
+		weapon_changed.emit(current_weapon)
+		
 
 var player_vulnerable: bool = true
 
@@ -48,3 +58,4 @@ func reset_player_stats():
 	health = healh_base
 	coins = 0
 	player_room = Vector3i(0,0,0)
+	current_weapon = Weapons.get_basic_weapon()

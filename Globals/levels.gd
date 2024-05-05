@@ -1,8 +1,6 @@
 extends Node
 
-
 var number_of_rooms: int = 15
-
 
 var levels : int = 0
 var rooms = {}

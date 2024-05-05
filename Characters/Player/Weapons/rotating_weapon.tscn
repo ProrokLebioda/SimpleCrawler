@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5vh5ah6okuma"]
+
+[ext_resource type="PackedScene" uid="uid://djgnmls4kwyiu" path="res://Characters/Player/Weapons/weapon.tscn" id="1_e6oqg"]
+[ext_resource type="Script" path="res://Characters/Player/Weapons/rotating_weapon.gd" id="2_i6y7o"]
+
+[node name="RotatingWeapon" instance=ExtResource("1_e6oqg")]
+script = ExtResource("2_i6y7o")
+weapon_enum = 2

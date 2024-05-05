@@ -730,6 +730,8 @@ shortcut = null
 [node name="QuitButton" parent="Utils/PauseMenu/PauseMenuLayout/VBoxContainer" index="4"]
 shortcut = null
 
+[node name="PlayerWeapon" type="Node2D" parent="."]
+
 [connection signal="shoot_input_detected" from="Player" to="." method="_on_player_shoot_input_detected"]
 [connection signal="body_entered" from="Doors/DoorNorth" to="." method="_on_door_horizontal_north_body_entered"]
 [connection signal="body_entered" from="Doors/DoorSouth" to="." method="_on_door_horizontal_south_body_entered"]
