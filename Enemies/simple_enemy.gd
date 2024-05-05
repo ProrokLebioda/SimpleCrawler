@@ -25,6 +25,13 @@ var hit_timer_wait_time : float = 0.2
 var move_direction : Vector2 = Vector2.ZERO
 var current_state : ENEMY_STATE = ENEMY_STATE.IDLE
 
+# Pushback 
+var knockback_direction: Vector2 = Vector2.ZERO
+var knockback_force: float = 100.0
+var knockback_val: Vector2 = Vector2.ZERO
+# Additional Components
+#@export var knockback_component: KnockbackComponent
+
 func _ready():
 	pick_new_state()
 	
@@ -33,11 +40,22 @@ func _physics_process(delta):
 		move_direction = (Globals.player_pos - position).normalized()
 		flip_sprite_direction(move_direction)
 		
-	if (current_state != ENEMY_STATE.IDLE):
-		velocity = move_direction * move_speed
-		move_and_slide()
+	if knockback_force > 0:
+		knockback_val = knockback_direction * knockback_force
 		
-	
+	if (current_state != ENEMY_STATE.IDLE):
+		velocity = move_direction * move_speed + knockback_val
+		move_and_slide()
+	else:
+		if (knockback_force > 0):
+			velocity = knockback_val
+			move_and_slide()
+		else:
+			velocity = Vector2.ZERO
+			
+	knockback_force = lerp(knockback_force, 0.0, 0.1)
+#	if knockback_component:
+#		pass
 func select_new_direction():
 	move_direction = Vector2(
 		randi_range(-1,1),
@@ -104,17 +122,25 @@ func _on_damage_area_body_entered(body):
 	
 	if body is CharacterBody2D:
 		print("Damage area entered: ", body.name)
+		var enemy_pos = position
+		# get direction to centre of other body, from enemy to body
+		var body_pos = body.position
+		var hit_direction = (body_pos-enemy_pos).normalized()
+	
 		if "hit" in body:
-			body.hit(base_damage)
+			body.hit(base_damage, hit_direction)
 
-func hit(damage : int):
+func hit(damage : int, dir: Vector2):
 	if vulnerable:
 		health -= damage
 		vulnerable = false
 		$HitTimer.start(hit_timer_wait_time)
 		sprite.material.set_shader_parameter("progress", 1)
 		
-		
+#		#pushback
+#		if knockback_component:
+		knockback_direction = dir 
+		knockback_force = 100
 	if (health <= 0):
 		health = 0
 		queue_free()
