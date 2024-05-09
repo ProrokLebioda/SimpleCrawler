@@ -1,4 +1,8 @@
 extends CanvasLayer
+@export var death_music: AudioStream
+
+func _ready():
+	AudioPlayer._play_music(death_music, -12.0)
 
 
 func _on_retry_button_pressed():
