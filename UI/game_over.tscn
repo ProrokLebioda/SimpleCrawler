@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://duniv667w1xqw"]
+[gd_scene load_steps=3 format=3 uid="uid://duniv667w1xqw"]
 
 [ext_resource type="Script" path="res://UI/game_over.gd" id="1_6enp5"]
+[ext_resource type="AudioStream" uid="uid://dc64smyym7ns5" path="res://Audio/SFX/3rd Party/kronbits/Retro Event Wrong Echo 03.wav" id="2_a4y6t"]
 
 [node name="GameOver" type="CanvasLayer"]
 script = ExtResource("1_6enp5")
+death_music = ExtResource("2_a4y6t")
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 15
