@@ -24,7 +24,6 @@ var health = healh_base:
 		else:	
 			if player_vulnerable:
 				player_vulnerable = false
-				player_invulnerable_timer()
 				health = value
 		stat_change.emit()
 
@@ -47,9 +46,9 @@ var current_weapon : WeaponBase:
 
 var player_vulnerable: bool = true
 
-func player_invulnerable_timer():
-	await get_tree().create_timer(0.5).timeout
-	player_vulnerable = true
+#func player_invulnerable_timer():
+#	await get_tree().create_timer(0.5).timeout
+#	player_vulnerable = true
 
 
 func reset_player_stats():

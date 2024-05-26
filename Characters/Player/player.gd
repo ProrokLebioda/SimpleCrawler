@@ -8,11 +8,16 @@ extends CharacterBody2D
 @onready var state_machine = animation_tree.get("parameters/playback")
 @onready var shoot_cooldown : float = 0.5
 @onready var shoot_timer = $ShootTimer
-
+@onready var invulnerable_timer = $InvulnerableTimer
+@export var invulnerable_time : float = 0.5
 # sounds
 @onready var audio_player = $AudioStreamPlayer
 @export var hit_sfx : AudioStream
 var can_shoot : bool = true
+
+#visuals
+@onready var sprite_2d = $Sprite2D
+
 
 # Pushback
 var knockback_direction: Vector2 = Vector2.ZERO
@@ -75,9 +80,11 @@ func place_at_start(pos : Vector2, level_depth : int):
 # "Interfaces"...
 func hit(damage: int, dir: Vector2):
 	Globals.health -= damage
+	invulnerable_timer.start(invulnerable_time)
 	knockback_direction = dir 
 	knockback_force = 100
 	AudioPlayer.play_FX(hit_sfx,-12.0)
+	sprite_2d.material.set_shader_parameter("progress", 1)
 	print("Player received: ", damage, " damage. Current player health: ", Globals.health)
 	if Globals.health <= 0:
 		print("PLAYER DIED!")
@@ -86,4 +93,6 @@ func hit(damage: int, dir: Vector2):
 func _on_shoot_timer_timeout():
 	can_shoot = true
 	
-	
+func _on_invulnerable_timer_timeout():
+	sprite_2d.material.set_shader_parameter("progress", 0)
+	Globals.player_vulnerable = true

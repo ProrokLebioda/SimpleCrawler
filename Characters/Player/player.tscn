@@ -1,9 +1,15 @@
-[gd_scene load_steps=30 format=3 uid="uid://6ldll4ytnc1b"]
+[gd_scene load_steps=32 format=3 uid="uid://6ldll4ytnc1b"]
 
 [ext_resource type="Texture2D" uid="uid://dpx0r7k8bdxj3" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Spritesheet.png" id="1_c26gf"]
 [ext_resource type="Script" path="res://Characters/Player/player.gd" id="1_fnq5r"]
 [ext_resource type="AudioStream" uid="uid://3m1ll4kh1xea" path="res://Audio/SFX/3rd Party/kronbits/Retro Swooosh 07.wav" id="2_i031w"]
 [ext_resource type="AudioStream" uid="uid://ddcrpylh3l66l" path="res://Audio/SFX/3rd Party/kronbits/Retro Weapon Arrow 02.wav" id="3_chcnn"]
+[ext_resource type="Shader" path="res://Characters/Player/shaders/player_hit_shader.gdshader" id="3_uihwu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jqaha"]
+shader = ExtResource("3_uihwu")
+shader_parameter/color = Color(1, 0.827451, 1, 1)
+shader_parameter/progress = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rt0d5"]
 radius = 4.0
@@ -249,6 +255,7 @@ hit_sfx = ExtResource("2_i031w")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
+material = SubResource("ShaderMaterial_jqaha")
 texture = ExtResource("1_c26gf")
 hframes = 4
 vframes = 4
@@ -277,4 +284,7 @@ volume_db = -6.625
 pitch_scale = 1.35
 bus = &"SFX"
 
+[node name="InvulnerableTimer" type="Timer" parent="."]
+
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="InvulnerableTimer" to="." method="_on_invulnerable_timer_timeout"]
