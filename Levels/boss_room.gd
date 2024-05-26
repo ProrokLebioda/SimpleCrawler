@@ -46,7 +46,7 @@ func _on_enemy_died(death_position):
 			
 			#if player cleared last boss, end game
 			# TODO_CHANGE: Change back to checking last available level 
-			if Globals.player_at_level == Levels.levels:
+			if Globals.player_at_level == (Levels.levels-1):
 				await enemy_died_sound.finished
 				get_tree().change_scene_to_file("res://UI/game_finished.tscn")
 			else:

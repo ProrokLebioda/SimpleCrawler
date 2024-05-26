@@ -7,9 +7,9 @@ extends CanvasLayer
 signal unpause
 
 
-func _input(event):
-	if event.is_action_pressed("ui_cancel"):
-		_on_pause()	
+#func _input(event):
+#	if event.is_action_pressed("ui_cancel"):
+#		_on_pause()	
 
 func _on_back_button_pressed():
 	settings_menu.visible = !settings_menu.visible
