@@ -1,0 +1,53 @@
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  export_game:
+    # Always use ubuntu-latest for this action
+    runs-on: ubuntu-latest
+    # Job name, can be anything
+    name: Export game to Github
+    steps:
+      # Always include the checkout step so that
+      # your project is available for Godot to export
+      - name: checkout
+        uses: actions/checkout@v3
+        # Ensure that you get the entire project history
+        with:
+          fetch-depth: 0
+      - name: create game release
+        id: export
+        # Use latest version (see releases for all versions)
+        uses: firebelley/godot-export@v5.2.1
+        with:
+          # Defining all the required inputs
+          # I used the mono version of Godot in this example
+          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.1.2/Godot_v4.1.2-stable_linux.x86_64.zip
+          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.1.2/Godot_v4.1.2-stable_export_templates.tpz
+          archive_output: true
+          cache: true
+          # set this either to . or your game path, e.g. ./godot in case
+          # your game is within a sub-directory
+          relative_project_path: .
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_CREDENTIALS }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+          
+      - name: Publish to Itch
+        uses: Ayowel/butler-to-itch@v1.0.0
+        with:
+          butler_key: ${{secrets.BUTLER_CREDENTIALS}}
+          itch_user: proroklebioda
+          itch_game: chicken-chaser
+          version: ${{ github.ref_name }}
+          files: "${{ steps.export.outputs.archive_directory }}/chicken-chaser-web.zip"
+      - name: Publish to Itch Windows
+        uses: Ayowel/butler-to-itch@v1.0.0
+        with:
+          butler_key: ${{secrets.BUTLER_CREDENTIALS}}
+          itch_user: proroklebioda
+          itch_game: chicken-chaser
+          version: ${{ github.ref_name }}
+          files: "${{ steps.export.outputs.archive_directory }}/chicken-chaser-windows.zip"
