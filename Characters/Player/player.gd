@@ -11,7 +11,7 @@ extends CharacterBody2D
 
 # sounds
 @onready var audio_player = $AudioStreamPlayer
-
+@export var hit_sfx : AudioStream
 var can_shoot : bool = true
 
 # Pushback
@@ -77,6 +77,7 @@ func hit(damage: int, dir: Vector2):
 	Globals.health -= damage
 	knockback_direction = dir 
 	knockback_force = 100
+	AudioPlayer.play_FX(hit_sfx,-12.0)
 	print("Player received: ", damage, " damage. Current player health: ", Globals.health)
 	if Globals.health <= 0:
 		print("PLAYER DIED!")

@@ -1,7 +1,8 @@
-[gd_scene load_steps=29 format=3 uid="uid://6ldll4ytnc1b"]
+[gd_scene load_steps=30 format=3 uid="uid://6ldll4ytnc1b"]
 
 [ext_resource type="Texture2D" uid="uid://dpx0r7k8bdxj3" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Spritesheet.png" id="1_c26gf"]
 [ext_resource type="Script" path="res://Characters/Player/player.gd" id="1_fnq5r"]
+[ext_resource type="AudioStream" uid="uid://3m1ll4kh1xea" path="res://Audio/SFX/3rd Party/kronbits/Retro Swooosh 07.wav" id="2_i031w"]
 [ext_resource type="AudioStream" uid="uid://ddcrpylh3l66l" path="res://Audio/SFX/3rd Party/kronbits/Retro Weapon Arrow 02.wav" id="3_chcnn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rt0d5"]
@@ -244,6 +245,7 @@ y_sort_enabled = true
 collision_mask = 63
 motion_mode = 1
 script = ExtResource("1_fnq5r")
+hit_sfx = ExtResource("2_i031w")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
