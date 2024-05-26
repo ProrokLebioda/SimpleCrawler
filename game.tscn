@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ueij7u5m6gb3"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_c0cni"]
+[ext_resource type="PackedScene" uid="uid://bqh63k842lvkj" path="res://Levels/starting_room.tscn" id="1_haqwj"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_c0cni")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[node name="Level" type="Node" parent="."]
+
+[node name="StartingLevel" parent="Level" instance=ExtResource("1_haqwj")]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

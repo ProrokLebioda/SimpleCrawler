@@ -8,7 +8,7 @@ signal unpause
 
 
 func _input(event):
-	if event.is_action_pressed("escape"):
+	if event.is_action_pressed("ui_cancel"):
 		_on_pause()	
 
 func _on_back_button_pressed():
@@ -29,7 +29,7 @@ func _on_settings_button_pressed():
 
 
 func _on_pause():
-	unpause.emit()
 	visible = !visible
+	unpause.emit()
 	if pause_menu.visible:
 		continue_button.grab_focus()

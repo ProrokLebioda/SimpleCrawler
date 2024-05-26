@@ -53,7 +53,9 @@ size_flags_vertical = 4
 text = "Quit"
 
 [node name="settings_menu" parent="." instance=ExtResource("2_mjm8a")]
-visible = false
+
+[node name="SFXSlider" parent="settings_menu/SettingsMenu/MarginContainer/VBoxContainer/GridContainer" index="3"]
+size_flags_horizontal = 1
 
 [connection signal="pressed" from="Control/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="Control/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
