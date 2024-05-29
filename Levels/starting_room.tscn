@@ -1,10 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqh63k842lvkj"]
+[gd_scene load_steps=5 format=3 uid="uid://bqh63k842lvkj"]
 
 [ext_resource type="PackedScene" uid="uid://dhk4h17c6t37c" path="res://Levels/room.tscn" id="1_bgqbm"]
 [ext_resource type="Script" path="res://Levels/starting_room.gd" id="2_fgycq"]
+[ext_resource type="PackedScene" uid="uid://bbw8sdqlfb702" path="res://Objects/Item_Pickups/speed_pickup.tscn" id="3_y8ku8"]
+[ext_resource type="PackedScene" uid="uid://wo3ltsmjxa02" path="res://Objects/Item_Pickups/cooldown_pickup.tscn" id="4_71jqp"]
 
 [node name="StartingLevel" instance=ExtResource("1_bgqbm")]
 script = ExtResource("2_fgycq")
+
+[node name="SpeedPickup" parent="Objects" index="0" instance=ExtResource("3_y8ku8")]
+position = Vector2(-150, 90)
+
+[node name="CooldownPickup" parent="Objects" index="1" instance=ExtResource("4_71jqp")]
+position = Vector2(92, 100)
 
 [editable path="Utils/PauseMenu"]
 [editable path="Utils/PauseMenu/settings_menu"]

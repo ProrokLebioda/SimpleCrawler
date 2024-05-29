@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://wo3ltsmjxa02"]
+
+[ext_resource type="PackedScene" uid="uid://chfx00c4icv2i" path="res://Objects/Item_Pickups/item_pickup.tscn" id="1_0dq7l"]
+[ext_resource type="Texture2D" uid="uid://d1hf3fias1l1y" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Objects/Basic_Plants.png" id="2_4y4ve"]
+[ext_resource type="Script" path="res://Objects/Item_Pickups/cooldown_pickup.gd" id="2_trf34"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fghkc"]
+radius = 8.0
+
+[node name="CooldownPickup" instance=ExtResource("1_0dq7l")]
+script = ExtResource("2_trf34")
+cooldown_reduction = 0.1
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_fghkc")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_4y4ve")
+hframes = 6
+vframes = 2
+frame = 5
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
