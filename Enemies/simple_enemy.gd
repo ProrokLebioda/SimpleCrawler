@@ -26,6 +26,7 @@ var hit_timer_wait_time : float = 0.2
 
 var move_direction : Vector2 = Vector2.ZERO
 var current_state : ENEMY_STATE = ENEMY_STATE.IDLE
+@export var death_particle : PackedScene
 
 # Pushback 
 var knockback_direction: Vector2 = Vector2.ZERO
@@ -145,7 +146,11 @@ func hit(damage : int, dir: Vector2):
 		knockback_force = 100
 	if (health <= 0):
 		health = 0
-		
+		var particle = death_particle.instantiate()
+		particle.position = global_position
+		particle.rotation = global_rotation
+		particle.emitting = true
+		get_tree().current_scene.add_child(particle)
 		# too coupled, maybe should be a signal... but I don't want to fiddle with this
 		Globals.xp += xp_amount
 		

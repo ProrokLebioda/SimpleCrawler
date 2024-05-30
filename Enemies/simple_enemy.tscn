@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://dbspbpq1j55yt"]
+[gd_scene load_steps=19 format=3 uid="uid://dbspbpq1j55yt"]
 
 [ext_resource type="Script" path="res://Enemies/simple_enemy.gd" id="1_5tpgt"]
 [ext_resource type="Texture2D" uid="uid://c48vwf8xddoyo" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Characters/Free Chicken Sprites.png" id="1_jj2hw"]
+[ext_resource type="PackedScene" uid="uid://cmor7wy2tqkje" path="res://Graphics/particles/exploding_particles.tscn" id="2_ndua1"]
 [ext_resource type="Shader" path="res://Enemies/Shaders/simple_enemy.gdshader" id="2_usrbl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jayp6"]
@@ -103,6 +104,7 @@ collision_layer = 2
 collision_mask = 39
 motion_mode = 1
 script = ExtResource("1_5tpgt")
+death_particle = ExtResource("2_ndua1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_jayp6")

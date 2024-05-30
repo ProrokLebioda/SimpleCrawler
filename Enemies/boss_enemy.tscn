@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://blsi5vt1dgu28"]
+[gd_scene load_steps=18 format=3 uid="uid://blsi5vt1dgu28"]
 
 [ext_resource type="Script" path="res://Enemies/boss_enemy.gd" id="1_lchal"]
+[ext_resource type="PackedScene" uid="uid://cmor7wy2tqkje" path="res://Graphics/particles/exploding_particles.tscn" id="2_350iv"]
 [ext_resource type="Shader" path="res://Enemies/Shaders/simple_enemy.gdshader" id="2_jsxfc"]
 [ext_resource type="Texture2D" uid="uid://mu3nmro8ud86" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Characters/Free Cow Sprites.png" id="3_ovy38"]
 
@@ -101,6 +102,7 @@ collision_layer = 2
 collision_mask = 39
 motion_mode = 1
 script = ExtResource("1_lchal")
+death_particle = ExtResource("2_350iv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_y7eix")
