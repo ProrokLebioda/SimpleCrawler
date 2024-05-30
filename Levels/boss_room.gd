@@ -13,6 +13,7 @@ func _ready():
 	enemies_left_count = enemies_node.get_child_count()
 	spawn_ladder(Vector2(0,0))
 	super()
+	AudioPlayer.play_boss_music(-10.0)
 	# Get count of enemies
 	print("Number of enemies: ", enemies_left_count)
 	if enemies_left_count <= 0:
@@ -32,6 +33,7 @@ func spawn_boss():
 
 func room_cleared():
 	#custom logic
+	AudioPlayer.play_music_level(-10.0)
 	if enemies_left_count <= 0:
 		super()
 
