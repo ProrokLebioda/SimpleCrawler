@@ -4,15 +4,21 @@ extends ItemStand
 @onready var item_spot = $ItemSpot
 @onready var item_price_text = $ItemPriceText
 
-@export var health_pickup_scene: PackedScene = preload("res://Objects/Item_Pickups/health_pickup.tscn")
-@export var item_price : int = 3
+@export var item_pickup_scene: PackedScene = preload("res://Objects/Item_Pickups/health_pickup.tscn")
+var item_price : int = 3
 
 func _ready():
 	if is_used: 
 		collision_shape_2d.set_deferred("disabled", true)
 		item_price_text.visible = false
 	else:
-		var item = health_pickup_scene.instantiate()
+		# get random pickup
+		var random_item = Items.get_random_item() as Dictionary
+		
+		var item_scene = random_item["scene"]
+		item_price = random_item["cost"]
+		#var item = item_pickup_scene.instantiate()
+		var item = item_scene.instantiate()
 		item.position = item_spot.position
 		item_spot.add_child(item)
 		item_price_text.visible = true

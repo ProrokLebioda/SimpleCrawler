@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 Weapons="*res://Globals/weapons.gd"
 Globals="*res://Globals/globals.gd"
+Items="*res://Globals/items.gd"
 Room="*res://Globals/room.gd"
 Levels="*res://Globals/levels.gd"
 AudioPlayerScript="*res://Globals/audio_player.gd"
