@@ -186,9 +186,12 @@ func is_door_leading_somewhere(door_name):
 				return false
 
 func _on_container_opened(pos, direction):
-	var hp = health_pickup_scene.instantiate()
-	objects_node.add_child(hp)
-
+	var random_item = Items.get_random_item() as Dictionary
+	var item_scene = random_item["scene"]
+	#var item = item_pickup_scene.instantiate()
+	var item = item_scene.instantiate()
+	item.position = pos
+	objects_node.add_child(item)
 
 func _on_door_horizontal_north_body_entered(body):
 	Globals.player_entered = Globals.Entrance.NORTH
