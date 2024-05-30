@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqh63k842lvkj"]
+[gd_scene load_steps=8 format=3 uid="uid://bqh63k842lvkj"]
 
 [ext_resource type="PackedScene" uid="uid://dhk4h17c6t37c" path="res://Levels/room.tscn" id="1_bgqbm"]
 [ext_resource type="Script" path="res://Levels/starting_room.gd" id="2_fgycq"]
 [ext_resource type="PackedScene" uid="uid://bbw8sdqlfb702" path="res://Objects/Item_Pickups/speed_pickup.tscn" id="3_y8ku8"]
 [ext_resource type="PackedScene" uid="uid://wo3ltsmjxa02" path="res://Objects/Item_Pickups/cooldown_pickup.tscn" id="4_71jqp"]
+[ext_resource type="PackedScene" uid="uid://sex6c04jsckg" path="res://Objects/Item_Pickups/projectile_speed_pickup.tscn" id="5_m0dse"]
+[ext_resource type="PackedScene" uid="uid://bd30mwuyfop50" path="res://Objects/Item_Pickups/health_increase_pickup.tscn" id="6_pi4d3"]
+[ext_resource type="PackedScene" uid="uid://bsl6i8h6lfx5c" path="res://Objects/Item_Pickups/projectile_lifetime_pickup.tscn" id="7_nl676"]
 
 [node name="StartingLevel" instance=ExtResource("1_bgqbm")]
 script = ExtResource("2_fgycq")
@@ -13,6 +16,15 @@ position = Vector2(-150, 90)
 
 [node name="CooldownPickup" parent="Objects" index="1" instance=ExtResource("4_71jqp")]
 position = Vector2(92, 100)
+
+[node name="ProjectileSpeedPickup" parent="Objects" index="2" instance=ExtResource("5_m0dse")]
+position = Vector2(-217, 15)
+
+[node name="HealthIncreasePickup" parent="Objects" index="3" instance=ExtResource("6_pi4d3")]
+position = Vector2(34, 89)
+
+[node name="ProjectileLifetimePickup" parent="Objects" index="4" instance=ExtResource("7_nl676")]
+position = Vector2(-63, 78)
 
 [editable path="Utils/PauseMenu"]
 [editable path="Utils/PauseMenu/settings_menu"]

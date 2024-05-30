@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://bsl6i8h6lfx5c"]
+
+[ext_resource type="PackedScene" uid="uid://chfx00c4icv2i" path="res://Objects/Item_Pickups/item_pickup.tscn" id="1_k47e6"]
+[ext_resource type="Texture2D" uid="uid://d1hf3fias1l1y" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Objects/Basic_Plants.png" id="2_jlw7p"]
+[ext_resource type="Script" path="res://Objects/Item_Pickups/projectile_lifetime_pickup.gd" id="2_vvh4g"]
+[ext_resource type="AudioStream" uid="uid://cg7blnwwx2mjq" path="res://Audio/SFX/3rd Party/kronbits/Retro PowerUP StereoUP 05.wav" id="4_h1xag"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qmtam"]
+radius = 7.0
+
+[node name="ProjectileLifetimePickup" instance=ExtResource("1_k47e6")]
+script = ExtResource("2_vvh4g")
+projectile_liftime_increase = 0.5
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_qmtam")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_jlw7p")
+hframes = 6
+vframes = 2
+frame = 6
+
+[node name="AudioStreamPlayer" parent="." index="2"]
+stream = ExtResource("4_h1xag")
+bus = &"SFX"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
