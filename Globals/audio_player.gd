@@ -1,7 +1,7 @@
 extends AudioStreamPlayer
 
 const level_music = preload("res://Audio/Music/3rd Party/Tallbeard Studios - Chiptune Music/Three Red Hearts - Sanctuary.ogg")
-
+const boss_music = preload("res://Audio/Music/3rd Party/Tallbeard Studios - Chiptune Music/Three Red Hearts - Out of Time.ogg")
 func _play_music(music : AudioStream, volume = 0.0):
 	if stream == music:
 		return
@@ -11,6 +11,9 @@ func _play_music(music : AudioStream, volume = 0.0):
 	
 func play_music_level(volume = 0.0):
 	_play_music(level_music, volume)
+
+func play_boss_music(volume = 0.0):
+	_play_music(boss_music, volume)
 
 # useful for transition scene
 func play_FX(stream : AudioStream, volume = 0.0):
