@@ -20,6 +20,8 @@ signal died(death_pos)
 @onready var idle_timer = $IdleTimer
 @onready var max_time_in_charge_timer = $MaxTimeInChargeTimer
 
+@export var xp_amount : int = 100
+
 # Damage stuff
 @export var health_max : int = 8
 @onready var health : int = health_max
@@ -146,6 +148,8 @@ func hit(damage : int, dir: Vector2):
 			
 		if (health <= 0):
 			health = 0
+			# too coupled
+			Globals.xp += xp_amount
 			queue_free()
 
 func _on_charge_timer_timeout():

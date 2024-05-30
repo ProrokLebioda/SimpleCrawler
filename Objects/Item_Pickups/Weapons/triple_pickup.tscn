@@ -22,5 +22,6 @@ frame = 0
 
 [node name="AudioStreamPlayer" parent="." index="2"]
 stream = ExtResource("3_uvb8v")
+bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

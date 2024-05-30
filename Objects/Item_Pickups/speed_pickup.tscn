@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://bbw8sdqlfb702"]
+
+[ext_resource type="PackedScene" uid="uid://chfx00c4icv2i" path="res://Objects/Item_Pickups/item_pickup.tscn" id="1_wrk2l"]
+[ext_resource type="Script" path="res://Objects/Item_Pickups/speed_pickup.gd" id="2_8smlf"]
+[ext_resource type="Texture2D" uid="uid://dsn5eyrijmqjw" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Objects/Basic_Grass_Biom_things.png" id="2_dji67"]
+[ext_resource type="AudioStream" uid="uid://cg7blnwwx2mjq" path="res://Audio/SFX/3rd Party/kronbits/Retro PowerUP StereoUP 05.wav" id="4_ho0uy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yx1nn"]
+radius = 5.0
+
+[node name="SpeedPickup" instance=ExtResource("1_wrk2l")]
+script = ExtResource("2_8smlf")
+speed_boost = 20.0
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_yx1nn")
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(-1, -2)
+texture = ExtResource("2_dji67")
+hframes = 9
+vframes = 5
+frame = 6
+
+[node name="AudioStreamPlayer" parent="." index="2"]
+stream = ExtResource("4_ho0uy")
+bus = &"SFX"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

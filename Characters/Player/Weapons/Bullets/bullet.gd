@@ -6,10 +6,10 @@ var direction_vector : Vector2 = Vector2.ZERO
 @export var projectile_damage : int = 2
 
 func _ready():
-	$SelfDestructionTimer.start(projectile_lifetime)
+	$SelfDestructionTimer.start(Globals.projectile_lifetime)
 	
 func _physics_process(delta):
-	position+= direction_vector*speed*delta
+	position+= direction_vector * Globals.projectile_speed * delta
 	
 func _on_body_entered(body):
 	var bullet_pos = position

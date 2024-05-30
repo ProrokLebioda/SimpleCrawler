@@ -41,7 +41,7 @@ func _physics_process(delta):
 	if knockback_force > 0:
 		knockback_val = knockback_direction * knockback_force
 	
-	velocity = input_direction.normalized()*move_speed + knockback_val
+	velocity = input_direction.normalized() * Globals.movement_speed + knockback_val
 	
 	move_and_slide()
 	knockback_force = lerp(knockback_force, 0.0, 0.1)
@@ -57,7 +57,7 @@ func _physics_process(delta):
 		#Fix sound issues
 		can_shoot = false
 		audio_player.play()
-		shoot_timer.start(shoot_cooldown)
+		shoot_timer.start(Globals.shoot_cooldown)
 		shoot_input_detected.emit(position, shoot_direction.normalized())
 
 
