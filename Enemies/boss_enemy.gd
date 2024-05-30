@@ -32,6 +32,7 @@ var destination_reached : bool = false
 var can_charge: bool = true
 # Visual stuff
 var is_active = false
+@export var death_particle : PackedScene
 
 var move_direction : Vector2 = Vector2.ZERO
 var current_state : ENEMY_STATE = ENEMY_STATE.IDLE
@@ -148,6 +149,11 @@ func hit(damage : int, dir: Vector2):
 			
 		if (health <= 0):
 			health = 0
+			var particle = death_particle.instantiate()
+			particle.position = global_position
+			particle.rotation = global_rotation
+			particle.emitting = true
+			get_tree().current_scene.add_child(particle)
 			# too coupled
 			Globals.xp += xp_amount
 			queue_free()
