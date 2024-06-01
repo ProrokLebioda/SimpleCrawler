@@ -54,10 +54,10 @@ func _setup_map():
 		if pos.z != Globals.player_at_level:
 			continue
 		var room = Levels.rooms[pos]
-		var combined_dir = room["combined_neighbour_dir"] as Room_struct.CombinedDirection
+		var combined_dir = room["combined_neighbor_dir"] as Room_struct.CombinedDirection
 		var txtr = MinimapTextureAtlas.get_texture_for_direction(combined_dir)
 		var room_texture = room_texture_scene.instantiate() as TextureRect
-		#room_texture.texture = txtr
+		room_texture.texture = txtr
 		textmap_size = room_texture.size.x
 		room_texture.global_position = Vector2i(pos.x, -pos.y) * textmap_size + static_offset
 		add_child(room_texture)
