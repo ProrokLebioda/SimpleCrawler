@@ -2,10 +2,18 @@ extends Control
 
 @export var room_texture_scene : PackedScene = preload("res://UI/Map/minimap_room_texture.tscn")
 @export var player_pos_marker_scene : PackedScene = preload("res://UI/Map/player_pos_marker_texture.tscn")
+@export var boss_room_marker_scene : PackedScene = preload("res://UI/Map/boss_room_marker_texture.tscn")
+@export var treasure_room_marker_scene : PackedScene = preload("res://UI/Map/treasure_room_marker_texture.tscn")
+@export var shop_room_marker_scene : PackedScene = preload("res://UI/Map/shop_room_marker_texture.tscn")
+
 var player_marker 
+var boss_marker
+var treasure_marker
+var shop_marker
 var textmap_size : int = 16
 
-var static_offset : Vector2i = Vector2i(100,100)
+@export var static_offset : Vector2i = Vector2i(200,50)
+var current_offset : Vector2i = static_offset
 func _ready():
 	player_marker = player_pos_marker_scene.instantiate()
 	_evaluate_neighbors()
@@ -58,16 +66,40 @@ func _setup_map():
 		# change to func
 		if room["is_visited"] == false and (Globals.player_room != pos and (pos != Globals.player_room + Vector3i(0,1,0) and pos != Globals.player_room + Vector3i(0,-1,0) and pos != Globals.player_room + Vector3i(1,0,0) and pos != Globals.player_room + Vector3i(-1,0,0))):
 			continue
+		
+		
 		var combined_dir = room["combined_neighbor_dir"] as Room_struct.CombinedDirection
 		var txtr = MinimapTextureAtlas.get_texture_for_direction(combined_dir)
 		var room_texture = room_texture_scene.instantiate() as TextureRect
 		room_texture.texture = txtr
 		textmap_size = room_texture.size.x
-		room_texture.global_position = Vector2i(pos.x, -pos.y) * textmap_size + static_offset
+		current_offset = static_offset - Vector2i(Globals.player_room.x,-Globals.player_room.y)*textmap_size 
+		room_texture.global_position = Vector2i(pos.x, -pos.y) * textmap_size + current_offset
 		add_child(room_texture)
+		if room["type"] == Room_struct.ROOM_TYPE.BOSS:
+			# add boss marker
+			boss_marker = boss_room_marker_scene.instantiate() as TextureRect
+			boss_marker.size = Vector2(textmap_size,textmap_size)
+			boss_marker.global_position = Vector2i(pos.x, -pos.y) * textmap_size + current_offset
+			add_child(boss_marker)
+		
+		if room["type"] == Room_struct.ROOM_TYPE.TREASURE:
+			# add boss marker
+			treasure_marker = treasure_room_marker_scene.instantiate() as TextureRect
+			treasure_marker.size = Vector2(textmap_size,textmap_size)
+			treasure_marker.global_position = Vector2i(pos.x, -pos.y) * textmap_size + current_offset
+			add_child(treasure_marker)
+		
+		if room["type"] == Room_struct.ROOM_TYPE.SHOP:
+			# add boss marker
+			shop_marker = shop_room_marker_scene.instantiate() as TextureRect
+			shop_marker.size = Vector2(textmap_size,textmap_size)
+			shop_marker.global_position = Vector2i(pos.x, -pos.y) * textmap_size + current_offset
+			add_child(shop_marker)
+		
 		
 		if Globals.player_room == pos:
-			player_marker.global_position = Vector2i(pos.x, -pos.y) * textmap_size + static_offset
+			player_marker.global_position = Vector2i(pos.x, -pos.y) * textmap_size + current_offset
 	
 
 

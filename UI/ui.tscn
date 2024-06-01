@@ -25,13 +25,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="StatsContainer"]
 layout_mode = 1
-offset_right = 450.0
-offset_bottom = 50.0
+offset_right = 1833.0
+offset_bottom = 38.0
+scale = Vector2(1.5, 1.5)
 
 [node name="HealthLabel" type="Label" parent="StatsContainer/HBoxContainer"]
 layout_mode = 2
@@ -91,4 +90,13 @@ layout_mode = 2
 text = "0"
 label_settings = SubResource("LabelSettings_mfvhf")
 
-[node name="minimap_ui" parent="." instance=ExtResource("5_if2kf")]
+[node name="minimap_ui" parent="StatsContainer/HBoxContainer" instance=ExtResource("5_if2kf")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0

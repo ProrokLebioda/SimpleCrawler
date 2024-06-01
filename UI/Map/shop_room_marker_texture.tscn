@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvagahmbytudt"]
+
+[ext_resource type="Texture2D" uid="uid://cq8oywqceyp4l" path="res://Art/minimap/map_markers/map_shop_room_marker.png" id="1_gptmp"]
+
+[node name="shop_room_marker_texture" type="TextureRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_gptmp")
