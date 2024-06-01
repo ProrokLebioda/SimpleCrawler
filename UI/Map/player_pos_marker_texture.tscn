@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://8ofebx6q6ico"]
+
+[ext_resource type="Texture2D" uid="uid://540nywsxbe0" path="res://Art/minimap/map_markers/map_player_pos.png" id="1_vk2xt"]
+
+[node name="player_pos_marker_texture" type="TextureRect"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_vk2xt")

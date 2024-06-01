@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bd7smtjx0swck"]
+[gd_scene load_steps=8 format=3 uid="uid://bd7smtjx0swck"]
 
 [ext_resource type="Texture2D" uid="uid://dnrcb1sgcfqy2" path="res://Art/3rdParty/FromTutorials/bg.png" id="1_2i8dp"]
 [ext_resource type="Script" path="res://UI/ui.gd" id="1_nfn68"]
 [ext_resource type="Texture2D" uid="uid://13kkap81mvwk" path="res://Art/3rdParty/FromTutorials/progress.png" id="2_5imcs"]
 [ext_resource type="Texture2D" uid="uid://c7x54j23e5igu" path="res://Art/3rdParty/lil-cthulhu/Coin-Sheet.png" id="4_32ac5"]
+[ext_resource type="PackedScene" uid="uid://drh68fyaxaq2" path="res://UI/Map/minimap_ui.tscn" id="5_if2kf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wrvmm"]
 atlas = ExtResource("4_32ac5")
@@ -89,3 +90,5 @@ expand_mode = 2
 layout_mode = 2
 text = "0"
 label_settings = SubResource("LabelSettings_mfvhf")
+
+[node name="minimap_ui" parent="." instance=ExtResource("5_if2kf")]

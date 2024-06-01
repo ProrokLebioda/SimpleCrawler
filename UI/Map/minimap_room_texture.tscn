@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bop1gpxii056h"]
+
+[ext_resource type="Texture2D" uid="uid://dyao8y3crj260" path="res://Art/minimap/map_rooms/map_room_four_doors.png" id="1_sq6x6"]
+
+[node name="MinimapRoomTexture" type="TextureRect"]
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("1_sq6x6")
