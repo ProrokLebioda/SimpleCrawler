@@ -17,10 +17,6 @@ var red: Color = Color(0.9,0,0.1)
 func _ready():
 	Globals.connect("stat_change", update_stat_text)
 	update_stat_text()
-	update_map()
-
-func update_map():
-	minimap_ui.update_player_marker_pos()
 	
 func update_stat_text():
 	update_health_text()

@@ -12,14 +12,7 @@ func _ready():
 	_setup_map()
 	
 	add_child(player_marker)
-func update_map():
-	#_evaluate_neighbors()
-	#_setup_map()
-	pass
-func update_player_marker_pos():
-	#update_map()
-	#player_marker.global_position = Vector2i(Globals.player_room.x,-Globals.player_room.y) * 16 + static_offset
-	pass
+
 var dir_check = [Room_struct.CardinalDirection.NORTH, Room_struct.CardinalDirection.EAST, Room_struct.CardinalDirection.SOUTH, Room_struct.CardinalDirection.WEST]
 func _evaluate_neighbors():
 	for pos in Levels.rooms:
