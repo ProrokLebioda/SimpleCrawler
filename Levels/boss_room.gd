@@ -70,4 +70,5 @@ func _on_player_entered_ladder():
 	var new_player_room = Vector3i(0,0,Globals.player_at_level+1)
 	update_player_room(new_player_room)
 	Levels.rooms[room_vector_position]["is_visited"] = true
+	ui.queue_free()
 	get_tree().change_scene_to_file(Levels.rooms[new_player_room]["scene"])

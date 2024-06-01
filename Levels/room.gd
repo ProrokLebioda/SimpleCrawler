@@ -6,6 +6,7 @@ var chest_scene : PackedScene = preload("res://Objects/Interactables/chest_horiz
 var health_pickup_scene: PackedScene = preload("res://Objects/Item_Pickups/health_pickup.tscn")
 
 var area_collision_check : PackedScene = preload("res://Utils/area_collision_check.tscn")
+@onready var ui = $UI
 
 @onready var chest_spawn_points : Node2D = $ChestSpawnPoints
 @onready var objects_node : Node2D = $Objects

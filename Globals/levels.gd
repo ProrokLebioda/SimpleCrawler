@@ -3,14 +3,19 @@ extends Node
 var number_of_rooms: int = 15
 
 var levels : int = 3
-var rooms = {}
+var rooms : Dictionary 
 var test_room_types = [Room_struct.ROOM_TYPE.SIMPLE_COMBAT,Room_struct.ROOM_TYPE.TREASURE, Room_struct.ROOM_TYPE.SHOP, Room_struct.ROOM_TYPE.BOSS]
 var test_room_no_boss = [Room_struct.ROOM_TYPE.SIMPLE_COMBAT,Room_struct.ROOM_TYPE.TREASURE, Room_struct.ROOM_TYPE.SHOP]
-
+@export var room_texture_scene : PackedScene = preload("res://UI/Map/minimap_room_texture.tscn")
+var textmap_size : int = 16
 var temp_rooms = []
 # for now keep value that boss_room was spawned, to only have one
 var is_boss_room_spawned : bool = false
 var is_shop_room_spawned : bool = false
+
+# Minimap stuff
+var static_offset : Vector2i = Vector2i(100,100)
+
 func _ready():
 	generate_random_dungeon()
 	#simple_test_dungeon()
@@ -29,6 +34,7 @@ func simple_test_dungeon():
 	var key3 = Vector3i(0,-1,0)
 	var key4 = Vector3i(1,0,0)
 	var key5 = Vector3i(-1,0,0)
+	var key11 = Vector3i(0, 2, 0)
 	
 	var key6 = Vector3i(0,0,1)
 	var key7 = Vector3i(0,1,1)
@@ -48,7 +54,7 @@ func simple_test_dungeon():
 	rooms[key8] = Room_struct.new().create_room(false, Room_struct.ROOM_TYPE.BOSS)
 	rooms[key9] = Room_struct.new().create_room(false, Room_struct.ROOM_TYPE.SHOP)
 	rooms[key10] = Room_struct.new().create_room(false, Room_struct.ROOM_TYPE.TREASURE)
-	
+	rooms[key11] = Room_struct.new().create_room(false, Room_struct.ROOM_TYPE.TREASURE)
 	levels = key10.z
 
 func generate_random_dungeon():
@@ -116,4 +122,3 @@ func generate_random_dungeon():
 		curr_level += 1
 	
 	levels = curr_level
-	

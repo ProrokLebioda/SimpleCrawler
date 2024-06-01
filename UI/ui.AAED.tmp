@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://bd7smtjx0swck"]
+
+[ext_resource type="Texture2D" uid="uid://dnrcb1sgcfqy2" path="res://Art/3rdParty/FromTutorials/bg.png" id="1_2i8dp"]
+[ext_resource type="Script" path="res://UI/ui.gd" id="1_nfn68"]
+[ext_resource type="Texture2D" uid="uid://13kkap81mvwk" path="res://Art/3rdParty/FromTutorials/progress.png" id="2_5imcs"]
+[ext_resource type="Texture2D" uid="uid://c7x54j23e5igu" path="res://Art/3rdParty/lil-cthulhu/Coin-Sheet.png" id="4_32ac5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrvmm"]
+atlas = ExtResource("4_32ac5")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mfvhf"]
+font_size = 25
+
+[node name="UI" type="CanvasLayer"]
+scale = Vector2(0.275, 0.275)
+transform = Transform2D(0.275, 0, 0, 0.275, 0, 0)
+script = ExtResource("1_nfn68")
+
+[node name="HealthContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HealthContainer"]
+layout_mode = 1
+offset_right = 450.0
+offset_bottom = 50.0
+
+[node name="Label" type="Label" parent="HealthContainer/HBoxContainer"]
+layout_mode = 2
+text = "HEALTH: "
+
+[node name="MarginContainer" type="MarginContainer" parent="HealthContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_top = 0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="HealthContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+value = 20.0
+texture_under = ExtResource("1_2i8dp")
+texture_progress = ExtResource("2_5imcs")
+
+[node name="HealthAmountText" type="Label" parent="HealthContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "10/10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CoinImage" type="TextureRect" parent="HealthContainer/HBoxContainer"]
+texture_repeat = 1
+layout_mode = 2
+texture = SubResource("AtlasTexture_wrvmm")
+expand_mode = 2
+
+[node name="CoinsLabel" type="Label" parent="HealthContainer/HBoxContainer"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_mfvhf")
