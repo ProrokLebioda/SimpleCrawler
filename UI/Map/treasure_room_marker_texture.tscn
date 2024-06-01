@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://btusam1f40i7v"]
+
+[ext_resource type="Texture2D" uid="uid://byuf21pch1g88" path="res://Art/minimap/map_markers/map_treasure_room_marker.png" id="1_j5g1m"]
+
+[node name="treasure_room_marker_texture" type="TextureRect"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+texture = ExtResource("1_j5g1m")
