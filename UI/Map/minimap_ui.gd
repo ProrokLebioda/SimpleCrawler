@@ -14,12 +14,18 @@ func _ready():
 	add_child(player_marker)
 	
 
+func update_map():
+	#_evaluate_neighbors()
+	#_setup_map()
+	pass
 var dir_check = [Room_struct.CardinalDirection.NORTH, Room_struct.CardinalDirection.EAST, Room_struct.CardinalDirection.SOUTH, Room_struct.CardinalDirection.WEST]
 func _evaluate_neighbors():
 	for pos in Levels.rooms:
 		if pos.z != Globals.player_at_level:
 			continue
 		var room = Levels.rooms[pos]
+		if room["is_visited"] == false and (Globals.player_room != pos and (pos != Globals.player_room + Vector3i(0,1,0) and pos != Globals.player_room + Vector3i(0,-1,0) and pos != Globals.player_room + Vector3i(1,0,0) and pos != Globals.player_room + Vector3i(-1,0,0))):
+			continue
 		# Check if there are rooms placed accordingly:
 		var combined_dir : Room_struct.CombinedDirection = Room_struct.CombinedDirection.NONE
 		print("Room: ", pos)
@@ -54,6 +60,8 @@ func _setup_map():
 		if pos.z != Globals.player_at_level:
 			continue
 		var room = Levels.rooms[pos]
+		if room["is_visited"] == false and (Globals.player_room != pos and (pos != Globals.player_room + Vector3i(0,1,0) and pos != Globals.player_room + Vector3i(0,-1,0) and pos != Globals.player_room + Vector3i(1,0,0) and pos != Globals.player_room + Vector3i(-1,0,0))):
+			continue
 		var combined_dir = room["combined_neighbor_dir"] as Room_struct.CombinedDirection
 		var txtr = MinimapTextureAtlas.get_texture_for_direction(combined_dir)
 		var room_texture = room_texture_scene.instantiate() as TextureRect

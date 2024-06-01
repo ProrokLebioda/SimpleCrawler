@@ -12,10 +12,14 @@ var red: Color = Color(0.9,0,0.1)
 @onready var xp_amount_text = $StatsContainer/HBoxContainer/XpBarMarginContainer/XpAmountText
 
 @onready var coins_label = $StatsContainer/HBoxContainer/CoinsLabel
+@onready var minimap_ui = $minimap_ui
 
 func _ready():
 	Globals.connect("stat_change", update_stat_text)
 	update_stat_text()
+
+func update_map():
+	minimap_ui.update_map()
 	
 func update_stat_text():
 	update_health_text()
