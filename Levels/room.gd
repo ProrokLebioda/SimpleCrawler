@@ -51,7 +51,6 @@ func generate_level():
 	room_vector_position = Globals.player_room
 	room = Levels.rooms[room_vector_position]
 	is_visited = room["is_visited"]
-	ui.update_map()
 	print("Room at: ", room_vector_position, ", visited?: ", room["is_visited"], ", Type: ", room["type"])
 	
 func place_player():
