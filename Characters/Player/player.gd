@@ -18,7 +18,7 @@ var can_shoot : bool = true
 #visuals
 @onready var sprite_2d = $Sprite2D
 
-
+var acceleration : float = 10
 # Pushback
 var knockback_direction: Vector2 = Vector2.ZERO
 var knockback_force: float = 100.0
@@ -32,26 +32,32 @@ func _ready():
 	Globals.player_collider_radius = collider_shape.radius
 
 func _physics_process(delta):
-	var input_direction = Vector2(
-		Input.get_action_strength("right")-Input.get_action_strength("left"),
-		Input.get_action_strength("down")-Input.get_action_strength("up")
-	)
+#	var input_direction = Vector2(
+#		Input.get_action_strength("right")-Input.get_action_strength("left"),
+#		Input.get_action_strength("down")-Input.get_action_strength("up")
+#	)
+	var input_direction : Vector2 = Input.get_vector("left", "right", "up", "down")
+	acceleration = Globals.movement_speed / 5
 	
 	update_animation_parameters(input_direction)
 	if knockback_force > 0:
 		knockback_val = knockback_direction * knockback_force
-	
-	velocity = input_direction.normalized() * Globals.movement_speed + knockback_val
+	var quickness = lerp(velocity, Vector2(Globals.movement_speed,Globals.movement_speed), 0.8)
+	#velocity = input_direction.normalized() * Globals.movement_speed + knockback_val
+	velocity.x = move_toward(velocity.x, Globals.movement_speed * input_direction.x + knockback_val.x, acceleration)
+	velocity.y = move_toward(velocity.y, Globals.movement_speed * input_direction.y + knockback_val.y, acceleration)
+	velocity += knockback_val
 	
 	move_and_slide()
-	knockback_force = lerp(knockback_force, 0.0, 0.1)
+	knockback_force = lerp(knockback_force, 0.0, 0.7)
 	Globals.player_pos = global_position
 	pick_new_state()
 	
-	var shoot_direction = Vector2(
-		Input.get_action_strength("s_right")-Input.get_action_strength("s_left"),
-		Input.get_action_strength("s_down")-Input.get_action_strength("s_up")
-	)
+#	var shoot_direction = Vector2(
+#		Input.get_action_strength("s_right")-Input.get_action_strength("s_left"),
+#		Input.get_action_strength("s_down")-Input.get_action_strength("s_up")
+#	)
+	var shoot_direction : Vector2 = Input.get_vector("s_left", "s_right", "s_up", "s_down")
 	
 	if (shoot_direction != Vector2.ZERO) and can_shoot:
 		#Fix sound issues
