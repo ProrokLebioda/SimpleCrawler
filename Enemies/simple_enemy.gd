@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name SimpleEnemy
 enum ENEMY_STATE {IDLE, WALK, AGGRO}
 
 signal died()

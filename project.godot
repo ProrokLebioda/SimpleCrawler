@@ -143,6 +143,7 @@ s_right={
 2d_physics/layer_4="Projectiles"
 2d_physics/layer_5="Items&Zones"
 2d_physics/layer_6="Walls"
+2d_physics/layer_7="Destroyable"
 
 [rendering]
 

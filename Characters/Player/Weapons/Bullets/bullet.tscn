@@ -10,7 +10,7 @@ radius = 3.0
 z_index = 5
 y_sort_enabled = true
 collision_layer = 8
-collision_mask = 6
+collision_mask = 70
 script = ExtResource("1_uxw8j")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
