@@ -64,7 +64,8 @@ func _setup_map():
 			continue
 		var room = Levels.rooms[pos]
 		# change to func
-		if room["is_visited"] == false and (Globals.player_room != pos and (pos != Globals.player_room + Vector3i(0,1,0) and pos != Globals.player_room + Vector3i(0,-1,0) and pos != Globals.player_room + Vector3i(1,0,0) and pos != Globals.player_room + Vector3i(-1,0,0))):
+		var visited = room["is_visited"] 
+		if visited == false and (Globals.player_room != pos and (pos != Globals.player_room + Vector3i(0,1,0) and pos != Globals.player_room + Vector3i(0,-1,0) and pos != Globals.player_room + Vector3i(1,0,0) and pos != Globals.player_room + Vector3i(-1,0,0))):
 			continue
 		
 		
@@ -75,31 +76,27 @@ func _setup_map():
 		textmap_size = room_texture.size.x
 		current_offset = static_offset - Vector2i(Globals.player_room.x,-Globals.player_room.y)*textmap_size 
 		room_texture.global_position = Vector2i(pos.x, -pos.y) * textmap_size + current_offset
+		
+		if visited == false and pos != Globals.player_room:
+			room_texture.modulate.a = .5
 		add_child(room_texture)
 		if room["type"] == Room_struct.ROOM_TYPE.BOSS:
-			# add boss marker
-			boss_marker = boss_room_marker_scene.instantiate() as TextureRect
-			boss_marker.size = Vector2(textmap_size,textmap_size)
-			boss_marker.global_position = Vector2i(pos.x, -pos.y) * textmap_size + current_offset
-			add_child(boss_marker)
+			_prepare_marker(boss_marker, boss_room_marker_scene, pos, current_offset, visited)
 		
 		if room["type"] == Room_struct.ROOM_TYPE.TREASURE:
-			# add boss marker
-			treasure_marker = treasure_room_marker_scene.instantiate() as TextureRect
-			treasure_marker.size = Vector2(textmap_size,textmap_size)
-			treasure_marker.global_position = Vector2i(pos.x, -pos.y) * textmap_size + current_offset
-			add_child(treasure_marker)
+			_prepare_marker(treasure_marker, treasure_room_marker_scene, pos, current_offset, visited)
 		
 		if room["type"] == Room_struct.ROOM_TYPE.SHOP:
-			# add boss marker
-			shop_marker = shop_room_marker_scene.instantiate() as TextureRect
-			shop_marker.size = Vector2(textmap_size,textmap_size)
-			shop_marker.global_position = Vector2i(pos.x, -pos.y) * textmap_size + current_offset
-			add_child(shop_marker)
-		
+			_prepare_marker(shop_marker, shop_room_marker_scene, pos, current_offset, visited)
 		
 		if Globals.player_room == pos:
 			player_marker.global_position = Vector2i(pos.x, -pos.y) * textmap_size + current_offset
 	
 
-
+func _prepare_marker(marker : TextureRect, marker_scene : PackedScene, pos: Vector3i, current_offset: Vector2i, visited : bool):
+	marker = marker_scene.instantiate() as TextureRect
+	marker.size = Vector2(textmap_size,textmap_size)
+	marker.global_position = Vector2i(pos.x, -pos.y) * textmap_size + current_offset
+	if visited == false and pos != Globals.player_room:
+		marker.modulate.a = .5
+	add_child(marker)
