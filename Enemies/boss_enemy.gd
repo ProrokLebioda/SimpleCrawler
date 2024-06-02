@@ -1,6 +1,6 @@
 extends CharacterBody2D
 class_name BossBase
-enum ENEMY_STATE {IDLE, AGGRO, CHARGING}
+enum ENEMY_STATE {IDLE, WALK, AGGRO, CHARGING, LAY_EGG}
 
 signal died(death_pos)
 
@@ -34,7 +34,6 @@ var current_state : ENEMY_STATE = ENEMY_STATE.IDLE
 var destination : Vector2 = Vector2.INF
 
 func _ready():
-	#pick_new_state()
 	fight_start_wait_timer.start()
 
 func _physics_process(delta):
@@ -47,35 +46,15 @@ func process_state():
 		ENEMY_STATE.IDLE:
 			velocity = Vector2.ZERO
 			dest = Vector2.INF
-#		ENEMY_STATE.WALK:
-#			flip_sprite_direction(move_direction)
-#			velocity = move_direction * move_speed
-#			move_and_slide()
+		ENEMY_STATE.WALK:
+			flip_sprite_direction(move_direction)
+			velocity = move_direction * move_speed
+			move_and_slide()
 		ENEMY_STATE.AGGRO:
 			move_direction = (Globals.player_pos - position).normalized()
 			flip_sprite_direction(move_direction)
 			velocity = move_direction * move_speed
 			move_and_slide()
-			
-#			if can_charge:
-#				print("Charging")
-#				current_state = ENEMY_STATE.CHARGING
-#				max_time_in_charge_timer.start(max_time_in_charge_cooldown)
-#				destination = get_extended_point(position, Globals.player_pos)
-#				can_charge = false
-#
-				
-		ENEMY_STATE.CHARGING:
-			if destination != Vector2.INF:
-				move_direction = (destination - position).normalized()
-				flip_sprite_direction(move_direction)
-				move_and_slide()
-				
-				if (position.distance_to(destination) < 2):
-					print("Boss: Reached destination ")
-					pick_new_state()
-			else:
-				pick_new_state()
 
 func select_new_direction():
 	move_direction = Vector2(
@@ -103,11 +82,9 @@ func pick_new_state():
 			current_state = ENEMY_STATE.AGGRO
 			select_new_direction()
 		
-#		ENEMY_STATE.WALK:
-#			state_machine.travel("cow_idle_right")
-#			print("ToIdle")
-#			current_state = ENEMY_STATE.IDLE
-#			idle_walk_timer.start(idle_time)
+		ENEMY_STATE.WALK:
+			print("ToIdle")
+			current_state = ENEMY_STATE.IDLE
 		
 		ENEMY_STATE.AGGRO:
 			print("FromAggroToIdle")
@@ -167,7 +144,7 @@ func _on_damage_area_body_entered(body):
 			body.hit(base_damage, hit_direction)
 
 func _on_idle_timer_timeout():
-	if (current_state != ENEMY_STATE.AGGRO or current_state != ENEMY_STATE.CHARGING):
+	if (current_state != ENEMY_STATE.AGGRO or current_state != ENEMY_STATE.CHARGING or current_state != ENEMY_STATE.LAY_EGG):
 		pick_new_state()
 
 func _on_fight_start_wait_timer_timeout():

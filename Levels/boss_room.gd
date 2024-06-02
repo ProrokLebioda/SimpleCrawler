@@ -1,6 +1,7 @@
 extends RoomParent
 
-@onready var boss_scene: PackedScene = preload("res://Enemies/bosses/cow_boss_enemy.tscn")
+#@onready var boss_scene: PackedScene = preload("res://Enemies/bosses/cow_boss_enemy.tscn")
+@onready var boss_scene: PackedScene = preload("res://Enemies/bosses/chicken_boss_enemy.tscn")
 @onready var ladder_scene: PackedScene = preload("res://Objects/Statics/ladder_down.tscn")
 @onready var enemies_spawn_points_node: Node2D = $BossSpawnPoints
 @onready var enemy_died_sound = $Sounds/EnemyDiedSound

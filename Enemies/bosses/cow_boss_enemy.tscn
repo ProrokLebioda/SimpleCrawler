@@ -105,6 +105,8 @@ max_time_in_charge_cooldown = 3.0
 [node name="Sprite2D" parent="." index="0"]
 material = SubResource("ShaderMaterial_5mmu5")
 texture = ExtResource("4_luqp8")
+hframes = 3
+vframes = 2
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CircleShape2D_fwium")

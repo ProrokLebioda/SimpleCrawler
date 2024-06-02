@@ -22,8 +22,6 @@ death_particle = ExtResource("2_350iv")
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_y7eix")
 position = Vector2(0, -6)
-hframes = 3
-vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
