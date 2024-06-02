@@ -13,7 +13,8 @@ func _ready():
 	enemies_left_count = enemies_node.get_child_count()
 	spawn_ladder(Vector2(0,0))
 	super()
-	AudioPlayer.play_boss_music(-10.0)
+	if is_visited == false:
+		AudioPlayer.play_boss_music(-10.0)
 	# Get count of enemies
 	print("Number of enemies: ", enemies_left_count)
 	if enemies_left_count <= 0:
