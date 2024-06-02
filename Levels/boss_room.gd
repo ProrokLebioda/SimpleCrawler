@@ -21,7 +21,6 @@ func _ready():
 	if enemies_left_count <= 0:
 		room_cleared()
 
-	
 func spawn_boss():
 	if !is_visited:
 		var spawn_point = enemies_spawn_points_node.get_children().pick_random()
@@ -30,8 +29,20 @@ func spawn_boss():
 		boss.position = pos
 		# Connect signals for enemies
 		boss.connect("died", _on_enemy_died)
-	
+		if boss is ChickenBoss:
+			boss.connect("spawned_egg", _take_egg_from_boss)
 		enemies_node.add_child(boss)
+		
+
+func _take_enemy_from_egg(enemy : SimpleEnemy, pos : Vector2):
+	enemy.position = pos
+	enemies_node.add_child(enemy)
+
+func _take_egg_from_boss(egg : HatchingEgg, pos : Vector2 ):
+	egg.global_position = pos
+	enemies_node.add_child(egg)
+	egg.connect("spawned_animal", _take_enemy_from_egg)
+	
 
 func room_cleared():
 	#custom logic
@@ -39,7 +50,6 @@ func room_cleared():
 	if enemies_left_count <= 0:
 		super()
 
-	
 func _on_enemy_died(death_position):
 	if get_tree() != null:
 		enemies_left_count-= 1
@@ -56,7 +66,6 @@ func _on_enemy_died(death_position):
 			else:
 				spawn_ladder(death_position)
 				await enemy_died_sound.finished
-
 
 func spawn_ladder(spawn_position):
 	if get_tree() != null:

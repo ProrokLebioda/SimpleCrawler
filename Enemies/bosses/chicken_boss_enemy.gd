@@ -1,16 +1,19 @@
 extends BossBase
-
+class_name ChickenBoss
 @onready var lay_egg_timer = $Timers/LayEggTimer
 
 @onready var animation_player = $Animations/AnimationPlayer
 @onready var animation_tree = $Animations/AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
+@onready var egg_lay_marker = $EggLayMarker
+
+@export var egg_scene : PackedScene
 
 @export var lay_egg_cooldown : float = 3.0
 
 var can_lay_egg : bool = true
 
-
+signal spawned_egg(egg : HatchingEgg, pos : Vector2)
 func process_state():
 	var dest = Vector2.INF
 	match current_state:
@@ -63,7 +66,10 @@ func pick_new_state():
 			#idle_timer.start(idle_time)
 		
 			
-
-
 func _on_lay_egg_timer_timeout():
 	can_lay_egg = true
+
+func _on_spawn_egg():
+	var egg = egg_scene.instantiate() as HatchingEgg
+	spawned_egg.emit(egg, egg_lay_marker.global_position)
+
