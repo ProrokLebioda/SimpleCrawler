@@ -29,7 +29,7 @@ var is_visited: bool = false
 @onready var player_weapon_node = $PlayerWeapon
 
 func _input(event):
-	if event.is_action_pressed("escape"):
+	if event.is_action_pressed("ui_cancel"):
 		_on_pause()
 		
 func _ready():
