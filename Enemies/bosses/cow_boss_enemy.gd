@@ -15,6 +15,7 @@ var can_charge: bool = true
 
 func _ready():
 	#pick_new_state()
+	sprite = $Sprite2D
 	fight_start_wait_timer.start()
 
 func _physics_process(delta):
