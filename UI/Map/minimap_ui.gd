@@ -12,7 +12,8 @@ var treasure_marker
 var shop_marker
 var textmap_size : int = 16
 
-@export var static_offset : Vector2i = Vector2i(200,50)
+#@export var static_offset : Vector2i = Vector2i(200,50)
+@export var static_offset : Vector2i = Vector2i(0,0)
 var current_offset : Vector2i = static_offset
 func _ready():
 	player_marker = player_pos_marker_scene.instantiate()

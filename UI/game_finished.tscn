@@ -1,17 +1,44 @@
-[gd_scene load_steps=4 format=3 uid="uid://dn4rq2lunbh0s"]
+[gd_scene load_steps=3 format=3 uid="uid://dn4rq2lunbh0s"]
 
-[ext_resource type="PackedScene" uid="uid://duniv667w1xqw" path="res://UI/game_over.tscn" id="1_d13s7"]
 [ext_resource type="Script" path="res://UI/game_finished.gd" id="2_wr0dm"]
 [ext_resource type="AudioStream" uid="uid://d22vdinnnyh0r" path="res://Audio/SFX/3rd Party/kronbits/Retro Event Acute 08.wav" id="3_ebji1"]
 
-[node name="GameFinished" instance=ExtResource("1_d13s7")]
+[node name="GameFinished" type="CanvasLayer"]
 script = ExtResource("2_wr0dm")
 victory_music = ExtResource("3_ebji1")
 
-[node name="Label" parent="." index="0"]
-text = "GAME CLEARED!
-CONGRATULATIONS!"
-horizontal_alignment = 1
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -33.0
+offset_right = 25.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="RetryButton" parent="VBoxContainer" index="0"]
-text = "New Game"
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "CONGRATULATIONS!
+GAME FINISHED!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NewGameButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "NEW GAME"
+
+[node name="MainMenuButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "MAIN MENU"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "QUIT"
+
+[connection signal="pressed" from="VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
