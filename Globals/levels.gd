@@ -17,8 +17,8 @@ var is_shop_room_spawned : bool = false
 var static_offset : Vector2i = Vector2i(100,100)
 
 func _ready():
-	#generate_random_dungeon()
-	simple_test_dungeon()
+	generate_random_dungeon()
+	#simple_test_dungeon()
 	
 	
 func clear_rooms_visited_state():

@@ -14,89 +14,99 @@ region = Rect2(0, 0, 8, 8)
 font_size = 25
 
 [node name="UI" type="CanvasLayer"]
-scale = Vector2(0.275, 0.275)
-transform = Transform2D(0.275, 0, 0, 0.275, 0, 0)
 script = ExtResource("1_nfn68")
 
-[node name="StatsContainer" type="Control" parent="."]
-layout_mode = 3
+[node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="StatsContainer"]
+[node name="StatsContainer" type="Control" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/StatsContainer"]
 layout_mode = 1
 offset_right = 1833.0
 offset_bottom = 38.0
 scale = Vector2(1.5, 1.5)
 
-[node name="HealthLabel" type="Label" parent="StatsContainer/HBoxContainer"]
+[node name="HealthLabel" type="Label" parent="MarginContainer/StatsContainer/HBoxContainer"]
 layout_mode = 2
 text = "HEALTH: "
 
-[node name="MarginContainer" type="MarginContainer" parent="StatsContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/StatsContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/margin_top = 0
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="StatsContainer/HBoxContainer/MarginContainer"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer/StatsContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 value = 20.0
 texture_under = ExtResource("1_2i8dp")
 texture_progress = ExtResource("2_5imcs")
 
-[node name="HealthAmountText" type="Label" parent="StatsContainer/HBoxContainer/MarginContainer"]
+[node name="HealthAmountText" type="Label" parent="MarginContainer/StatsContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 text = "10/10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LevelLabel" type="Label" parent="StatsContainer/HBoxContainer"]
+[node name="LevelLabel" type="Label" parent="MarginContainer/StatsContainer/HBoxContainer"]
 layout_mode = 2
 text = "LVL: 1"
 
-[node name="XpBarMarginContainer" type="MarginContainer" parent="StatsContainer/HBoxContainer"]
+[node name="XpBarMarginContainer" type="MarginContainer" parent="MarginContainer/StatsContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/margin_top = 0
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="StatsContainer/HBoxContainer/XpBarMarginContainer"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer/StatsContainer/HBoxContainer/XpBarMarginContainer"]
 modulate = Color(0.85098, 0.505882, 1, 1)
 layout_mode = 2
 value = 20.0
 texture_under = ExtResource("1_2i8dp")
 texture_progress = ExtResource("2_5imcs")
 
-[node name="XpAmountText" type="Label" parent="StatsContainer/HBoxContainer/XpBarMarginContainer"]
+[node name="XpAmountText" type="Label" parent="MarginContainer/StatsContainer/HBoxContainer/XpBarMarginContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 text = "1/100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CoinImage" type="TextureRect" parent="StatsContainer/HBoxContainer"]
+[node name="CoinImage" type="TextureRect" parent="MarginContainer/StatsContainer/HBoxContainer"]
 texture_repeat = 1
 layout_mode = 2
 texture = SubResource("AtlasTexture_wrvmm")
 expand_mode = 2
 
-[node name="CoinsLabel" type="Label" parent="StatsContainer/HBoxContainer"]
+[node name="CoinsLabel" type="Label" parent="MarginContainer/StatsContainer/HBoxContainer"]
 layout_mode = 2
 text = "0"
 label_settings = SubResource("LabelSettings_mfvhf")
 
-[node name="minimap_ui" parent="StatsContainer/HBoxContainer" instance=ExtResource("5_if2kf")]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="Panel" type="Panel" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(100, 100)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
+offset_left = -50.0
+offset_right = 50.0
+offset_bottom = 100.0
 grow_horizontal = 0
-size_flags_horizontal = 8
-size_flags_vertical = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="minimap_ui" parent="Panel" instance=ExtResource("5_if2kf")]
+layout_mode = 1
+offset_top = -19.0
+offset_bottom = 19.0
