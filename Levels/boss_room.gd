@@ -9,6 +9,7 @@ extends RoomParent
 var enemies_left_count : int = 0
 
 func _ready():
+	boss_scene = Bosses.get_boss_scene()
 	generate_level() # <=== TODO_Fix: A bandaid for when you enter you need to have info about room, but parent execution is called later which means we don't have correct info about visited state
 	spawn_boss()
 	enemies_left_count = enemies_node.get_child_count()
