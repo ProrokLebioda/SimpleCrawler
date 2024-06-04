@@ -18,6 +18,7 @@ func play_boss_music(volume = 0.0):
 # useful for transition scene
 func play_FX(stream : AudioStream, volume = 0.0):
 	var fx_player = AudioStreamPlayer.new()
+	fx_player.bus = "SFX"
 	fx_player.stream = stream
 	fx_player.name = "FX_PLAYER"
 	fx_player.volume_db = volume
