@@ -154,13 +154,9 @@ func hit(damage : int, dir: Vector2):
 		get_tree().current_scene.add_child(particle)
 		# too coupled, maybe should be a signal... but I don't want to fiddle with this
 		Globals.xp += xp_amount
-		
+		died.emit(position)
 		queue_free()
 
 func _on_hit_timer_timeout():
 	vulnerable = true
 	sprite.material.set_shader_parameter("progress", 0)
-
-func _notification(what):
-	if (what == NOTIFICATION_PREDELETE):
-		died.emit(position)

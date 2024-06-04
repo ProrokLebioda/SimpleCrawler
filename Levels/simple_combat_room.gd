@@ -45,7 +45,6 @@ func room_cleared():
 	#custom logic
 	if enemies_left_count <= 0:
 		super()
-
 	
 func _on_enemy_died(death_position):
 	enemies_left_count-= 1
