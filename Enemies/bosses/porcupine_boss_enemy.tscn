@@ -1,0 +1,178 @@
+[gd_scene load_steps=25 format=3 uid="uid://bg0uptl6brt6x"]
+
+[ext_resource type="PackedScene" uid="uid://blsi5vt1dgu28" path="res://Enemies/boss_enemy.tscn" id="1_j0l6o"]
+[ext_resource type="Shader" path="res://Enemies/Shaders/simple_enemy.gdshader" id="2_7hqfp"]
+[ext_resource type="Script" path="res://Enemies/bosses/porcupine_boss_enemy.gd" id="2_h2pic"]
+[ext_resource type="PackedScene" uid="uid://c0b6v10mlimbf" path="res://Enemies/bosses/attacks/spike_enemy_projectile.tscn" id="3_min2w"]
+[ext_resource type="Texture2D" uid="uid://deksbdh5asm0c" path="res://Art/enemies/boss_porcupine.png" id="3_u07mq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6l0vc"]
+resource_local_to_scene = true
+shader = ExtResource("2_7hqfp")
+shader_parameter/color = Color(1, 0.694118, 0.996078, 1)
+shader_parameter/progress = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rx2xn"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ul7gv"]
+
+[sub_resource type="Animation" id="Animation_slqxk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_fdwvc"]
+resource_name = "porcupine_idle_right"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ifu2e"]
+resource_name = "porcupine_walk_right"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_w3qr6"]
+resource_name = "porcupine_attack_right"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 3]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_on_shoot_spike_single"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pocfg"]
+_data = {
+"RESET": SubResource("Animation_slqxk"),
+"porcupine_boss_idle_right": SubResource("Animation_fdwvc"),
+"porcupine_boss_shoot_right": SubResource("Animation_w3qr6"),
+"porcupine_boss_walk_right": SubResource("Animation_ifu2e")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7p3xv"]
+animation = &"porcupine_boss_idle_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kfuqd"]
+animation = &"porcupine_boss_shoot_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6qv7p"]
+animation = &"porcupine_boss_walk_right"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tvi7f"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1our2"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gtw5n"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ppk5e"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_du6oj"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tp7ap"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0i0bt"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_e7eq5"]
+states/Start/position = Vector2(122, 75)
+states/porcupine_boss_idle_right/node = SubResource("AnimationNodeAnimation_7p3xv")
+states/porcupine_boss_idle_right/position = Vector2(378, 75)
+states/porcupine_boss_shoot_right/node = SubResource("AnimationNodeAnimation_kfuqd")
+states/porcupine_boss_shoot_right/position = Vector2(677, -8)
+states/porcupine_boss_walk_right/node = SubResource("AnimationNodeAnimation_6qv7p")
+states/porcupine_boss_walk_right/position = Vector2(677, 199)
+transitions = ["Start", "porcupine_boss_idle_right", SubResource("AnimationNodeStateMachineTransition_tvi7f"), "porcupine_boss_shoot_right", "porcupine_boss_idle_right", SubResource("AnimationNodeStateMachineTransition_1our2"), "porcupine_boss_idle_right", "porcupine_boss_shoot_right", SubResource("AnimationNodeStateMachineTransition_gtw5n"), "porcupine_boss_shoot_right", "porcupine_boss_walk_right", SubResource("AnimationNodeStateMachineTransition_ppk5e"), "porcupine_boss_walk_right", "porcupine_boss_shoot_right", SubResource("AnimationNodeStateMachineTransition_du6oj"), "porcupine_boss_walk_right", "porcupine_boss_idle_right", SubResource("AnimationNodeStateMachineTransition_tp7ap"), "porcupine_boss_idle_right", "porcupine_boss_walk_right", SubResource("AnimationNodeStateMachineTransition_0i0bt")]
+graph_offset = Vector2(-156, -74)
+
+[node name="PorcupineEnemy" instance=ExtResource("1_j0l6o")]
+script = ExtResource("2_h2pic")
+spike_scene = ExtResource("3_min2w")
+
+[node name="Sprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_6l0vc")
+position = Vector2(1, -5)
+texture = ExtResource("3_u07mq")
+hframes = 4
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_rx2xn")
+
+[node name="CollisionShape2D" parent="DamageArea" index="0"]
+shape = SubResource("CircleShape2D_ul7gv")
+
+[node name="SpikeShotTimer" type="Timer" parent="Timers" index="3"]
+one_shot = true
+
+[node name="Animations" type="Node" parent="." index="4"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Animations" index="0"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_pocfg")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="Animations" index="1"]
+tree_root = SubResource("AnimationNodeStateMachine_e7eq5")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+
+[connection signal="timeout" from="Timers/SpikeShotTimer" to="." method="_on_spike_shot_timer_timeout"]

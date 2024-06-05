@@ -1,6 +1,6 @@
 extends CharacterBody2D
 class_name BossBase
-enum ENEMY_STATE {IDLE, WALK, AGGRO, CHARGING, LAY_EGG}
+enum ENEMY_STATE {IDLE, WALK, AGGRO, CHARGING, LAY_EGG, SHOOT_BASIC}
 
 signal died(death_pos)
 

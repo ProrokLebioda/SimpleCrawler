@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0b6v10mlimbf"]
+
+[ext_resource type="PackedScene" uid="uid://ej0x5syhg1ao" path="res://Enemies/bosses/attacks/enemy_projectile.tscn" id="1_geloc"]
+[ext_resource type="Texture2D" uid="uid://4hl4hlohrfok" path="res://Art/enemies/attacks/spike_projectile.png" id="2_7f6u7"]
+[ext_resource type="Script" path="res://Enemies/bosses/attacks/spike_enemy_projectile.gd" id="2_yk7t6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dbkbh"]
+radius = 2.0
+
+[node name="spike_enemy_projectile" instance=ExtResource("1_geloc")]
+script = ExtResource("2_yk7t6")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_7f6u7")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_dbkbh")

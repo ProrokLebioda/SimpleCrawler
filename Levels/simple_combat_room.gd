@@ -60,4 +60,5 @@ func spawn_coin(spawn_position):
 	if get_tree() != null:
 		var coin = coin_scene.instantiate()
 		coin.global_position = spawn_position
-		objects_node.add_child(coin)
+		objects_node.call_deferred("add_child",coin )
+		#objects_node.add_child(coin)
