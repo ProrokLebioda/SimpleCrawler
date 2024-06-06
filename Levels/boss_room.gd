@@ -32,6 +32,8 @@ func spawn_boss():
 		boss.connect("died", _on_enemy_died)
 		if boss is ChickenBoss:
 			boss.connect("spawned_egg", _take_egg_from_boss)
+		if boss is PorcupineBoss:
+			boss.connect("shoot_spike", _spike_shot)
 		enemies_node.add_child(boss)
 		
 
@@ -43,7 +45,14 @@ func _take_egg_from_boss(egg : HatchingEgg, pos : Vector2 ):
 	egg.global_position = pos
 	enemies_node.add_child(egg)
 	egg.connect("spawned_animal", _take_enemy_from_egg)
-	
+
+func _spike_shot(spike : EnemyProjectile, pos : Vector2, dir : Vector2):
+	spike.global_position = pos
+	spike.direction_vector = dir
+	var angle = Vector2.UP.angle_to(dir)
+	spike.rotate(angle)
+	projectiles_node.add_child(spike)
+	pass
 
 func room_cleared():
 	#custom logic

@@ -106,6 +106,7 @@ var projectile_lifetime : float = base_projectile_lifetime:
 		projectile_lifetime = val
 # Info
 var player_pos: Vector2
+var player_velocity : Vector2
 var player_collider_radius: float
 
 

@@ -138,13 +138,13 @@ advance_mode = 0
 states/End/position = Vector2(1115, 85)
 states/Start/position = Vector2(113, 143)
 states/chicken_boss_idle_right/node = SubResource("AnimationNodeAnimation_j5lwh")
-states/chicken_boss_idle_right/position = Vector2(363, 143)
+states/chicken_boss_idle_right/position = Vector2(362, 143)
 states/chicken_boss_lay_egg_right/node = SubResource("AnimationNodeAnimation_8kctm")
 states/chicken_boss_lay_egg_right/position = Vector2(559, 37)
 states/chicken_boss_walk_right/node = SubResource("AnimationNodeAnimation_fcxrf")
 states/chicken_boss_walk_right/position = Vector2(812, 143)
 transitions = ["Start", "chicken_boss_idle_right", SubResource("AnimationNodeStateMachineTransition_kcy1b"), "chicken_boss_idle_right", "chicken_boss_lay_egg_right", SubResource("AnimationNodeStateMachineTransition_007q1"), "chicken_boss_lay_egg_right", "chicken_boss_idle_right", SubResource("AnimationNodeStateMachineTransition_e6725"), "chicken_boss_lay_egg_right", "chicken_boss_walk_right", SubResource("AnimationNodeStateMachineTransition_587yy"), "chicken_boss_walk_right", "chicken_boss_lay_egg_right", SubResource("AnimationNodeStateMachineTransition_6rie6"), "chicken_boss_walk_right", "chicken_boss_idle_right", SubResource("AnimationNodeStateMachineTransition_01lo3"), "chicken_boss_idle_right", "chicken_boss_walk_right", SubResource("AnimationNodeStateMachineTransition_nj4qb")]
-graph_offset = Vector2(-273, 11)
+graph_offset = Vector2(-236, -29)
 
 [node name="ChickenBossEnemy" instance=ExtResource("1_q5etg")]
 script = ExtResource("2_imfy3")

@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://ej0x5syhg1ao"]
+
+[ext_resource type="Script" path="res://Enemies/bosses/attacks/enemy_projectile.gd" id="1_id54f"]
+
+[node name="enemy_projectile" type="Area2D"]
+collision_layer = 8
+script = ExtResource("1_id54f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="SelfDestructionTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="SelfDestructionTimer" to="." method="_on_self_destruction_timer_timeout"]

@@ -47,10 +47,10 @@ func _physics_process(delta):
 	velocity.x = move_toward(velocity.x, Globals.movement_speed * input_direction.x + knockback_val.x, acceleration)
 	velocity.y = move_toward(velocity.y, Globals.movement_speed * input_direction.y + knockback_val.y, acceleration)
 	velocity += knockback_val
-	
 	move_and_slide()
 	knockback_force = lerp(knockback_force, 0.0, 0.7)
 	Globals.player_pos = global_position
+	Globals.player_velocity = velocity
 	pick_new_state()
 	
 #	var shoot_direction = Vector2(

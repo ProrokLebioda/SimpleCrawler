@@ -124,7 +124,8 @@ func spawn_chest():
 				chest.position = pos
 				# Connect signal
 				chest.connect("open", _on_container_opened)
-				objects_node.add_child(chest)
+				objects_node.call_deferred("add_child", chest)
+				#objects_node.add_child(chest)
 				break
 			else:
 				chest.queue_free()
