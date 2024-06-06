@@ -48,22 +48,6 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_ifu2e"]
-resource_name = "porcupine_walk_right"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [1, 2, 1, 2]
-}
-
 [sub_resource type="Animation" id="Animation_w3qr6"]
 resource_name = "porcupine_attack_right"
 length = 0.4
@@ -92,6 +76,22 @@ tracks/1/keys = {
 "args": [],
 "method": &"_on_shoot_spike_single"
 }]
+}
+
+[sub_resource type="Animation" id="Animation_ifu2e"]
+resource_name = "porcupine_walk_right"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 1, 2]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pocfg"]
@@ -146,6 +146,8 @@ graph_offset = Vector2(-156, -74)
 [node name="PorcupineEnemy" instance=ExtResource("1_j0l6o")]
 script = ExtResource("2_h2pic")
 spike_scene = ExtResource("3_min2w")
+xp_amount = 150
+health_max = 20
 
 [node name="Sprite2D" parent="." index="0"]
 material = SubResource("ShaderMaterial_6l0vc")

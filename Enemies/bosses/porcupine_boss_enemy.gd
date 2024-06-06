@@ -6,7 +6,7 @@ var can_shoot_spikes : bool = true
 @onready var animation_tree = $Animations/AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
 @onready var spike_shot_timer = $Timers/SpikeShotTimer
-var spike_shot_cooldown : float = 1.0
+var spike_shot_cooldown : float = 0.25
 ### Shoot: what, from, what direction
 signal shoot_spike(spike: EnemyProjectile, pos: Vector2, dir : Vector2)
 
@@ -66,7 +66,12 @@ func _on_shoot_spike_single():
 	# send info
 	#move_direction
 	var spike = spike_scene.instantiate() as EnemyProjectile
-	shoot_spike.emit(spike, position, move_direction)
+	
+	var dist = global_position.distance_to(Globals.player_pos)
+	var shoot_pos = Globals.player_pos + Globals.player_velocity * (dist/spike.speed)
+	var shoot_dir = (shoot_pos - global_position).normalized()
+	
+	shoot_spike.emit(spike, position, shoot_dir)
 	print("Single spike")
 	pass
 	
