@@ -1,0 +1,78 @@
+[gd_scene load_steps=15 format=3 uid="uid://c0kicf50kswr4"]
+
+[ext_resource type="PackedScene" uid="uid://y5o2kvxvb0e0" path="res://Enemies/stationary_shooting_enemy.tscn" id="1_wnbxg"]
+[ext_resource type="Script" path="res://Enemies/fodder_enemies/plant_cannon_enemy.gd" id="2_2wi3o"]
+[ext_resource type="Shader" path="res://Enemies/Shaders/simple_enemy.gdshader" id="2_tghkb"]
+[ext_resource type="Texture2D" uid="uid://degyv41oo8qdx" path="res://Art/enemies/fodder/enemy_cannon_plant.png" id="4_yyovm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mi07l"]
+resource_local_to_scene = true
+shader = ExtResource("2_tghkb")
+shader_parameter/color = Color(1, 0.694118, 0.996078, 1)
+shader_parameter/progress = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_emed0"]
+radius = 3.8
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_re6vn"]
+radius = 80.0062
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a2mng"]
+animation = &"plant_cannon/plant_cannon_idle_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7mqec"]
+animation = &"plant_cannon/plant_cannon_shoot_right"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_86cea"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2e5tn"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e2nnd"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_onslo"]
+states/plant_cannon_plant_cannon_idle_right/node = SubResource("AnimationNodeAnimation_a2mng")
+states/plant_cannon_plant_cannon_idle_right/position = Vector2(457, 63)
+states/plant_cannon_plant_cannon_shoot_right/node = SubResource("AnimationNodeAnimation_7mqec")
+states/plant_cannon_plant_cannon_shoot_right/position = Vector2(634, 187)
+transitions = ["Start", "plant_cannon_plant_cannon_idle_right", SubResource("AnimationNodeStateMachineTransition_86cea"), "plant_cannon_plant_cannon_idle_right", "plant_cannon_plant_cannon_shoot_right", SubResource("AnimationNodeStateMachineTransition_2e5tn"), "plant_cannon_plant_cannon_shoot_right", "plant_cannon_plant_cannon_idle_right", SubResource("AnimationNodeStateMachineTransition_e2nnd")]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b3jln"]
+radius = 4.0
+
+[node name="PlantCannonEnemy" instance=ExtResource("1_wnbxg")]
+script = ExtResource("2_2wi3o")
+idle_time = null
+aggro_lose_time = null
+base_damage = null
+health_max = null
+xp_amount = null
+death_particle = null
+
+[node name="Sprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_mi07l")
+position = Vector2(1, 0)
+texture = ExtResource("4_yyovm")
+hframes = 4
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_emed0")
+
+[node name="NoticeArea" parent="." index="2"]
+visible = false
+
+[node name="CollisionShape2D" parent="NoticeArea" index="0"]
+shape = SubResource("CircleShape2D_re6vn")
+
+[node name="AnimationPlayer" parent="." index="3"]
+root_node = NodePath("..")
+
+[node name="AnimationTree" parent="." index="4"]
+tree_root = SubResource("AnimationNodeStateMachine_onslo")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+
+[node name="CollisionShape2D" parent="DamageArea" index="0"]
+shape = SubResource("CircleShape2D_b3jln")

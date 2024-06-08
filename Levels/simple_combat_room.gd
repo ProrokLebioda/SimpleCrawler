@@ -2,7 +2,8 @@ extends RoomParent
 
 class_name CombatLevel
 
-@onready var enemy_scene: PackedScene = preload("res://Enemies/fodder_enemies/chick_enemy.tscn")
+#@onready var enemy_scene: PackedScene = preload("res://Enemies/fodder_enemies/chick_enemy.tscn")
+@onready var enemy_scene: PackedScene = preload("res://Enemies/fodder_enemies/plant_cannon_enemy.tscn")
 @onready var enemies_spawn_points_node: Node2D = $EnemiesSpawnPoints
 
 @onready var coin_scene: PackedScene = preload("res://Objects/Item_Pickups/coin_pickup.tscn")
@@ -28,8 +29,7 @@ func _ready():
 func spawn_enemies():
 	if !is_visited:
 		var spawn_points = enemies_spawn_points_node.get_children()
-		
-		var random_number_enemies_count = randi() % max_enemies_number + min_enemies_number
+		var random_number_enemies_count = randi() % max_enemies_number + 2
 		for i in random_number_enemies_count -1:
 			if i >= spawn_points.size():
 				break
@@ -38,6 +38,8 @@ func spawn_enemies():
 			new_enemy.position = position
 			# Connect signals for enemies
 			new_enemy.connect("died", _on_enemy_died)
+			if new_enemy is StationaryShootingEnemy:
+				new_enemy.connect("_shoot", _spawn_enemy_projectile)
 		
 			enemies_node.add_child(new_enemy)
 
@@ -62,3 +64,11 @@ func spawn_coin(spawn_position):
 		coin.global_position = spawn_position
 		objects_node.call_deferred("add_child",coin )
 		#objects_node.add_child(coin)
+
+func _spawn_enemy_projectile(projectile : EnemyProjectile, pos : Vector2, dir : Vector2):
+	projectile.position = pos
+	projectile.direction_vector = dir
+	# Some projectiles might not require rotating, but let's add it for more advanced sprites
+	var angle = Vector2.UP.angle_to(dir)
+	projectile.rotate(angle)
+	projectiles_node.add_child(projectile)
