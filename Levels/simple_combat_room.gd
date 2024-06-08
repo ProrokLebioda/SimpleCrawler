@@ -17,9 +17,10 @@ var enemies_left_count : int = 0
 
 
 func _ready():
+	enemy_scene = BasicEnemies.get_basic_enemy_scene()
 	generate_level() # <=== TODO_Fix: A bandaid for when you enter you need to have info about room, but parent execution is called later which means we don't have correct info about visited state
 	spawn_enemies()
-	enemies_left_count = enemies_node.get_child_count()
+	#enemies_left_count = enemies_node.get_child_count()
 	super()
 	# Get count of enemies
 	print("Number of enemies: ", enemies_left_count)
@@ -42,6 +43,7 @@ func spawn_enemies():
 				new_enemy.connect("_shoot", _spawn_enemy_projectile)
 		
 			enemies_node.add_child(new_enemy)
+			enemies_left_count+=1
 
 func room_cleared():
 	#custom logic
