@@ -1,44 +1,6 @@
-extends CharacterBody2D
-class_name SimpleEnemy
-enum ENEMY_STATE {IDLE, WALK, AGGRO}
+extends SimpleEnemy
 
-signal died()
 
-@export var move_speed : float = 30
-@export var idle_time : float = 2
-@export var walk_time : float = 2
-@export var aggro_lose_time : float = 4
-@export var base_damage : int = 2
-
-@onready var animation_tree = $AnimationTree
-@onready var state_machine = animation_tree.get("parameters/playback")
-@onready var sprite = $Sprite2D
-@onready var idle_walk_timer = $IdleWalkTimer
-@onready var aggro_lose_timer = $AggroLoseTimer
-
-# Damage stuff
-@export var health_max : int = 4
-@onready var health : int = health_max
-var vulnerable : bool = true
-var hit_timer_wait_time : float = 0.2
-
-@export var xp_amount : int = 10
-# Visual stuff
-
-var move_direction : Vector2 = Vector2.ZERO
-var current_state : ENEMY_STATE = ENEMY_STATE.IDLE
-@export var death_particle : PackedScene
-
-# Pushback 
-var knockback_direction: Vector2 = Vector2.ZERO
-var knockback_force: float = 100.0
-var knockback_val: Vector2 = Vector2.ZERO
-# Additional Components
-#@export var knockback_component: KnockbackComponent
-
-func _ready():
-	pick_new_state()
-	
 func _physics_process(delta):
 	if (current_state == ENEMY_STATE.AGGRO):
 		move_direction = (Globals.player_pos - position).normalized()
@@ -60,22 +22,26 @@ func _physics_process(delta):
 	knockback_force = lerp(knockback_force, 0.0, 0.1)
 #	if knockback_component:
 #		pass
-func select_new_direction():
-	move_direction = Vector2(
-		randi_range(-1,1),
-		randi_range(-1,1)
-	)
-	flip_sprite_direction(move_direction)
-	
-
-func flip_sprite_direction(move_dir : Vector2):
-	if (move_dir.x < 0):
-		sprite.flip_h = true
-	elif(move_dir.x > 0):
-		sprite.flip_h = false
 
 func pick_new_state():
-	pass
+	match current_state:
+		ENEMY_STATE.IDLE:
+			state_machine.travel("chicken_walk_right")
+			print("ToWalk")
+			current_state = ENEMY_STATE.WALK
+			select_new_direction()
+			idle_walk_timer.start(walk_time)
+		
+		ENEMY_STATE.WALK:
+			state_machine.travel("chicken_idle_right")
+			print("ToIdle")
+			current_state = ENEMY_STATE.IDLE
+			idle_walk_timer.start(idle_time)
+		
+		ENEMY_STATE.AGGRO:				
+			state_machine.travel("chicken_idle_right")
+			current_state = ENEMY_STATE.IDLE
+			idle_walk_timer.start(idle_time)
 			
 
 func _on_notice_area_body_entered(body):

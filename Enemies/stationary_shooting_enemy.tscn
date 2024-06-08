@@ -1,0 +1,90 @@
+[gd_scene load_steps=10 format=3 uid="uid://y5o2kvxvb0e0"]
+
+[ext_resource type="Script" path="res://Enemies/stationary_shooting_enemy.gd" id="1_fpuxw"]
+[ext_resource type="PackedScene" uid="uid://cmor7wy2tqkje" path="res://Graphics/particles/exploding_particles.tscn" id="2_dpqsr"]
+[ext_resource type="Shader" path="res://Enemies/Shaders/simple_enemy.gdshader" id="3_s7om7"]
+[ext_resource type="Animation" uid="uid://dafw6xra1nxeh" path="res://Animations/chicken_idle_right.res" id="4_yh7sn"]
+[ext_resource type="Animation" uid="uid://g8a13huaouqu" path="res://Animations/chicken_walk_right.res" id="5_jd6j3"]
+[ext_resource type="AnimationLibrary" uid="uid://uov2e16gll5j" path="res://Animations/plant_cannon.res" id="6_rsr77"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4xl0f"]
+resource_local_to_scene = true
+shader = ExtResource("3_s7om7")
+shader_parameter/color = Color(1, 0.694118, 0.996078, 1)
+shader_parameter/progress = 0.0
+
+[sub_resource type="Animation" id="Animation_3g8xn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cibwm"]
+_data = {
+"RESET": SubResource("Animation_3g8xn"),
+"chicken_idle_right": ExtResource("4_yh7sn"),
+"chicken_walk_right": ExtResource("5_jd6j3")
+}
+
+[node name="StationaryShootingEnemy" type="CharacterBody2D" groups=["Enemies"]]
+y_sort_enabled = true
+collision_layer = 2
+collision_mask = 39
+motion_mode = 1
+script = ExtResource("1_fpuxw")
+death_particle = ExtResource("2_dpqsr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_4xl0f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="NoticeArea" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NoticeArea"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("")
+libraries = {
+"": SubResource("AnimationLibrary_cibwm"),
+"plant_cannon": ExtResource("6_rsr77")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+
+[node name="AggroLoseTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DamageArea" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+
+[node name="HitTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ShotTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="InitialWaitTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="NoticeArea" to="." method="_on_notice_area_body_entered" flags=18]
+[connection signal="body_exited" from="NoticeArea" to="." method="_on_notice_area_body_exited" flags=18]
+[connection signal="timeout" from="AggroLoseTimer" to="." method="_on_aggro_lose_timer_timeout" flags=18]
+[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered" flags=18]
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout" flags=18]
+[connection signal="timeout" from="ShotTimer" to="." method="_on_shot_timer_timeout"]
+[connection signal="timeout" from="InitialWaitTimer" to="." method="_on_initial_wait_timer_timeout"]
