@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://y5o2kvxvb0e0"]
+
+[ext_resource type="PackedScene" uid="uid://dbspbpq1j55yt" path="res://Enemies/simple_enemy.tscn" id="1_b66p5"]
+[ext_resource type="Script" path="res://Enemies/fodder_enemies/stationary_shooting_enemy.gd" id="2_2xy76"]
+[ext_resource type="Shader" path="res://Enemies/Shaders/simple_enemy.gdshader" id="2_5a7ej"]
+[ext_resource type="Texture2D" uid="uid://degyv41oo8qdx" path="res://Art/enemies/fodder/enemy_cannon_plant.png" id="4_r38dl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4xl0f"]
+resource_local_to_scene = true
+shader = ExtResource("2_5a7ej")
+shader_parameter/color = Color(1, 0.694118, 0.996078, 1)
+shader_parameter/progress = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o5h57"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8a5vj"]
+radius = 53.0377
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ct3vs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5j7p8"]
+radius = 4.12311
+
+[node name="StationaryShootingEnemy" instance=ExtResource("1_b66p5")]
+script = ExtResource("2_2xy76")
+death_particle = null
+
+[node name="Sprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_4xl0f")
+position = Vector2(1, 0)
+texture = ExtResource("4_r38dl")
+hframes = 4
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_o5h57")
+
+[node name="NoticeArea" parent="." index="2"]
+visible = false
+
+[node name="CollisionShape2D" parent="NoticeArea" index="0"]
+shape = SubResource("CircleShape2D_8a5vj")
+
+[node name="AnimationPlayer" parent="." index="3"]
+root_node = NodePath("..")
+
+[node name="AnimationTree" parent="." index="4"]
+tree_root = SubResource("AnimationNodeStateMachine_ct3vs")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="CollisionShape2D" parent="DamageArea" index="0"]
+shape = SubResource("CircleShape2D_5j7p8")

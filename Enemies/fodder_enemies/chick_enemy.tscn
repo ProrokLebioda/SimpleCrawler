@@ -1,0 +1,72 @@
+[gd_scene load_steps=15 format=3 uid="uid://dwimyae3ckuuf"]
+
+[ext_resource type="PackedScene" uid="uid://dbspbpq1j55yt" path="res://Enemies/simple_enemy.tscn" id="1_0nbcw"]
+[ext_resource type="Shader" path="res://Enemies/Shaders/simple_enemy.gdshader" id="2_567qk"]
+[ext_resource type="Script" path="res://Enemies/fodder_enemies/chick_enemy.gd" id="2_rgo60"]
+[ext_resource type="Texture2D" uid="uid://c48vwf8xddoyo" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Characters/Free Chicken Sprites.png" id="4_ks63e"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p76jd"]
+resource_local_to_scene = true
+shader = ExtResource("2_567qk")
+shader_parameter/color = Color(1, 0.694118, 0.996078, 1)
+shader_parameter/progress = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4qyfp"]
+radius = 3.8
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t6kw7"]
+radius = 54.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_girm3"]
+animation = &"chicken_idle_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mq1a0"]
+animation = &"chicken_walk_right"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5krlk"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_chpws"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_baq8x"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_msk8c"]
+states/chicken_idle_right/node = SubResource("AnimationNodeAnimation_girm3")
+states/chicken_idle_right/position = Vector2(351, 100)
+states/chicken_walk_right/node = SubResource("AnimationNodeAnimation_mq1a0")
+states/chicken_walk_right/position = Vector2(597, 100)
+transitions = ["Start", "chicken_idle_right", SubResource("AnimationNodeStateMachineTransition_5krlk"), "chicken_idle_right", "chicken_walk_right", SubResource("AnimationNodeStateMachineTransition_chpws"), "chicken_walk_right", "chicken_idle_right", SubResource("AnimationNodeStateMachineTransition_baq8x")]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y5txt"]
+radius = 4.0
+
+[node name="ChickEnemy" instance=ExtResource("1_0nbcw")]
+script = ExtResource("2_rgo60")
+
+[node name="Sprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_p76jd")
+texture = ExtResource("4_ks63e")
+hframes = 4
+vframes = 2
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_4qyfp")
+
+[node name="NoticeArea" parent="." index="2"]
+visible = false
+
+[node name="CollisionShape2D" parent="NoticeArea" index="0"]
+shape = SubResource("CircleShape2D_t6kw7")
+
+[node name="AnimationPlayer" parent="." index="3"]
+root_node = NodePath("..")
+
+[node name="AnimationTree" parent="." index="4"]
+tree_root = SubResource("AnimationNodeStateMachine_msk8c")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+
+[node name="CollisionShape2D" parent="DamageArea" index="0"]
+shape = SubResource("CircleShape2D_y5txt")

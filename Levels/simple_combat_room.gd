@@ -2,7 +2,7 @@ extends RoomParent
 
 class_name CombatLevel
 
-@onready var enemy_scene: PackedScene = preload("res://Enemies/simple_enemy.tscn")
+@onready var enemy_scene: PackedScene = preload("res://Enemies/fodder_enemies/chick_enemy.tscn")
 @onready var enemies_spawn_points_node: Node2D = $EnemiesSpawnPoints
 
 @onready var coin_scene: PackedScene = preload("res://Objects/Item_Pickups/coin_pickup.tscn")
