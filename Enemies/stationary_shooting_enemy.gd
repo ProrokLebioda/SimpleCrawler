@@ -18,6 +18,9 @@ signal _shoot(projectile: EnemyProjectile, pos: Vector2, dir : Vector2)
 @onready var shot_timer = $ShotTimer
 @onready var notice_area_collision = $NoticeArea/CollisionShape2D
 
+@onready var hurtbox_collision_shape_2d = $CollisionShape2D
+@onready var hitbox_collision_shape_2d = $DamageArea/CollisionShape2D
+
 
 # Damage stuff
 @export var health_max : int = 4
@@ -142,17 +145,20 @@ func hit(damage : int, dir: Vector2):
 #		if knockback_component:
 		knockback_direction = dir 
 		knockback_force = 100
-	if (health <= 0):
-		health = 0
-		var particle = death_particle.instantiate()
-		particle.position = global_position
-		particle.rotation = global_rotation
-		particle.emitting = true
-		get_tree().current_scene.add_child(particle)
-		# too coupled, maybe should be a signal... but I don't want to fiddle with this
-		Globals.xp += xp_amount
-		died.emit(position)
-		queue_free()
+		if (health <= 0):
+			health = 0
+			var particle = death_particle.instantiate()
+			particle.position = global_position
+			particle.rotation = global_rotation
+			particle.emitting = true
+			get_tree().current_scene.add_child(particle)
+			# too coupled, maybe should be a signal... but I don't want to fiddle with this
+			Globals.xp += xp_amount
+			hitbox_collision_shape_2d.set_deferred("disabled", true)
+			hurtbox_collision_shape_2d.set_deferred("disabled", true)
+			died.emit(position)
+			#queue_free()
+			call_deferred("queue_free")
 
 func _on_hit_timer_timeout():
 	vulnerable = true

@@ -110,7 +110,6 @@ func room_cleared():
 	unlock_doors()
 
 func spawn_chest():
-	var arr = get_property_list()
 	var nm = name
 	if chest_spawn_points != null and nm != "StartingLevel":
 		for i in chest_spawn_points.get_child_count():

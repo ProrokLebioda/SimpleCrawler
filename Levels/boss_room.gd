@@ -83,7 +83,7 @@ func spawn_ladder(spawn_position):
 			var ladder = ladder_scene.instantiate()
 			ladder.connect("player_entered_ladder", _on_player_entered_ladder)
 			ladder.global_position = spawn_position
-			objects_node.add_child(ladder)
+			objects_node.call_deferred("add_child", ladder)
 		
 func _on_player_entered_ladder():
 	print("Change levels")

@@ -27,6 +27,7 @@ Bosses="*res://Globals/bosses.gd"
 MinimapTextureAtlas="*res://Globals/minimap_texture_atlas.tscn"
 AudioPlayerScript="*res://Globals/audio_player.gd"
 AudioPlayer="*res://Globals/audio_player.tscn"
+BasicEnemies="*res://Globals/basic_enemies.gd"
 
 [display]
 
