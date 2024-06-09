@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://boh1i8p5pyyeu"]
+
+[ext_resource type="PackedScene" uid="uid://jfsdvhrjtcp6" path="res://Objects/Statics/obstacles/static_obstacle.tscn" id="1_iagut"]
+[ext_resource type="Texture2D" uid="uid://dsn5eyrijmqjw" path="res://Art/3rdParty/Sprout Lands - Sprites - Basic pack/Objects/Basic_Grass_Biom_things.png" id="2_bbsqw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ari4j"]
+size = Vector2(8, 5)
+
+[node name="StumpObstacle" instance=ExtResource("1_iagut")]
+y_sort_enabled = true
+scale = Vector2(2, 1)
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_bbsqw")
+hframes = 9
+vframes = 5
+frame = 22
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_ari4j")

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://c76e6we37amsg"]
+
+[ext_resource type="PackedScene" uid="uid://ctb221xfmkp3a" path="res://Levels/simple_combat_room.tscn" id="1_pgxqf"]
+[ext_resource type="PackedScene" uid="uid://boh1i8p5pyyeu" path="res://Objects/Statics/obstacles/stump_obstacle.tscn" id="2_0ukxe"]
+
+[node name="ObstacleCombatLevel1" instance=ExtResource("1_pgxqf")]
+
+[node name="StumpObstacle" parent="Objects" index="0" instance=ExtResource("2_0ukxe")]
+position = Vector2(-119, -45)
+
+[node name="StumpObstacle2" parent="Objects" index="1" instance=ExtResource("2_0ukxe")]
+position = Vector2(-119, 36)
+
+[node name="StumpObstacle3" parent="Objects" index="2" instance=ExtResource("2_0ukxe")]
+position = Vector2(96, 39)
+
+[node name="StumpObstacle4" parent="Objects" index="3" instance=ExtResource("2_0ukxe")]
+position = Vector2(93, -38)
+
+[editable path="Utils/PauseMenu"]
+[editable path="Utils/PauseMenu/settings_menu"]
