@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3lv011hc7gd5"]
+
+[ext_resource type="PackedScene" uid="uid://ctb221xfmkp3a" path="res://Levels/simple_combat_room.tscn" id="1_0fosi"]
+[ext_resource type="PackedScene" uid="uid://boh1i8p5pyyeu" path="res://Objects/Statics/obstacles/stump_obstacle.tscn" id="2_3w8hi"]
+[ext_resource type="PackedScene" uid="uid://r46h3no5ot3s" path="res://Objects/Statics/obstacles/rock_obstacle.tscn" id="3_j5h72"]
+
+[node name="ObstacleCombatLevel3" instance=ExtResource("1_0fosi")]
+
+[node name="StumpObstacle" parent="Objects" index="0" instance=ExtResource("2_3w8hi")]
+position = Vector2(-55, -31)
+
+[node name="StumpObstacle2" parent="Objects" index="1" instance=ExtResource("2_3w8hi")]
+position = Vector2(-55, 22)
+
+[node name="StumpObstacle3" parent="Objects" index="2" instance=ExtResource("2_3w8hi")]
+position = Vector2(37, 22)
+
+[node name="StumpObstacle4" parent="Objects" index="3" instance=ExtResource("2_3w8hi")]
+position = Vector2(37, -32)
+
+[node name="RockObstacle" parent="Objects" index="4" instance=ExtResource("3_j5h72")]
+position = Vector2(-120, -53)
+
+[node name="RockObstacle2" parent="Objects" index="5" instance=ExtResource("3_j5h72")]
+position = Vector2(-119, 35)
+
+[node name="RockObstacle3" parent="Objects" index="6" instance=ExtResource("3_j5h72")]
+position = Vector2(-4, 74)
+
+[node name="RockObstacle4" parent="Objects" index="7" instance=ExtResource("3_j5h72")]
+position = Vector2(-5, -62)
+
+[node name="RockObstacle5" parent="Objects" index="8" instance=ExtResource("3_j5h72")]
+position = Vector2(-168, -7)
+
+[node name="RockObstacle6" parent="Objects" index="9" instance=ExtResource("3_j5h72")]
+position = Vector2(116, -54)
+
+[node name="RockObstacle7" parent="Objects" index="10" instance=ExtResource("3_j5h72")]
+position = Vector2(112, 35)
+
+[node name="RockObstacle8" parent="Objects" index="11" instance=ExtResource("3_j5h72")]
+position = Vector2(160, 3)
+
+[editable path="Utils/PauseMenu"]
+[editable path="Utils/PauseMenu/settings_menu"]

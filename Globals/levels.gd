@@ -4,8 +4,8 @@ var number_of_rooms: int = 15
 
 var levels : int = 3
 var rooms : Dictionary 
-var test_room_types = [Room_struct.ROOM_TYPE.SIMPLE_COMBAT,Room_struct.ROOM_TYPE.TREASURE, Room_struct.ROOM_TYPE.SHOP, Room_struct.ROOM_TYPE.BOSS]
-var test_room_no_boss = [Room_struct.ROOM_TYPE.SIMPLE_COMBAT,Room_struct.ROOM_TYPE.TREASURE, Room_struct.ROOM_TYPE.SHOP]
+var test_room_types = [Room_struct.ROOM_TYPE.SIMPLE_COMBAT,Room_struct.ROOM_TYPE.OBSTACLE_COMBAT_1,Room_struct.ROOM_TYPE.OBSTACLE_COMBAT_2,Room_struct.ROOM_TYPE.OBSTACLE_COMBAT_3,Room_struct.ROOM_TYPE.TREASURE, Room_struct.ROOM_TYPE.SHOP, Room_struct.ROOM_TYPE.BOSS]
+var test_room_no_boss = [Room_struct.ROOM_TYPE.SIMPLE_COMBAT,Room_struct.ROOM_TYPE.OBSTACLE_COMBAT_1,Room_struct.ROOM_TYPE.OBSTACLE_COMBAT_2,Room_struct.ROOM_TYPE.OBSTACLE_COMBAT_3,Room_struct.ROOM_TYPE.TREASURE, Room_struct.ROOM_TYPE.SHOP]
 @export var room_texture_scene : PackedScene = preload("res://UI/Map/minimap_room_texture.tscn")
 var textmap_size : int = 16
 var temp_rooms = []
@@ -45,7 +45,7 @@ func simple_test_dungeon():
 	# Add Room structs to the dictionary using Vector2 keys.
 	rooms[key1] = Room_struct.new().create_room(false, Room_struct.ROOM_TYPE.START)
 	rooms[key2] = Room_struct.new().create_room(false, Room_struct.ROOM_TYPE.SIMPLE_COMBAT)
-	rooms[key3] = Room_struct.new().create_room(false, Room_struct.ROOM_TYPE.TREASURE)
+	rooms[key3] = Room_struct.new().create_room(false, Room_struct.ROOM_TYPE.OBSTACLE_COMBAT_2)
 	rooms[key4] = Room_struct.new().create_room(false, Room_struct.ROOM_TYPE.SHOP)
 	rooms[key5] = Room_struct.new().create_room(false, Room_struct.ROOM_TYPE.BOSS)
 	
