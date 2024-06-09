@@ -1,6 +1,6 @@
 extends Node
 
-enum Type {CANNON_PLANT, CHICK}
+enum Type {CHICK, CANNON_PLANT}
 
 @onready var chick_scene : PackedScene = preload("res://Enemies/fodder_enemies/chick_enemy.tscn")
 @onready var cannon_plant_scene : PackedScene = preload("res://Enemies/fodder_enemies/plant_cannon_enemy.tscn")
