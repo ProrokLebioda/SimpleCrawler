@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://y5o2kvxvb0e0" path="res://Enemies/stationary_shooting_enemy.tscn" id="1_wnbxg"]
 [ext_resource type="Script" path="res://Enemies/fodder_enemies/plant_cannon_enemy.gd" id="2_2wi3o"]
 [ext_resource type="Shader" path="res://Enemies/Shaders/simple_enemy.gdshader" id="2_tghkb"]
-[ext_resource type="PackedScene" uid="uid://c0b6v10mlimbf" path="res://Enemies/bosses/attacks/spike_enemy_projectile.tscn" id="3_0ab7o"]
+[ext_resource type="PackedScene" uid="uid://vtf4tlhhgqf2" path="res://Enemies/fodder_enemies/attacks/plant_enemy_projectile.tscn" id="3_yx28h"]
 [ext_resource type="Texture2D" uid="uid://degyv41oo8qdx" path="res://Art/enemies/fodder/enemy_cannon_plant.png" id="4_yyovm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mi07l"]
@@ -45,7 +45,7 @@ radius = 4.0
 
 [node name="PlantCannonEnemy" instance=ExtResource("1_wnbxg")]
 script = ExtResource("2_2wi3o")
-projectile_scene = ExtResource("3_0ab7o")
+projectile_scene = ExtResource("3_yx28h")
 
 [node name="Sprite2D" parent="." index="0"]
 material = SubResource("ShaderMaterial_mi07l")
