@@ -73,6 +73,9 @@ collision_layer = 16
 
 [node name="HitTimer" type="Timer" parent="."]
 
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+
 [connection signal="body_entered" from="NoticeArea" to="." method="_on_notice_area_body_entered"]
 [connection signal="body_exited" from="NoticeArea" to="." method="_on_notice_area_body_exited"]
 [connection signal="timeout" from="IdleWalkTimer" to="." method="_on_idle_walk_timer_timeout"]

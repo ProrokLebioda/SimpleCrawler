@@ -1,6 +1,7 @@
 extends CharacterBody2D
 class_name SimpleEnemy
 enum ENEMY_STATE {IDLE, WALK, AGGRO}
+@onready var navigation_agent_2d = $NavigationAgent2D
 
 signal died()
 
@@ -41,6 +42,8 @@ var knockback_val: Vector2 = Vector2.ZERO
 #@export var knockback_component: KnockbackComponent
 
 func _ready():
+	navigation_agent_2d.path_desired_distance = 4.0
+	navigation_agent_2d.target_desired_distance = 4.0
 	pick_new_state()
 	
 func _physics_process(delta):

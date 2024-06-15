@@ -70,3 +70,7 @@ active = true
 
 [node name="CollisionShape2D" parent="DamageArea" index="0"]
 shape = SubResource("CircleShape2D_y5txt")
+
+[node name="NavigationAgent2D" parent="." index="9"]
+radius = 32.6
+debug_enabled = true

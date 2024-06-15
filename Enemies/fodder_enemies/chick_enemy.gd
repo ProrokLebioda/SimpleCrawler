@@ -2,23 +2,33 @@ extends SimpleEnemy
 
 
 func _physics_process(delta):
-	if (current_state == ENEMY_STATE.AGGRO):
-		move_direction = (Globals.player_pos - position).normalized()
-		flip_sprite_direction(move_direction)
-		
+	
+	var new_velocity: Vector2 = Vector2.ZERO
 	if knockback_force > 0:
 		knockback_val = knockback_direction * knockback_force
+	if (current_state == ENEMY_STATE.AGGRO):
+		navigation_agent_2d.target_position = Globals.player_pos
+		var current_agent_position: Vector2 = global_position
+		var next_path_position: Vector2 = navigation_agent_2d.get_next_path_position()
+
+		new_velocity = next_path_position - current_agent_position
+		new_velocity = new_velocity.normalized()
+		flip_sprite_direction(new_velocity) # has to be new_velocity normalized()
+		new_velocity = knockback_val+new_velocity * move_speed
+		velocity = new_velocity
+		move_and_slide()
 		
-	if (current_state != ENEMY_STATE.IDLE):
+
+	if (current_state == ENEMY_STATE.WALK):
 		velocity = move_direction * move_speed + knockback_val
 		move_and_slide()
-	else:
+	elif current_state == ENEMY_STATE.IDLE:
 		if (knockback_force > 0):
 			velocity = knockback_val
 			move_and_slide()
 		else:
 			velocity = Vector2.ZERO
-			
+
 	knockback_force = lerp(knockback_force, 0.0, 0.1)
 #	if knockback_component:
 #		pass
@@ -82,31 +92,6 @@ func _on_damage_area_body_entered(body):
 	
 		if "hit" in body:
 			body.hit(base_damage, hit_direction)
-
-func hit(damage : int, dir: Vector2):
-	if vulnerable:
-		health -= damage
-		vulnerable = false
-		$HitTimer.start(hit_timer_wait_time)
-		sprite.material.set_shader_parameter("progress", 1)
-		
-#		#pushback
-#		if knockback_component:
-		knockback_direction = dir 
-		knockback_force = 100
-		if (health <= 0):
-			health = 0
-			var particle = death_particle.instantiate()
-			particle.position = global_position
-			particle.rotation = global_rotation
-			particle.emitting = true
-			get_tree().current_scene.add_child(particle)
-			# too coupled, maybe should be a signal... but I don't want to fiddle with this
-			Globals.xp += xp_amount
-			hitbox_collision_shape_2d.set_deferred("disabled", true)
-			hurtbox_collision_shape_2d.set_deferred("disabled", true)
-			died.emit(position)
-			call_deferred("queue_free")
 
 func _on_hit_timer_timeout():
 	vulnerable = true
