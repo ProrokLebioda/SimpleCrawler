@@ -52,7 +52,7 @@ func create_room(visited: bool, type: ROOM_TYPE) -> Dictionary:
 		ROOM_TYPE.OBSTACLE_COMBAT_2:
 			scene = obstacle_c_2_room
 		ROOM_TYPE.OBSTACLE_COMBAT_3:
-			scene = obstacle_c_2_room
+			scene = obstacle_c_3_room
 		ROOM_TYPE.TREASURE:
 			scene = treasure_room
 		ROOM_TYPE.SHOP:
