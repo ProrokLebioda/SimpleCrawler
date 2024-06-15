@@ -3,22 +3,33 @@ extends SimpleEnemy
 
 func _physics_process(delta):
 	if (current_state == ENEMY_STATE.AGGRO):
-		move_direction = (Globals.player_pos - position).normalized()
-		flip_sprite_direction(move_direction)
-		
-	if knockback_force > 0:
-		knockback_val = knockback_direction * knockback_force
-		
-	if (current_state != ENEMY_STATE.IDLE):
-		velocity = move_direction * move_speed + knockback_val
+		navigation_agent_2d.target_position = Globals.player_pos
+		var current_agent_position: Vector2 = global_position
+		var next_path_position: Vector2 = navigation_agent_2d.get_next_path_position()
+
+		var new_velocity: Vector2 = next_path_position - current_agent_position
+		new_velocity = new_velocity.normalized()
+		flip_sprite_direction(new_velocity) # has to be new_velocity normalized()
+		new_velocity = knockback_val+new_velocity * move_speed
+		velocity = new_velocity
 		move_and_slide()
-	else:
-		if (knockback_force > 0):
-			velocity = knockback_val
-			move_and_slide()
-		else:
-			velocity = Vector2.ZERO
-			
+		
+#	if knockback_force > 0:
+#		knockback_val = knockback_direction * knockback_force
+#
+#	if (current_state != ENEMY_STATE.IDLE):
+#		velocity = move_direction * move_speed + knockback_val
+#		move_and_slide()
+#	else:
+#		if (knockback_force > 0):
+#			velocity = knockback_val
+#			move_and_slide()
+#		else:
+#			velocity = Vector2.ZERO
+#
+
+	if current_state == ENEMY_STATE.IDLE:
+		velocity = Vector2.ZERO
 	knockback_force = lerp(knockback_force, 0.0, 0.1)
 #	if knockback_component:
 #		pass
