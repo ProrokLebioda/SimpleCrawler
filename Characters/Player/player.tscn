@@ -246,7 +246,7 @@ _data = {
 "walk_up": SubResource("Animation_ab0jh")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Entities"]]
 y_sort_enabled = true
 collision_mask = 63
 motion_mode = 1
@@ -276,15 +276,20 @@ libraries = {
 "": SubResource("AnimationLibrary_egqoe")
 }
 
-[node name="ShootTimer" type="Timer" parent="."]
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_chcnn")
 volume_db = -6.625
 pitch_scale = 1.35
 bus = &"SFX"
 
-[node name="InvulnerableTimer" type="Timer" parent="."]
+[node name="Timers" type="Node" parent="."]
 
-[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
-[connection signal="timeout" from="InvulnerableTimer" to="." method="_on_invulnerable_timer_timeout"]
+[node name="SpecialTimer" type="Timer" parent="Timers"]
+
+[node name="InvulnerableTimer" type="Timer" parent="Timers"]
+
+[node name="ShootTimer" type="Timer" parent="Timers"]
+
+[connection signal="timeout" from="Timers/SpecialTimer" to="." method="_on_special_timer_timeout"]
+[connection signal="timeout" from="Timers/InvulnerableTimer" to="." method="_on_invulnerable_timer_timeout"]
+[connection signal="timeout" from="Timers/ShootTimer" to="." method="_on_shoot_timer_timeout"]

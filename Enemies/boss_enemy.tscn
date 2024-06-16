@@ -10,7 +10,7 @@ shader = ExtResource("2_jsxfc")
 shader_parameter/color = Color(1, 0.694118, 0.996078, 1)
 shader_parameter/progress = 0.0
 
-[node name="BossEnemy" type="CharacterBody2D" groups=["Enemies"]]
+[node name="BossEnemy" type="CharacterBody2D" groups=["Enemies", "Entities"]]
 y_sort_enabled = true
 collision_layer = 2
 collision_mask = 39

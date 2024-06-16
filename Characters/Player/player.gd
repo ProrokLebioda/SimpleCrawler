@@ -6,14 +6,21 @@ extends CharacterBody2D
 #parameters/Idle/blend_position
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
+
+# Timers' stuf
 @onready var shoot_cooldown : float = 0.5
-@onready var shoot_timer = $ShootTimer
-@onready var invulnerable_timer = $InvulnerableTimer
+@onready var special_cooldown : float = 2.5
+
+@onready var shoot_timer = $Timers/ShootTimer
+@onready var invulnerable_timer = $Timers/InvulnerableTimer
+@onready var special_timer = $Timers/SpecialTimer
+
 @export var invulnerable_time : float = 0.5
 # sounds
 @onready var audio_player = $AudioStreamPlayer
 @export var hit_sfx : AudioStream
 var can_shoot : bool = true
+var can_shoot_special : bool = true
 
 #visuals
 @onready var sprite_2d = $Sprite2D
@@ -25,6 +32,7 @@ var knockback_force: float = 100.0
 var knockback_val: Vector2 = Vector2.ZERO
 # Signals
 signal shoot_input_detected(pos, dir)
+signal shoot_input_special_detected(pos, dir)
 
 func _ready():
 	update_animation_parameters(starting_direction)
@@ -66,6 +74,13 @@ func _physics_process(delta):
 		shoot_timer.start(Globals.shoot_cooldown)
 		shoot_input_detected.emit(position, shoot_direction.normalized())
 
+	# This one is tricky... some attacks should go where movement direction is, bomb is dropped in this way
+	var is_special_attack : bool = Input.is_action_pressed("special_attack")
+	if is_special_attack and can_shoot_special:
+		can_shoot_special = false
+		special_timer.start(special_cooldown)
+		shoot_input_special_detected.emit(Globals.player_pos, velocity.normalized())
+		
 
 func update_animation_parameters(move_input : Vector2):
 	if(move_input != Vector2.ZERO):
@@ -102,3 +117,7 @@ func _on_shoot_timer_timeout():
 func _on_invulnerable_timer_timeout():
 	sprite_2d.material.set_shader_parameter("progress", 0)
 	Globals.player_vulnerable = true
+
+
+func _on_special_timer_timeout():
+	can_shoot_special = true

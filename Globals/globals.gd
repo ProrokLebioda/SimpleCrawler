@@ -2,6 +2,7 @@ extends Node
 
 signal stat_change
 signal weapon_changed(weapon : WeaponBase)
+signal special_changed(special : SpecialAttackBase)
 # Stats
 
 var base_health : int =  8
@@ -135,6 +136,15 @@ var current_weapon : WeaponBase:
 		weapon_changed.emit(current_weapon)
 		
 
+var current_special : SpecialAttackBase:
+	get:
+		if !current_special:
+			current_special = Specials.get_basic_special()
+		return current_special
+	set(new_special):
+		current_special = new_special
+		special_changed.emit(current_special)
+
 var player_vulnerable: bool = true
 
 #func player_invulnerable_timer():
@@ -166,3 +176,4 @@ func reset_player_stats():
 	Levels.clear_rooms_visited_state()
 	player_room = Vector3i(0,0,0)
 	current_weapon = Weapons.get_basic_weapon()
+	current_special = Specials.get_basic_special()
