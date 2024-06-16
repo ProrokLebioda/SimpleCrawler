@@ -16,8 +16,6 @@ extends CharacterBody2D
 @onready var state_machine = animation_tree.get("parameters/playback")
 
 # Timers' stuf
-@onready var shoot_cooldown : float = 0.5
-@onready var special_cooldown : float = 2.5
 
 @onready var shoot_timer = $Timers/ShootTimer
 @onready var invulnerable_timer = $Timers/InvulnerableTimer
@@ -86,8 +84,9 @@ func _physics_process(delta):
 	var is_special_attack : bool = Input.is_action_pressed("special_attack")
 	if is_special_attack and can_shoot_special:
 		can_shoot_special = false
+		Globals.special_ready = false
 		var spawn_pos = _get_special_spawn_position()
-		special_timer.start(special_cooldown)
+		special_timer.start(Globals.special_cooldown)
 		shoot_input_special_detected.emit(spawn_pos, velocity.normalized())
 		
 

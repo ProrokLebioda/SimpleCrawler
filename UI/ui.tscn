@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bd7smtjx0swck"]
+[gd_scene load_steps=9 format=3 uid="uid://bd7smtjx0swck"]
 
 [ext_resource type="Texture2D" uid="uid://dnrcb1sgcfqy2" path="res://Art/3rdParty/FromTutorials/bg.png" id="1_2i8dp"]
 [ext_resource type="Script" path="res://UI/ui.gd" id="1_nfn68"]
 [ext_resource type="Texture2D" uid="uid://13kkap81mvwk" path="res://Art/3rdParty/FromTutorials/progress.png" id="2_5imcs"]
 [ext_resource type="Texture2D" uid="uid://c7x54j23e5igu" path="res://Art/3rdParty/lil-cthulhu/Coin-Sheet.png" id="4_32ac5"]
+[ext_resource type="PackedScene" uid="uid://cnsfqe1wan63i" path="res://UI/icons/cooldown_icon.tscn" id="4_fyjk2"]
 [ext_resource type="PackedScene" uid="uid://drh68fyaxaq2" path="res://UI/Map/minimap_ui.tscn" id="5_if2kf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wrvmm"]
@@ -82,6 +83,11 @@ size_flags_vertical = 1
 text = "1/100"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="SpecialCooldownIcon" parent="MarginContainer/StatsContainer/HBoxContainer" instance=ExtResource("4_fyjk2")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
 
 [node name="CoinImage" type="TextureRect" parent="MarginContainer/StatsContainer/HBoxContainer"]
 texture_repeat = 1

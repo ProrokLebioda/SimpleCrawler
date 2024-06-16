@@ -285,10 +285,12 @@ bus = &"SFX"
 [node name="Timers" type="Node" parent="."]
 
 [node name="SpecialTimer" type="Timer" parent="Timers"]
+one_shot = true
 
 [node name="InvulnerableTimer" type="Timer" parent="Timers"]
 
 [node name="ShootTimer" type="Timer" parent="Timers"]
+one_shot = true
 
 [node name="SpecialSpawns" type="Node2D" parent="."]
 
