@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cdmduucvqthue"]
+[gd_scene load_steps=12 format=3 uid="uid://cdmduucvqthue"]
 
 [ext_resource type="Texture2D" uid="uid://gbxbynlnsj6x" path="res://Art/attacks/bomb.png" id="1_r63pn"]
 [ext_resource type="Script" path="res://Characters/Player/Weapons/special_attacks/bomb_attack.gd" id="1_wsmlr"]
@@ -95,6 +95,14 @@ _data = {
 "bomb_pre_explosion": SubResource("Animation_0tkje")
 }
 
+[sub_resource type="Gradient" id="Gradient_1ak6b"]
+offsets = PackedFloat32Array(0, 0.279221, 0.717532, 1)
+colors = PackedColorArray(0.735398, 0.735275, 0, 1, 0.586433, 0.272187, 0.0174193, 1, 0.207843, 0.14902, 0.0980392, 0.392157, 1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_dmxds"]
+offsets = PackedFloat32Array(0, 0.279221, 0.63961, 1)
+colors = PackedColorArray(0.955699, 0.794415, 0.356078, 1, 0.769232, 0.473731, 0.296492, 1, 0.528175, 0.128429, 0.12563, 1, 1, 1, 1, 1)
+
 [node name="BombAttack" type="RigidBody2D"]
 collision_layer = 12
 collision_mask = 38
@@ -114,7 +122,6 @@ visible = false
 shape = SubResource("CircleShape2D_tk7ta")
 
 [node name="ExplosionZone" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionZone"]
 shape = SubResource("CircleShape2D_3b6o2")
@@ -128,6 +135,28 @@ libraries = {
 one_shot = true
 
 [node name="ExplosionDurationTimer" type="Timer" parent="."]
+
+[node name="ExplosionParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+lifetime = 0.3
+one_shot = true
+speed_scale = 1.5
+explosiveness = 0.84
+randomness = 1.0
+lifetime_randomness = 0.2
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 97.35
+initial_velocity_max = 197.74
+angle_min = 180.0
+angle_max = 180.0
+scale_amount_min = 4.0
+scale_amount_max = 18.55
+color = Color(0.784314, 0.65098, 0.109804, 1)
+color_ramp = SubResource("Gradient_1ak6b")
+color_initial_ramp = SubResource("Gradient_dmxds")
 
 [connection signal="timeout" from="ExplosionTimer" to="." method="_on_explosion_timer_timeout"]
 [connection signal="timeout" from="ExplosionDurationTimer" to="." method="_on_explosion_duration_timer_timeout"]

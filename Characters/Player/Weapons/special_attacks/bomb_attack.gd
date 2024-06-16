@@ -4,8 +4,11 @@ class_name BombBase
 @onready var explosion_timer = $ExplosionTimer
 @onready var explosion_duration_timer = $ExplosionDurationTimer
 @onready var explosion_zone_collision = $ExplosionZone/CollisionShape2D
+@onready var explosion_particles = $ExplosionParticles
 
 @export var time_to_explode : float = 1.0
+@onready var bomb_sprite = $Sprite2D
+@onready var bomb_collision_shape = $CollisionShape2D
 
 # How long explosion lingers applying damage in range
 @export var explosion_duration : float = 0.2
@@ -57,6 +60,9 @@ func apply_damage():
 
 func explode():
 	print("Explosion!!!")
+	bomb_sprite.visible = false
+	bomb_collision_shape.disabled = true
+	explosion_particles.emitting = true
 	is_explosion_ongoing = true
 	explosion_duration_timer.start(explosion_duration)
 
