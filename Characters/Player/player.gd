@@ -3,6 +3,14 @@ extends CharacterBody2D
 @export var move_speed: float = 100
 @export var starting_direction : Vector2 = Vector2(0, 1)
 
+# Special spawns
+@onready var special_spawns = $SpecialSpawns
+@onready var spawn_left = $SpecialSpawns/Left
+@onready var spawn_right = $SpecialSpawns/Right
+@onready var spawn_down = $SpecialSpawns/Down
+@onready var spawn_up = $SpecialSpawns/Up
+
+
 #parameters/Idle/blend_position
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
@@ -78,9 +86,22 @@ func _physics_process(delta):
 	var is_special_attack : bool = Input.is_action_pressed("special_attack")
 	if is_special_attack and can_shoot_special:
 		can_shoot_special = false
+		var spawn_pos = _get_special_spawn_position()
 		special_timer.start(special_cooldown)
-		shoot_input_special_detected.emit(Globals.player_pos, velocity.normalized())
+		shoot_input_special_detected.emit(spawn_pos, velocity.normalized())
 		
+
+func _get_special_spawn_position() -> Vector2:
+	# Don't overcomplicate. Take player movement vector, normalize, multiply by 2. If 0 then take facing?
+	var move_dir = velocity.normalized()
+	var spawn_pos : Vector2 = global_position
+	if move_dir != Vector2.ZERO:
+		spawn_pos += move_dir * 12
+	else:
+		# offset somehow. Taking value from animation_tree is a hacky way to do this
+		var value = animation_tree.get("parameters/Idle/blend_position")
+		spawn_pos += value * 12
+	return spawn_pos
 
 func update_animation_parameters(move_input : Vector2):
 	if(move_input != Vector2.ZERO):

@@ -290,6 +290,20 @@ bus = &"SFX"
 
 [node name="ShootTimer" type="Timer" parent="Timers"]
 
+[node name="SpecialSpawns" type="Node2D" parent="."]
+
+[node name="Left" type="Marker2D" parent="SpecialSpawns"]
+position = Vector2(-11, 0)
+
+[node name="Right" type="Marker2D" parent="SpecialSpawns"]
+position = Vector2(12, 0)
+
+[node name="Down" type="Marker2D" parent="SpecialSpawns"]
+position = Vector2(0, 13)
+
+[node name="Up" type="Marker2D" parent="SpecialSpawns"]
+position = Vector2(0, -12)
+
 [connection signal="timeout" from="Timers/SpecialTimer" to="." method="_on_special_timer_timeout"]
 [connection signal="timeout" from="Timers/InvulnerableTimer" to="." method="_on_invulnerable_timer_timeout"]
 [connection signal="timeout" from="Timers/ShootTimer" to="." method="_on_shoot_timer_timeout"]
