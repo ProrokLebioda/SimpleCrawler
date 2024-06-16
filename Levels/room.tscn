@@ -662,7 +662,6 @@ script = ExtResource("1_wgus1")
 y_sort_enabled = true
 position = Vector2(1, 0)
 tile_set = SubResource("TileSet_775mo")
-navigation_visibility_mode = 1
 format = 2
 layer_0/name = "Ground"
 layer_0/z_index = -5
@@ -770,7 +769,10 @@ shortcut = null
 
 [node name="PlayerWeapon" type="Node2D" parent="."]
 
+[node name="PlayerSpecial" type="Node2D" parent="."]
+
 [connection signal="shoot_input_detected" from="Player" to="." method="_on_player_shoot_input_detected"]
+[connection signal="shoot_input_special_detected" from="Player" to="." method="_on_player_shoot_input_special_detected"]
 [connection signal="body_entered" from="Doors/DoorNorth" to="." method="_on_door_horizontal_north_body_entered"]
 [connection signal="body_entered" from="Doors/DoorSouth" to="." method="_on_door_horizontal_south_body_entered"]
 [connection signal="body_entered" from="Doors/DoorWest" to="." method="_on_door_horizontal_west_body_entered"]

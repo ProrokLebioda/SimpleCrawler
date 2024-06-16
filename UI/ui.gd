@@ -11,10 +11,13 @@ var red: Color = Color(0.9,0,0.1)
 @onready var xp_bar : TextureProgressBar = $MarginContainer/StatsContainer/HBoxContainer/XpBarMarginContainer/TextureProgressBar
 @onready var xp_amount_text = $MarginContainer/StatsContainer/HBoxContainer/XpBarMarginContainer/XpAmountText
 
+@onready var special_cooldown_icon = $MarginContainer/StatsContainer/HBoxContainer/SpecialCooldownIcon
+
 @onready var coins_label = $MarginContainer/StatsContainer/HBoxContainer/CoinsLabel
 
 func _ready():
 	Globals.connect("stat_change", update_stat_text)
+	Globals.connect("special_state_change", update_special_icon_cooldown)
 	update_stat_text()
 	
 func update_stat_text():
@@ -37,3 +40,7 @@ func update_xp_text():
 	xp_amount_text.set_text(combined_xp_value_display)
 func update_coins_text():
 	coins_label.set_text(str(Globals.coins))
+
+func update_special_icon_cooldown(is_ready):
+	if !is_ready:
+		special_cooldown_icon.trigger_cooldown(Globals.special_cooldown)

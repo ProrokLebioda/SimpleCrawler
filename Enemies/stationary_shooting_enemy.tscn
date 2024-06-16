@@ -35,7 +35,7 @@ _data = {
 "chicken_walk_right": ExtResource("5_jd6j3")
 }
 
-[node name="StationaryShootingEnemy" type="CharacterBody2D" groups=["Enemies"]]
+[node name="StationaryShootingEnemy" type="CharacterBody2D" groups=["Enemies", "Entities"]]
 y_sort_enabled = true
 collision_layer = 2
 collision_mask = 39

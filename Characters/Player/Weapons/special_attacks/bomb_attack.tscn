@@ -1,0 +1,166 @@
+[gd_scene load_steps=13 format=3 uid="uid://cdmduucvqthue"]
+
+[ext_resource type="Texture2D" uid="uid://gbxbynlnsj6x" path="res://Art/attacks/bomb.png" id="1_r63pn"]
+[ext_resource type="Script" path="res://Characters/Player/Weapons/special_attacks/bomb_attack.gd" id="1_wsmlr"]
+[ext_resource type="PackedScene" uid="uid://cbk077i4upybk" path="res://Characters/Player/Weapons/special_attacks/explosion_circle.tscn" id="3_fppuk"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_h6k4p"]
+friction = 0.05
+bounce = 0.96
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tk7ta"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3b6o2"]
+radius = 55.0
+
+[sub_resource type="Animation" id="Animation_6ab38"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_507hj"]
+resource_name = "bomb_fuse_burn"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 6, 7]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_start_countdown"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_0tkje"]
+resource_name = "bomb_pre_explosion"
+length = 0.3
+loop_mode = 1
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1), Vector2(0.5, 0.5), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6xsuh"]
+_data = {
+"RESET": SubResource("Animation_6ab38"),
+"bomb_fuse_burn": SubResource("Animation_507hj"),
+"bomb_pre_explosion": SubResource("Animation_0tkje")
+}
+
+[sub_resource type="Gradient" id="Gradient_1ak6b"]
+offsets = PackedFloat32Array(0, 0.279221, 0.717532, 1)
+colors = PackedColorArray(0.735398, 0.735275, 0, 1, 0.586433, 0.272187, 0.0174193, 1, 0.207843, 0.14902, 0.0980392, 0.392157, 1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_dmxds"]
+offsets = PackedFloat32Array(0, 0.279221, 0.63961, 1)
+colors = PackedColorArray(0.955699, 0.794415, 0.356078, 1, 0.769232, 0.473731, 0.296492, 1, 0.528175, 0.128429, 0.12563, 1, 1, 1, 1, 1)
+
+[node name="BombAttack" type="RigidBody2D"]
+collision_layer = 12
+collision_mask = 38
+physics_material_override = SubResource("PhysicsMaterial_h6k4p")
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_wsmlr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -2)
+scale = Vector2(1.0243, 1.0243)
+texture = ExtResource("1_r63pn")
+hframes = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_tk7ta")
+
+[node name="ExplosionZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionZone"]
+shape = SubResource("CircleShape2D_3b6o2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6xsuh")
+}
+
+[node name="ExplosionTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ExplosionDurationTimer" type="Timer" parent="."]
+
+[node name="ExplosionParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+lifetime = 0.3
+one_shot = true
+speed_scale = 1.5
+explosiveness = 0.84
+randomness = 1.0
+lifetime_randomness = 0.2
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 97.35
+initial_velocity_max = 197.74
+angle_min = 180.0
+angle_max = 180.0
+scale_amount_min = 4.0
+scale_amount_max = 18.55
+color = Color(0.784314, 0.65098, 0.109804, 1)
+color_ramp = SubResource("Gradient_1ak6b")
+color_initial_ramp = SubResource("Gradient_dmxds")
+
+[node name="ExplosionCircle" parent="." instance=ExtResource("3_fppuk")]
+visible = false
+
+[connection signal="timeout" from="ExplosionTimer" to="." method="_on_explosion_timer_timeout"]
+[connection signal="timeout" from="ExplosionDurationTimer" to="." method="_on_explosion_duration_timer_timeout"]

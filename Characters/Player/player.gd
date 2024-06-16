@@ -3,17 +3,30 @@ extends CharacterBody2D
 @export var move_speed: float = 100
 @export var starting_direction : Vector2 = Vector2(0, 1)
 
+# Special spawns
+@onready var special_spawns = $SpecialSpawns
+@onready var spawn_left = $SpecialSpawns/Left
+@onready var spawn_right = $SpecialSpawns/Right
+@onready var spawn_down = $SpecialSpawns/Down
+@onready var spawn_up = $SpecialSpawns/Up
+
+
 #parameters/Idle/blend_position
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
-@onready var shoot_cooldown : float = 0.5
-@onready var shoot_timer = $ShootTimer
-@onready var invulnerable_timer = $InvulnerableTimer
+
+# Timers' stuf
+
+@onready var shoot_timer = $Timers/ShootTimer
+@onready var invulnerable_timer = $Timers/InvulnerableTimer
+@onready var special_timer = $Timers/SpecialTimer
+
 @export var invulnerable_time : float = 0.5
 # sounds
 @onready var audio_player = $AudioStreamPlayer
 @export var hit_sfx : AudioStream
 var can_shoot : bool = true
+var can_shoot_special : bool = true
 
 #visuals
 @onready var sprite_2d = $Sprite2D
@@ -25,6 +38,7 @@ var knockback_force: float = 100.0
 var knockback_val: Vector2 = Vector2.ZERO
 # Signals
 signal shoot_input_detected(pos, dir)
+signal shoot_input_special_detected(pos, dir)
 
 func _ready():
 	update_animation_parameters(starting_direction)
@@ -66,6 +80,27 @@ func _physics_process(delta):
 		shoot_timer.start(Globals.shoot_cooldown)
 		shoot_input_detected.emit(position, shoot_direction.normalized())
 
+	# This one is tricky... some attacks should go where movement direction is, bomb is dropped in this way
+	var is_special_attack : bool = Input.is_action_pressed("special_attack")
+	if is_special_attack and can_shoot_special:
+		can_shoot_special = false
+		Globals.special_ready = false
+		var spawn_pos = _get_special_spawn_position()
+		special_timer.start(Globals.special_cooldown)
+		shoot_input_special_detected.emit(spawn_pos, velocity.normalized())
+		
+
+func _get_special_spawn_position() -> Vector2:
+	# Don't overcomplicate. Take player movement vector, normalize, multiply by 2. If 0 then take facing?
+	var move_dir = velocity.normalized()
+	var spawn_pos : Vector2 = global_position
+	if move_dir != Vector2.ZERO:
+		spawn_pos += move_dir * 12
+	else:
+		# offset somehow. Taking value from animation_tree is a hacky way to do this
+		var value = animation_tree.get("parameters/Idle/blend_position")
+		spawn_pos += value * 12
+	return spawn_pos
 
 func update_animation_parameters(move_input : Vector2):
 	if(move_input != Vector2.ZERO):
@@ -102,3 +137,7 @@ func _on_shoot_timer_timeout():
 func _on_invulnerable_timer_timeout():
 	sprite_2d.material.set_shader_parameter("progress", 0)
 	Globals.player_vulnerable = true
+
+
+func _on_special_timer_timeout():
+	can_shoot_special = true

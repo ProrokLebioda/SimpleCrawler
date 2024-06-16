@@ -26,7 +26,10 @@ var is_visited: bool = false
 
 # Player weapon stuff
 @export var current_weapon: WeaponBase
+@export var current_special : SpecialAttackBase
 @onready var player_weapon_node = $PlayerWeapon
+@onready var player_special_node = $PlayerSpecial
+
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
@@ -36,16 +39,24 @@ func _ready():
 	generate_level()
 	place_player()
 	assign_player_weapon()
+	assign_player_special()
 	room_cleared()
 	AudioPlayer.play_music_level(-12.0)
 	Globals.connect("weapon_changed", _on_weapon_changed)
+	Globals.connect("special_changed", _on_special_changed)
 	
 func _on_weapon_changed(new_weapon):
 	var all_weapons = player_weapon_node.get_children()
 	for wp in all_weapons:
 		wp.queue_free()
 	assign_player_weapon()
-	
+
+func _on_special_changed(new_weapon):
+	var all_specials = player_special_node.get_children()
+	for sp in all_specials:
+		sp.queue_free()
+	assign_player_special()
+		
 
 func generate_level():
 	room_vector_position = Globals.player_room
@@ -71,6 +82,14 @@ func assign_player_weapon():
 		player_weapon_node.add_child(weapon_for_player)
 		current_weapon = weapon_for_player
 
+func assign_player_special():
+	var sp = Globals.current_special as SpecialAttackBase
+	var special_scene = Specials.specials[sp.special_type]
+	if special_scene:
+		var special_for_player = special_scene.instantiate()
+		player_special_node.add_child(special_for_player)
+		current_special = special_for_player
+		
 func pick_spawn_point(entrance: Globals.Entrance):
 	for marker in player_starts_node.get_children():
 		if marker.name == spawn_enum_to_string(entrance):
@@ -101,6 +120,16 @@ func _on_player_shoot_input_detected(pos, dir):
 		
 		for bullet in bullets:
 			projectiles_node.add_child(bullet)
+	else:
+		print_verbose("No weapon")
+
+func _on_player_shoot_input_special_detected(pos, dir):
+	if current_special != null:
+		var bombs = current_special.fire(pos, dir)
+		for bomb in bombs:
+			bomb.direction_vector = dir
+			bomb.global_position = pos
+			projectiles_node.add_child(bomb)
 	else:
 		print_verbose("No weapon")
 
@@ -249,6 +278,3 @@ func _on_main_menu_button_pressed():
 func _on_quit_button_pressed():
 	get_tree().quit()
 
-
-func _on_settings_button_pressed():
-	pass # Replace with function body.

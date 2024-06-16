@@ -2,6 +2,8 @@ extends Node
 
 signal stat_change
 signal weapon_changed(weapon : WeaponBase)
+signal special_changed(special : SpecialAttackBase)
+signal special_state_change(is_ready : bool)
 # Stats
 
 var base_health : int =  8
@@ -66,7 +68,7 @@ var movement_speed : float = base_movement_speed:
 			val = max_movement_speed
 		movement_speed = val
 
-var base_shoot_cooldown : float = 0.5
+var base_shoot_cooldown : float = 5
 var max_shoot_cooldown : float = 1.5
 var min_shoot_cooldown : float = 0.05
 var shoot_cooldown : float = base_shoot_cooldown:
@@ -78,7 +80,20 @@ var shoot_cooldown : float = base_shoot_cooldown:
 		if val > max_shoot_cooldown:
 			val = max_shoot_cooldown
 		shoot_cooldown = val
-		
+
+var base_special_cooldown : float = 2.5
+var max_special_cooldown : float = 5.0
+var min_special_cooldown : float = 0.5
+var special_cooldown : float = base_special_cooldown:
+	get:
+		return special_cooldown
+	set(val):
+		if val < min_special_cooldown:
+			val = min_special_cooldown
+		if val > max_special_cooldown:
+			val = max_special_cooldown
+		special_cooldown = val
+
 var base_projectile_speed : float = 200
 var min_projectile_speed : float = 100
 var max_projectile_speed : float = 400
@@ -109,6 +124,12 @@ var player_pos: Vector2
 var player_velocity : Vector2
 var player_collider_radius: float
 
+var special_ready : bool = true:
+	get:
+		return special_ready
+	set(value):
+		special_ready = value
+		special_state_change.emit(value)
 
 var player_room : Vector3i = Vector3i(0,0,0) #start here
 var player_at_level : int = 0 # this means game level, not player level
@@ -135,6 +156,15 @@ var current_weapon : WeaponBase:
 		weapon_changed.emit(current_weapon)
 		
 
+var current_special : SpecialAttackBase:
+	get:
+		if !current_special:
+			current_special = Specials.get_basic_special()
+		return current_special
+	set(new_special):
+		current_special = new_special
+		special_changed.emit(current_special)
+
 var player_vulnerable: bool = true
 
 #func player_invulnerable_timer():
@@ -147,12 +177,14 @@ func level_up():
 	# We need to heal by amount of max_health increase, could've been in max_health, but that caused me some headaches
 	health += 1
 	shoot_cooldown -= 0.1
+	special_cooldown -= 0.05
 	projectile_speed += 10.0
 	projectile_lifetime += 0.05
 
 
 func reset_player_stats():
 	player_vulnerable = true
+	special_ready = true
 	movement_speed = base_movement_speed
 	shoot_cooldown = base_shoot_cooldown
 	projectile_speed = base_projectile_speed
@@ -166,3 +198,4 @@ func reset_player_stats():
 	Levels.clear_rooms_visited_state()
 	player_room = Vector3i(0,0,0)
 	current_weapon = Weapons.get_basic_weapon()
+	current_special = Specials.get_basic_special()
