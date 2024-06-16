@@ -62,6 +62,7 @@ func apply_damage():
 
 func explode():
 	print("Explosion!!!")
+	set_sleeping(true)
 	explosion_circle.explosion_radius = explosion_range
 	explosion_circle.visible = true
 	bomb_sprite.visible = false
