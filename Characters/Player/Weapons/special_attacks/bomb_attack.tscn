@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://cdmduucvqthue"]
+[gd_scene load_steps=13 format=3 uid="uid://cdmduucvqthue"]
 
 [ext_resource type="Texture2D" uid="uid://gbxbynlnsj6x" path="res://Art/attacks/bomb.png" id="1_r63pn"]
 [ext_resource type="Script" path="res://Characters/Player/Weapons/special_attacks/bomb_attack.gd" id="1_wsmlr"]
+[ext_resource type="PackedScene" uid="uid://cbk077i4upybk" path="res://Characters/Player/Weapons/special_attacks/explosion_circle.tscn" id="3_fppuk"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_h6k4p"]
 friction = 0.05
@@ -157,6 +158,9 @@ scale_amount_max = 18.55
 color = Color(0.784314, 0.65098, 0.109804, 1)
 color_ramp = SubResource("Gradient_1ak6b")
 color_initial_ramp = SubResource("Gradient_dmxds")
+
+[node name="ExplosionCircle" parent="." instance=ExtResource("3_fppuk")]
+visible = false
 
 [connection signal="timeout" from="ExplosionTimer" to="." method="_on_explosion_timer_timeout"]
 [connection signal="timeout" from="ExplosionDurationTimer" to="." method="_on_explosion_duration_timer_timeout"]

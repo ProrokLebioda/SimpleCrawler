@@ -23,6 +23,7 @@ var is_explosion_ongoing : bool = false
 var direction_vector : Vector2 = Vector2.ZERO
 
 @export var move_dampening : float = 0.1
+@onready var explosion_circle = $ExplosionCircle
 
 # Perhaps should be growing outwards, but let's just do instant full range
 var explosion_range : float = 0.0
@@ -38,6 +39,7 @@ func _physics_process(delta):
 	
 	if (is_explosion_ongoing):
 		#deal damage
+		#explosion_circle.global_position = position
 		apply_damage()
 	
 func _start_countdown():
@@ -46,7 +48,7 @@ func _start_countdown():
 
 func _on_explosion_timer_timeout():
 	explode()
-
+	
 
 func apply_damage():
 	var entities = get_tree().get_nodes_in_group("Entities")
@@ -60,6 +62,8 @@ func apply_damage():
 
 func explode():
 	print("Explosion!!!")
+	explosion_circle.explosion_radius = explosion_range
+	explosion_circle.visible = true
 	bomb_sprite.visible = false
 	bomb_collision_shape.disabled = true
 	explosion_particles.emitting = true
