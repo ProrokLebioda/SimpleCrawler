@@ -1,0 +1,99 @@
+[gd_scene load_steps=12 format=3 uid="uid://cdxy8oiaja2ks"]
+
+[ext_resource type="PackedScene" uid="uid://blsi5vt1dgu28" path="res://Enemies/boss_enemy.tscn" id="1_rst3x"]
+[ext_resource type="Shader" path="res://Enemies/Shaders/simple_enemy.gdshader" id="2_caejj"]
+[ext_resource type="Script" path="res://Enemies/bosses/perun_boss_enemy.gd" id="2_e8akx"]
+[ext_resource type="Texture2D" uid="uid://dwmhe1jr2lhu7" path="res://Art/enemies/boss_perun.png" id="3_l4gi7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0maj6"]
+resource_local_to_scene = true
+shader = ExtResource("2_caejj")
+shader_parameter/color = Color(1, 0.694118, 0.996078, 1)
+shader_parameter/progress = 0.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8e6id"]
+radius = 5.0
+height = 18.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ycfed"]
+radius = 8.0
+height = 22.0
+
+[sub_resource type="Animation" id="Animation_l0gev"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_o84gq"]
+resource_name = "perun_attack"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_c0588"]
+resource_name = "perun_idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gof06"]
+_data = {
+"RESET": SubResource("Animation_l0gev"),
+"perun_attack": SubResource("Animation_o84gq"),
+"perun_idle": SubResource("Animation_c0588")
+}
+
+[node name="PerunBossEnemy" instance=ExtResource("1_rst3x")]
+script = ExtResource("2_e8akx")
+death_particle = null
+
+[node name="Sprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_0maj6")
+position = Vector2(0, -8)
+texture = ExtResource("3_l4gi7")
+hframes = 5
+
+[node name="CollisionShape2D" parent="." index="1"]
+visible = false
+position = Vector2(0, -2)
+shape = SubResource("CapsuleShape2D_8e6id")
+
+[node name="CollisionShape2D" parent="DamageArea" index="0"]
+visible = false
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_ycfed")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+libraries = {
+"": SubResource("AnimationLibrary_gof06")
+}
