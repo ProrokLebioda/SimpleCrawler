@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cyigtp11o55o7"]
+[gd_scene load_steps=14 format=3 uid="uid://cyigtp11o55o7"]
 
 [ext_resource type="Script" path="res://Enemies/bosses/attacks/lightning_rod_attack.gd" id="1_2rmp6"]
 [ext_resource type="Texture2D" uid="uid://cyygoidy7vvdq" path="res://Art/enemies/attacks/attack_lightning_rod.png" id="1_5ocsj"]
@@ -6,7 +6,8 @@
 [ext_resource type="Shader" path="res://Enemies/Shaders/simple_enemy.gdshader" id="3_80ur8"]
 [ext_resource type="Script" path="res://Enemies/bosses/attacks/Hitbox.gd" id="5_6xflu"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bfv6d"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qht7f"]
+resource_local_to_scene = true
 shader = ExtResource("3_80ur8")
 shader_parameter/color = Color(1, 0.694118, 0.996078, 1)
 shader_parameter/progress = 0.0
@@ -19,7 +20,125 @@ height = 4.0
 radius = 2.0
 height = 12.0
 
-[node name="LightningRodAttack" type="StaticBody2D" groups=["Destroyable"]]
+[sub_resource type="Animation" id="Animation_shp8m"]
+resource_name = "lightning_rod_idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_6jwcv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_lvvg1"]
+resource_name = "lightning_rod_drop"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 2, 1, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Collider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox/Collider:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_pfjk4"]
+resource_name = "lightning_rod_destroy"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 4, 5, 6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Collider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox/Collider:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eobqw"]
+_data = {
+"RESET": SubResource("Animation_6jwcv"),
+"lightning_rod_destroy": SubResource("Animation_pfjk4"),
+"lightning_rod_drop": SubResource("Animation_lvvg1"),
+"lightning_rod_idle": SubResource("Animation_shp8m")
+}
+
+[node name="LightningRodAttack" type="StaticBody2D" groups=["BossAttack", "Entities"]]
 collision_layer = 4
 collision_mask = 9
 script = ExtResource("1_2rmp6")
@@ -27,7 +146,7 @@ health_max = 5
 death_particle = ExtResource("2_m2mv8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_bfv6d")
+material = SubResource("ShaderMaterial_qht7f")
 texture = ExtResource("1_5ocsj")
 offset = Vector2(-0.5, 0)
 hframes = 8
@@ -35,6 +154,7 @@ hframes = 8
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
 shape = SubResource("CapsuleShape2D_vrvtk")
+disabled = true
 
 [node name="Hitbox" type="Area2D" parent="." groups=["Destroyable"]]
 collision_layer = 16
@@ -44,8 +164,12 @@ script = ExtResource("5_6xflu")
 [node name="Collider" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_aiei8")
+disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_eobqw")
+}
 
 [node name="HitTimer" type="Timer" parent="."]
 

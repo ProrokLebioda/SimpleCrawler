@@ -141,7 +141,7 @@ states/porcupine_boss_shoot_right/position = Vector2(677, -8)
 states/porcupine_boss_walk_right/node = SubResource("AnimationNodeAnimation_6qv7p")
 states/porcupine_boss_walk_right/position = Vector2(677, 199)
 transitions = ["Start", "porcupine_boss_idle_right", SubResource("AnimationNodeStateMachineTransition_tvi7f"), "porcupine_boss_shoot_right", "porcupine_boss_idle_right", SubResource("AnimationNodeStateMachineTransition_1our2"), "porcupine_boss_idle_right", "porcupine_boss_shoot_right", SubResource("AnimationNodeStateMachineTransition_gtw5n"), "porcupine_boss_shoot_right", "porcupine_boss_walk_right", SubResource("AnimationNodeStateMachineTransition_ppk5e"), "porcupine_boss_walk_right", "porcupine_boss_shoot_right", SubResource("AnimationNodeStateMachineTransition_du6oj"), "porcupine_boss_walk_right", "porcupine_boss_idle_right", SubResource("AnimationNodeStateMachineTransition_tp7ap"), "porcupine_boss_idle_right", "porcupine_boss_walk_right", SubResource("AnimationNodeStateMachineTransition_0i0bt")]
-graph_offset = Vector2(-156, -74)
+graph_offset = Vector2(-65, -37)
 
 [node name="PorcupineEnemy" instance=ExtResource("1_j0l6o")]
 script = ExtResource("2_h2pic")

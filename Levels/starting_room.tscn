@@ -18,5 +18,6 @@ z_index = -1
 y_sort_enabled = true
 texture = ExtResource("3_u4tpf")
 
+[editable path="Objects/LightningRodAttack"]
 [editable path="Utils/PauseMenu"]
 [editable path="Utils/PauseMenu/settings_menu"]

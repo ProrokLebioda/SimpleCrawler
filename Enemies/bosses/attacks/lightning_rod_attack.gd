@@ -13,6 +13,7 @@ var vulnerable : bool = true
 var hit_timer_wait_time : float = 0.2
 @onready var collider = $Collider
 @onready var hitbox = $Hitbox
+@onready var animation_player = $AnimationPlayer
 
 var move_direction : Vector2 = Vector2.ZERO
 @export var death_particle : PackedScene
@@ -23,8 +24,9 @@ var knockback_force: float = 100.0
 var knockback_val: Vector2 = Vector2.ZERO
 
 func _ready():
+	animation_player.play("lightning_rod_drop")
 	hitbox.connect("hit_rod", hit)
-	
+
 func _physics_process(delta):
 	if knockback_force > 0:
 		knockback_val = knockback_direction * knockback_force
@@ -41,15 +43,17 @@ func hit(damage : int, dir: Vector2):
 		sprite.material.set_shader_parameter("progress", 1)
 		
 		knockback_direction = dir 
-		knockback_force = 100
+		knockback_force = 0
 		if (health <= 0):
 			health = 0
-			var particle = death_particle.instantiate()
-			particle.position = global_position
-			particle.rotation = global_rotation
-			particle.emitting = true
-			get_tree().current_scene.add_child(particle)
-
+#			var particle = death_particle.instantiate()
+#			particle.position = global_position
+#			particle.rotation = global_rotation
+#			particle.emitting = true
+#			get_tree().current_scene.add_child(particle)
+			animation_player.play("lightning_rod_destroy")
+			await animation_player.animation_finished
+			
 			died.emit(position)
 			call_deferred("queue_free")
 
