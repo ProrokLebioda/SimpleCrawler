@@ -1,18 +1,53 @@
-[gd_scene load_steps=3 format=3 uid="uid://cyigtp11o55o7"]
+[gd_scene load_steps=9 format=3 uid="uid://cyigtp11o55o7"]
 
+[ext_resource type="Script" path="res://Enemies/bosses/attacks/lightning_rod_attack.gd" id="1_2rmp6"]
 [ext_resource type="Texture2D" uid="uid://cyygoidy7vvdq" path="res://Art/enemies/attacks/attack_lightning_rod.png" id="1_5ocsj"]
+[ext_resource type="PackedScene" uid="uid://cmor7wy2tqkje" path="res://Graphics/particles/exploding_particles.tscn" id="2_m2mv8"]
+[ext_resource type="Shader" path="res://Enemies/Shaders/simple_enemy.gdshader" id="3_80ur8"]
+[ext_resource type="Script" path="res://Enemies/bosses/attacks/Hitbox.gd" id="5_6xflu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bfv6d"]
+shader = ExtResource("3_80ur8")
+shader_parameter/color = Color(1, 0.694118, 0.996078, 1)
+shader_parameter/progress = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vrvtk"]
 radius = 2.0
-height = 6.0
+height = 4.0
 
-[node name="LightningRodAttack" type="StaticBody2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_aiei8"]
+radius = 2.0
+height = 12.0
+
+[node name="LightningRodAttack" type="StaticBody2D" groups=["Destroyable"]]
+collision_layer = 4
+collision_mask = 9
+script = ExtResource("1_2rmp6")
+health_max = 5
+death_particle = ExtResource("2_m2mv8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_bfv6d")
 texture = ExtResource("1_5ocsj")
 offset = Vector2(-0.5, 0)
 hframes = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3)
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
 shape = SubResource("CapsuleShape2D_vrvtk")
+
+[node name="Hitbox" type="Area2D" parent="." groups=["Destroyable"]]
+collision_layer = 16
+collision_mask = 11
+script = ExtResource("5_6xflu")
+
+[node name="Collider" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_aiei8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="HitTimer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]

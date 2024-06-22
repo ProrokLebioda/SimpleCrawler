@@ -24,3 +24,16 @@ func _on_body_entered(body):
 
 func _on_self_destruction_timer_timeout():
 	queue_free()
+
+
+func _on_area_entered(area):
+	if area.is_in_group("Destroyable"):
+		var bullet_pos = position
+		# get direction to centre of other body, from bullet to body
+		var area_pos = area.global_position
+		var hit_direction = (area_pos-bullet_pos).normalized()
+		
+		#print(body.name)
+		if "hit" in area:
+			area.hit(projectile_damage,hit_direction)
+		queue_free()
