@@ -11,11 +11,13 @@ class_name PerunBoss
 @onready var lightning_spear_attack_timer = $Timers/LightningSpearAttackTimer
 
 
-# Attack stuff
+# Attack stuff, should rename 'spear' to 'arc', otherwise it's going to bite me in the a**
 var can_lightning_rod_attack : bool = true
 var can_lightning_spear_attack : bool = true
 @export var lightning_rod_cooldown : float = 3
 @export var lightninig_spear_cooldown : float = 5
+@onready var lightning_arc = $LightningArc
+
 
 # Too coupled, but would require some changes that I don't want to do 
 signal spawn_boss_rod_attack(lightning_rod : LightningRodAttack, pos : Vector2)
@@ -56,6 +58,8 @@ func process_state():
 			print("Special shot")
 			state_machine.travel("perun_lightning_spear_attack")
 			await animation_tree.animation_finished
+			lightning_arc.has_target = false
+			lightning_arc.queue_redraw()
 			pick_new_state()
 
 func pick_new_state():
@@ -112,15 +116,31 @@ func attack_lightning_spear():
 	var all_rods = get_tree().get_nodes_in_group("BossAttack")
 	var min_distance : float = 1000000.0
 	var closest_rod : LightningRodAttack = null
+	# 2. Closest distance to player maybe?
 	for rod in all_rods:
-		var dist_perun_to_rod = position.distance_to(rod.position)
+		#var dist_perun_to_rod = position.distance_to(rod.global_position)
+		#var dist_player_to_rod = Globals.player_pos.distance_to(rod.global_position)
+		#if dist_player_to_rod < min_distance:
+		#	closest_rod = rod
+		#	min_distance = dist_player_to_rod
+			
+		var dist_perun_to_rod = global_position.distance_to(rod.global_position)
 		if dist_perun_to_rod < min_distance:
 			closest_rod = rod
 			min_distance = dist_perun_to_rod
 	
 	if closest_rod:
 		print("Closest rod is: ", closest_rod.name)
+		lightning_arc.target_pos = closest_rod.global_position
+		lightning_arc.has_target = true
+		lightning_arc.queue_redraw()
+		closest_rod.is_visited = true
+		closest_rod.trigger_electric_discharge()
 		
+	for rod in all_rods:
+		# Clear 'visited' state to allow them to trigger next time
+		#rod.is_visited = false
+		pass
 
 func _on_lightning_rod_attack_timer_timeout():
 	can_lightning_rod_attack = true

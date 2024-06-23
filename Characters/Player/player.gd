@@ -123,7 +123,7 @@ func hit(damage: int, dir: Vector2):
 	Globals.health -= damage
 	invulnerable_timer.start(invulnerable_time)
 	knockback_direction = dir 
-	knockback_force = 100
+	knockback_force = 0
 	AudioPlayer.play_FX(hit_sfx,-12.0)
 	sprite_2d.material.set_shader_parameter("progress", 1)
 	print("Player received: ", damage, " damage. Current player health: ", Globals.health)

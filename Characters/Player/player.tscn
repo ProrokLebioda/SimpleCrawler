@@ -246,7 +246,7 @@ _data = {
 "walk_up": SubResource("Animation_ab0jh")
 }
 
-[node name="Player" type="CharacterBody2D" groups=["Entities"]]
+[node name="Player" type="CharacterBody2D" groups=["Entities", "Player"]]
 y_sort_enabled = true
 collision_mask = 63
 motion_mode = 1
