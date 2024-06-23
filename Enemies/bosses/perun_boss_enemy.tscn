@@ -206,6 +206,7 @@ graph_offset = Vector2(-9, -34)
 [node name="PerunBossEnemy" instance=ExtResource("1_rst3x")]
 script = ExtResource("2_e8akx")
 lightning_rod_scene = ExtResource("3_0yhj5")
+custom_collision_mask = 1
 lightning_rod_cooldown = 3.0
 lightninig_spear_cooldown = 5.0
 temp_position_offset = Vector2(10, 10)

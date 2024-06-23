@@ -5,7 +5,7 @@ signal died()
 
 @onready var sprite = $Sprite2D
 @onready var hit_timer = $HitTimer
-
+@export var custom_collision_mask : int
 # Damage stuff
 @export var health_max : int = 4
 @onready var health : int = health_max
@@ -29,7 +29,8 @@ var can_damage : bool = true
 var can_electric_discharge : bool = true
 var is_discharging : bool = false
 @onready var lightning_arc = $LightningArc
-
+@onready var propagate_timer = $PropagateTimer
+@export var propagate_wait_time : float = 0.1
 # This needs to be reset after triggering by boss, initial visit will be trigger by Perun, subsequent by itself
 var is_visited : bool = false
 
@@ -70,10 +71,11 @@ func trigger_electric_discharge():
 		is_discharging = true
 		
 		# Propagate
-		propagate_arc()
 		
 		explosion_circle.explosion_radius = discharge_area_radius
 		animation_player.play("lightning_rod_electric_discharge")
+		#propagate_arc() # moved to timer trigger
+		propagate_timer.start(propagate_wait_time)
 		await animation_player.animation_finished
 		is_discharging = false
 		lightning_arc.has_target = false
@@ -100,6 +102,15 @@ func propagate_arc():
 		lightning_arc.target_pos = closest_rod.global_position
 		closest_rod.trigger_electric_discharge()
 		lightning_arc.queue_redraw()
+		var space_state = get_world_2d().direct_space_state
+		var query = PhysicsRayQueryParameters2D.create(global_position, closest_rod.global_position, custom_collision_mask)
+		var result = space_state.intersect_ray(query)
+		if result:
+			print("Hit Arc at point: ", result.collider)
+			print("Hit at point: ", result.collider)
+			if "hit" in result.collider:
+				# Temp
+				result.collider.hit(3, Vector2(0,0))
 
 func apply_damage():
 	var entities = get_tree().get_nodes_in_group("Player")
@@ -148,3 +159,7 @@ func _on_electric_discharge_timer_timeout():
 
 func _on_damage_interval_timer_timeout():
 	can_damage = true
+
+
+func _on_propagate_timer_timeout():
+	propagate_arc()

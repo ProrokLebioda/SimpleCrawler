@@ -6,6 +6,7 @@ class_name PerunBoss
 @onready var animation_tree = $Animations/AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
 
+@export var custom_collision_mask : int = 1
 #Timers
 @onready var lightning_rod_attack_timer = $Timers/LightningRodAttackTimer
 @onready var lightning_spear_attack_timer = $Timers/LightningSpearAttackTimer
@@ -49,13 +50,13 @@ func process_state():
 			
 				
 		ENEMY_STATE.SHOOT_BASIC:
-			print("Shooting")
+			#print("Shooting")
 			state_machine.travel("perun_throw_lightning_rod")
 			await animation_tree.animation_finished
 			pick_new_state()
 		
 		ENEMY_STATE.SHOOT_SPECIAL:
-			print("Special shot")
+			#print("Special shot")
 			state_machine.travel("perun_lightning_spear_attack")
 			await animation_tree.animation_finished
 			lightning_arc.has_target = false
@@ -66,18 +67,18 @@ func pick_new_state():
 	match current_state:
 		ENEMY_STATE.IDLE:
 			state_machine.travel("perun_walk")
-			print("FromIdleToAggro")
+			#print("FromIdleToAggro")
 			current_state = ENEMY_STATE.AGGRO
 			select_new_direction()
 		
 		ENEMY_STATE.AGGRO:
-			print("FromAggroToIdle")
+			#print("FromAggroToIdle")
 			state_machine.travel("perun_idle")
 			current_state = ENEMY_STATE.IDLE
 			destination = Vector2.INF
 			
 		ENEMY_STATE.SHOOT_BASIC:
-			print("FromSHOOT_BASICToAGGRO")
+			#print("FromSHOOT_BASICToAGGRO")
 			stop_timers()
 			# Cooldown starts after egg is placed finishes
 			lightning_rod_attack_timer.start(lightning_rod_cooldown)
@@ -85,7 +86,7 @@ func pick_new_state():
 			current_state = ENEMY_STATE.IDLE
 			#idle_timer.start(idle_time)
 		ENEMY_STATE.SHOOT_SPECIAL:
-			print("FromSHOOT_SPECIALToAGGRO")
+			#print("FromSHOOT_SPECIALToAGGRO")
 			stop_timers()
 			# Cooldown starts after egg is placed finishes
 			lightning_spear_attack_timer.start(lightninig_spear_cooldown)
@@ -134,6 +135,14 @@ func attack_lightning_spear():
 		lightning_arc.target_pos = closest_rod.global_position
 		lightning_arc.has_target = true
 		lightning_arc.queue_redraw()
+		var space_state = get_world_2d().direct_space_state
+		var query = PhysicsRayQueryParameters2D.create(global_position, closest_rod.global_position, custom_collision_mask)
+		var result = space_state.intersect_ray(query)
+		if result:
+			print("Hit at point: ", result.collider)
+			if "hit" in result.collider:
+				# Temp
+				result.collider.hit(3, Vector2(0,0))
 		closest_rod.is_visited = true
 		closest_rod.trigger_electric_discharge()
 		

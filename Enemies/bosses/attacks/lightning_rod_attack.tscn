@@ -117,6 +117,34 @@ tracks/2/keys = {
 "values": [true, false]
 }
 
+[sub_resource type="Animation" id="Animation_jnevn"]
+resource_name = "lightning_rod_electric_discharge"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExplosionCircle:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 0]
+}
+
 [sub_resource type="Animation" id="Animation_shp8m"]
 resource_name = "lightning_rod_idle"
 tracks/0/type = "value"
@@ -130,34 +158,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_jnevn"]
-resource_name = "lightning_rod_electric_discharge"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ExplosionCircle:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eobqw"]
@@ -176,6 +176,7 @@ radius = 30.0
 collision_layer = 4
 collision_mask = 9
 script = ExtResource("1_2rmp6")
+custom_collision_mask = 1
 health_max = 5
 death_particle = ExtResource("2_m2mv8")
 
@@ -209,6 +210,9 @@ libraries = {
 
 [node name="ElectricDischargeTimer" type="Timer" parent="."]
 
+[node name="PropagateTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="ExplosionCircle" parent="." instance=ExtResource("6_upyhr")]
 visible = false
 circle_color = Color(0, 0.501961, 0.509804, 0.2)
@@ -225,4 +229,5 @@ shape = SubResource("CircleShape2D_nxy1w")
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]
 [connection signal="timeout" from="ElectricDischargeTimer" to="." method="_on_electric_discharge_timer_timeout"]
+[connection signal="timeout" from="PropagateTimer" to="." method="_on_propagate_timer_timeout"]
 [connection signal="timeout" from="DamageIntervalTimer" to="." method="_on_damage_interval_timer_timeout"]
