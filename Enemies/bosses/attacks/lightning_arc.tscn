@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://d1i8rejsixai3"]
+[gd_scene load_steps=3 format=3 uid="uid://d1i8rejsixai3"]
 
 [ext_resource type="Script" path="res://Enemies/bosses/attacks/lightning_arc.gd" id="1_68kml"]
+[ext_resource type="PackedScene" uid="uid://c2bed7ycsqoab" path="res://Graphics/RenderPrimitives/lightning_line.tscn" id="2_kq0yu"]
 
 [node name="LightningArc" type="Node2D"]
 script = ExtResource("1_68kml")
+line_color = Color(0.196078, 0.443137, 0.760784, 0.521569)
+lightning_line_scene = ExtResource("2_kq0yu")
+
+[node name="LightningLine" parent="." instance=ExtResource("2_kq0yu")]
+default_color = Color(0.117647, 0.368627, 0.823529, 0.560784)
+
+[node name="Lightnings" type="Node2D" parent="."]

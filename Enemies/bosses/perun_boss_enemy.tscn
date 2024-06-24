@@ -246,7 +246,6 @@ anim_player = NodePath("../AnimationPlayer")
 active = true
 
 [node name="LightningArc" parent="." index="5" instance=ExtResource("6_8axqb")]
-line_color = Color(0, 0.164706, 0.478431, 0.984314)
 
 [connection signal="timeout" from="Timers/LightningRodAttackTimer" to="." method="_on_lightning_rod_attack_timer_timeout"]
 [connection signal="timeout" from="Timers/LightningSpearAttackTimer" to="." method="_on_lightning_spear_attack_timeout"]
