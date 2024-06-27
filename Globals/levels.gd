@@ -2,7 +2,7 @@ extends Node
 
 var number_of_rooms: int = 15
 
-var levels : int = 3
+var levels : int = 4
 var rooms : Dictionary 
 var test_room_types = [Room_struct.ROOM_TYPE.SIMPLE_COMBAT,Room_struct.ROOM_TYPE.OBSTACLE_COMBAT_1,Room_struct.ROOM_TYPE.OBSTACLE_COMBAT_2,Room_struct.ROOM_TYPE.OBSTACLE_COMBAT_3,Room_struct.ROOM_TYPE.TREASURE, Room_struct.ROOM_TYPE.SHOP, Room_struct.ROOM_TYPE.BOSS]
 var test_room_no_boss = [Room_struct.ROOM_TYPE.SIMPLE_COMBAT,Room_struct.ROOM_TYPE.OBSTACLE_COMBAT_1,Room_struct.ROOM_TYPE.OBSTACLE_COMBAT_2,Room_struct.ROOM_TYPE.OBSTACLE_COMBAT_3,Room_struct.ROOM_TYPE.TREASURE, Room_struct.ROOM_TYPE.SHOP]
@@ -17,8 +17,8 @@ var is_shop_room_spawned : bool = false
 var static_offset : Vector2i = Vector2i(100,100)
 
 func _ready():
-	#generate_random_dungeon()
-	simple_test_dungeon()
+	generate_random_dungeon()
+	#simple_test_dungeon()
 	
 	
 func clear_rooms_visited_state():
