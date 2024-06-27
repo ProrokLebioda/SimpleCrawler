@@ -1,6 +1,6 @@
 extends Node
 
-enum Type {  PERUN, CHICKEN, COW, PORCUPINE}
+enum Type { CHICKEN, COW, PORCUPINE, PERUN}
 
 var bosses : Dictionary = {}
 
