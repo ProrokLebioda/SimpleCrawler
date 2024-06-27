@@ -34,6 +34,8 @@ func spawn_boss():
 			boss.connect("spawned_egg", _take_egg_from_boss)
 		if boss is PorcupineBoss:
 			boss.connect("shoot_spike", _spike_shot)
+		if boss is PerunBoss:
+			boss.connect("spawn_boss_rod_attack", _lightning_rod_thrown)
 		enemies_node.add_child(boss)
 		
 
@@ -52,7 +54,10 @@ func _spike_shot(spike : EnemyProjectile, pos : Vector2, dir : Vector2):
 	var angle = Vector2.UP.angle_to(dir)
 	spike.rotate(angle)
 	projectiles_node.add_child(spike)
-	pass
+
+func _lightning_rod_thrown(rod: LightningRodAttack, pos : Vector2):
+	rod.global_position = pos
+	objects_node.add_child(rod)
 
 func room_cleared():
 	#custom logic

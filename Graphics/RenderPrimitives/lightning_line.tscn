@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2bed7ycsqoab"]
+
+[ext_resource type="Script" path="res://Graphics/RenderPrimitives/lightning_line.gd" id="1_fmy3k"]
+
+[sub_resource type="Curve" id="Curve_d8idw"]
+_data = [Vector2(0, 0.294737), 0.0, 0.0, 0, 0, Vector2(0.261708, 0.473684), 0.0, 0.0, 0, 0, Vector2(0.495868, 0.242105), 0.0, 0.0, 0, 0, Vector2(0.652893, 0.747368), 0.0, 0.0, 0, 0, Vector2(0.85124, 0.6), -1.14632, -1.14632, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 6
+
+[node name="LightningLine" type="Line2D"]
+width = 2.0
+width_curve = SubResource("Curve_d8idw")
+default_color = Color(0.117647, 0.368627, 0.823529, 0.909804)
+script = ExtResource("1_fmy3k")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../..")

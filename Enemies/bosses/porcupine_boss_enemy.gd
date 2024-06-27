@@ -26,7 +26,6 @@ func process_state():
 			velocity = move_direction * move_speed
 			move_and_slide()
 			if can_shoot_spikes:
-				print("Laying egg")
 				current_state = ENEMY_STATE.SHOOT_BASIC
 				can_shoot_spikes = false
 				

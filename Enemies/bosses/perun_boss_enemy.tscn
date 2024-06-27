@@ -1,0 +1,251 @@
+[gd_scene load_steps=34 format=3 uid="uid://cdxy8oiaja2ks"]
+
+[ext_resource type="PackedScene" uid="uid://blsi5vt1dgu28" path="res://Enemies/boss_enemy.tscn" id="1_rst3x"]
+[ext_resource type="Shader" path="res://Enemies/Shaders/simple_enemy.gdshader" id="2_caejj"]
+[ext_resource type="Script" path="res://Enemies/bosses/perun_boss_enemy.gd" id="2_e8akx"]
+[ext_resource type="PackedScene" uid="uid://cyigtp11o55o7" path="res://Enemies/bosses/attacks/lightning_rod_attack.tscn" id="3_0yhj5"]
+[ext_resource type="Texture2D" uid="uid://dwmhe1jr2lhu7" path="res://Art/enemies/boss_perun.png" id="3_l4gi7"]
+[ext_resource type="PackedScene" uid="uid://d1i8rejsixai3" path="res://Enemies/bosses/attacks/lightning_arc.tscn" id="6_8axqb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0maj6"]
+resource_local_to_scene = true
+shader = ExtResource("2_caejj")
+shader_parameter/color = Color(1, 0.694118, 0.996078, 1)
+shader_parameter/progress = 0.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8e6id"]
+radius = 5.0
+height = 18.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ycfed"]
+radius = 8.0
+height = 22.0
+
+[sub_resource type="Animation" id="Animation_l0gev"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_c0588"]
+resource_name = "perun_idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_syxu2"]
+resource_name = "perun_lightning_spear_attack"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attack_lightning_spear"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_o84gq"]
+resource_name = "perun_throw_lightning_rod"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"throw_lightning_rod"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_5qyqe"]
+resource_name = "perun_walk"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gof06"]
+_data = {
+"RESET": SubResource("Animation_l0gev"),
+"perun_idle": SubResource("Animation_c0588"),
+"perun_lightning_spear_attack": SubResource("Animation_syxu2"),
+"perun_throw_lightning_rod": SubResource("Animation_o84gq"),
+"perun_walk": SubResource("Animation_5qyqe")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_773fe"]
+animation = &"perun_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4unlu"]
+animation = &"perun_lightning_spear_attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jqfy3"]
+animation = &"perun_throw_lightning_rod"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xk4mg"]
+animation = &"perun_walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qxslj"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kdulf"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4dikk"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7qupe"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kxpko"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2q1ej"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_oggkx"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dg81o"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y3ial"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mrue2"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pwklq"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0tg46"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tcj6o"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_puopx"]
+states/End/position = Vector2(1063, 102)
+states/perun_idle/node = SubResource("AnimationNodeAnimation_773fe")
+states/perun_idle/position = Vector2(349, 100)
+states/perun_lightning_spear_attack/node = SubResource("AnimationNodeAnimation_4unlu")
+states/perun_lightning_spear_attack/position = Vector2(555, 180)
+states/perun_throw_lightning_rod/node = SubResource("AnimationNodeAnimation_jqfy3")
+states/perun_throw_lightning_rod/position = Vector2(784, 98)
+states/perun_walk/node = SubResource("AnimationNodeAnimation_xk4mg")
+states/perun_walk/position = Vector2(555, 13)
+transitions = ["Start", "perun_idle", SubResource("AnimationNodeStateMachineTransition_qxslj"), "perun_idle", "perun_walk", SubResource("AnimationNodeStateMachineTransition_kdulf"), "perun_walk", "perun_idle", SubResource("AnimationNodeStateMachineTransition_4dikk"), "perun_idle", "perun_lightning_spear_attack", SubResource("AnimationNodeStateMachineTransition_7qupe"), "perun_lightning_spear_attack", "perun_idle", SubResource("AnimationNodeStateMachineTransition_kxpko"), "perun_idle", "perun_throw_lightning_rod", SubResource("AnimationNodeStateMachineTransition_2q1ej"), "perun_throw_lightning_rod", "perun_idle", SubResource("AnimationNodeStateMachineTransition_oggkx"), "perun_throw_lightning_rod", "perun_walk", SubResource("AnimationNodeStateMachineTransition_dg81o"), "perun_walk", "perun_throw_lightning_rod", SubResource("AnimationNodeStateMachineTransition_y3ial"), "perun_throw_lightning_rod", "perun_lightning_spear_attack", SubResource("AnimationNodeStateMachineTransition_mrue2"), "perun_lightning_spear_attack", "perun_throw_lightning_rod", SubResource("AnimationNodeStateMachineTransition_pwklq"), "perun_lightning_spear_attack", "perun_walk", SubResource("AnimationNodeStateMachineTransition_0tg46"), "perun_walk", "perun_lightning_spear_attack", SubResource("AnimationNodeStateMachineTransition_tcj6o")]
+graph_offset = Vector2(-9, -34)
+
+[node name="PerunBossEnemy" instance=ExtResource("1_rst3x")]
+script = ExtResource("2_e8akx")
+lightning_rod_scene = ExtResource("3_0yhj5")
+custom_collision_mask = 1
+lightning_rod_cooldown = 3.0
+lightninig_spear_cooldown = 5.0
+temp_position_offset = Vector2(10, 10)
+health_max = 50
+
+[node name="Sprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_0maj6")
+position = Vector2(0, -8)
+texture = ExtResource("3_l4gi7")
+hframes = 5
+
+[node name="CollisionShape2D" parent="." index="1"]
+visible = false
+position = Vector2(0, -2)
+shape = SubResource("CapsuleShape2D_8e6id")
+
+[node name="CollisionShape2D" parent="DamageArea" index="0"]
+visible = false
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_ycfed")
+
+[node name="LightningRodAttackTimer" type="Timer" parent="Timers" index="3"]
+
+[node name="LightningSpearAttackTimer" type="Timer" parent="Timers" index="4"]
+
+[node name="Animations" type="Node" parent="." index="4"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Animations" index="0"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_gof06")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="Animations" index="1"]
+tree_root = SubResource("AnimationNodeStateMachine_puopx")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+
+[node name="LightningArc" parent="." index="5" instance=ExtResource("6_8axqb")]
+
+[connection signal="timeout" from="Timers/LightningRodAttackTimer" to="." method="_on_lightning_rod_attack_timer_timeout"]
+[connection signal="timeout" from="Timers/LightningSpearAttackTimer" to="." method="_on_lightning_spear_attack_timeout"]
